@@ -320,7 +320,7 @@
         </div>
 
         <div class="notice-banner">
-            📌 注：2020 年因全球新冠疫情影響，JLPT 考試於多個地區中止，故該年度無相關統計數據。圖表中已移除 2020 年數據點，以確保數據連續性與準確性。
+            📌 注：2020 年因全球新冠疫情影響，JLPT 考試於多個地區中止，故該年度無相關統計數據。圖表中已移除 2020 年數據，以確保數據連續性與準確性。
         </div>
 
         <!-- 篩選器 -->
@@ -561,7 +561,7 @@
             document.getElementById('btn-count').classList.toggle('active', mode === 'count');
             document.getElementById('btn-rate').classList.toggle('active', mode === 'rate');
             
-            const title = mode === 'count' ? '香港及澳門地區應考人數趨勢' : '香港及澳門地區各等級合格率趨勢 (%)';
+            const title = mode === 'count' ? '香港及澳門地區應考人數趨勢' : '日本以外地區各等級合格率趨勢 (%)';
             document.getElementById('mainChartTitle').textContent = title;
             document.getElementById('tableTitle').textContent = mode === 'count' ? '各等級應考人數統計' : '各等級合格率統計 (%)';
             
