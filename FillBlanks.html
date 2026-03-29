@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>句子填空 - 伝える (Tsutaeru)</title>
+    <style>
+        :root {
+            --primary-red: #c9171e;
+            --primary-beige: #f5f5dc;
+            --accent-blue: #0d3b66;
+            --accent-pink: #f8b4d4;
+            --accent-green: #7a9d6e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans CJK TC', 'Microsoft JhengHei', sans-serif;
+            background: var(--primary-beige);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* ============ 導航列 ============ */
+        nav {
+            background: white;
+            padding: 10px 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            gap: 30px;
+        }
+        
+        .logo {
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--accent-blue);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-red);
+        }
+        
+        .nav-cta {
+            background: var(--primary-red);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(201, 23, 30, 0.3);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ============ 頁面標題 ============ */
+        .page-header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, rgba(201, 23, 30, 0.05) 0%, rgba(13, 59, 102, 0.05) 100%);
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+        
+        .breadcrumb {
+            font-size: 0.9rem;
+            color: var(--accent-blue);
+            margin-bottom: 15px;
+        }
+        
+        .breadcrumb a {
+            color: var(--primary-red);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        /* ============ 主要內容 ============ */
+        .content {
+            padding: 60px 20px;
+        }
+        
+        .fill-section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border-top: 5px solid var(--primary-red);
+        }
+        
+        .fill-section h2 {
+            font-size: 1.8rem;
+            color: var(--primary-red);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .exercise-card {
+            background: linear-gradient(135deg, #f5f5dc 0%, #fff9f5 100%);
+            border-left: 5px solid var(--primary-red);
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+        }
+        
+        .exercise-card h3 {
+            color: var(--primary-red);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .sentence {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .blank {
+            background: var(--primary-red);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: 600;
+            display: inline-block;
+            margin: 0 5px;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .input-field {
+            background: white;
+            border: 2px solid var(--primary-red);
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: 600;
+            min-width: 100px;
+            text-align: center;
+        }
+        
+        .options-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .word-option {
+            background: var(--accent-blue);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .word-option:hover {
+            background: var(--primary-red);
+            transform: translateY(-2px);
+        }
+        
+        .word-option.used {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: var(--primary-red);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background: var(--accent-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-secondary {
+            background: var(--accent-blue);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary-red);
+        }
+        
+        /* ============ 頁尾 ============ */
+        footer {
+            background: var(--accent-blue);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+        
+        footer p {
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 導航列 -->
+<nav>
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663328630280/CJexFqIIRdXImBgh.png" alt="Tsutaeru Logo" style="height: 80px; width: auto;">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="LearningHub.html">學習中心</a></li>
+            <li><a href="InteractivePractice.html">互動練習</a></li>
+            <li><a href="IoT.html">IoT 體驗</a></li>
+            <li><a href="Resources.html">學習資源</a></li>
+            <li><a href="CulturalLearning.html">文化學習</a></li>
+            <li><a href="AboutUs.html">關於我們</a></li>
+            <li><a href="Community.html">社群</a></li>
+            <li><a href="Chart.html">數據分析</a></li>
+        </ul>
+        <a href="UserAccount.html" class="nav-cta">我的帳戶</a>
+    </div>
+</nav>
+
+<!-- /導航列 -->
+
+    <!-- 頁面標題 -->
+    <div class="page-header">
+        <div class="breadcrumb">
+            <a href="https://codepen.io/ybxvhtiy-the-sans/full/wBzvZGj">互動練習</a> > 句子填空
+        </div>
+        <h1>🎯 句子填空</h1>
+    </div>
+
+    <!-- 主要內容 -->
+    <div class="container">
+        <div class="content">
+            <!-- 練習 1 -->
+            <div class="fill-section">
+                <h2>初級句子填空練習</h2>
+                
+                <!-- 題目 1 -->
+                <div class="exercise-card">
+                    <h3>練習 1: 填入正確的單詞</h3>
+                    <div class="sentence">
+                        私は毎日 <span class="blank">_____</span> を飲みます。
+                    </div>
+                    <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的單詞：</p>
+                    <div class="options-list">
+                        <div class="word-option" onclick="selectWord(this, '水')">水 (水)</div>
+                        <div class="word-option" onclick="selectWord(this, '本')">本 (書)</div>
+                        <div class="word-option" onclick="selectWord(this, '猫')">猫 (貓)</div>
+                    </div>
+                </div>
+                
+                <!-- 題目 2 -->
+                <div class="exercise-card">
+                    <h3>練習 2: 填入正確的助詞</h3>
+                    <div class="sentence">
+                        学校 <span class="blank">_____</span> 行きます。
+                    </div>
+                    <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的助詞：</p>
+                    <div class="options-list">
+                        <div class="word-option" onclick="selectWord(this, 'に')">に</div>
+                        <div class="word-option" onclick="selectWord(this, 'を')">を</div>
+                        <div class="word-option" onclick="selectWord(this, 'で')">で</div>
+                    </div>
+                </div>
+                
+                <!-- 題目 3 -->
+                <div class="exercise-card">
+                    <h3>練習 3: 填入正確的動詞</h3>
+                    <div class="sentence">
+                        今、私は本を <span class="blank">_____</span> ています。
+                    </div>
+                    <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的動詞：</p>
+                    <div class="options-list">
+                        <div class="word-option" onclick="selectWord(this, '読')">読 (讀)</div>
+                        <div class="word-option" onclick="selectWord(this, '書')">書 (寫)</div>
+                        <div class="word-option" onclick="selectWord(this, '聽')">聽 (聽)</div>
+                    </div>
+                </div>
+                
+                <!-- 按鈕 -->
+                <div class="button-group">
+                    <button class="btn" onclick="checkAnswers()">✓ 檢查答案</button>
+                    <button class="btn btn-secondary" onclick="goBack()">返回</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 頁尾 -->
+    <footer>
+        <p>&copy; 2026 伝える (Tsutaeru) — 香港首個 IoT 日語學習平台</p>
+    </footer>
+
+    <script>
+        let selectedAnswers = {};
+        
+        function selectWord(element, word) {
+            alert(`✅ 您已選擇: ${word}`);
+            element.classList.add('used');
+        }
+        
+        function checkAnswers() {
+            alert('✅ 答案已檢查！\n\n詳細反饋將在下一版本中提供。');
+        }
+        
+        function goBack() {
+            window.location.href = '03-interactive-practice-main.html';
+        }
+    </script>
+</body>
+</html>

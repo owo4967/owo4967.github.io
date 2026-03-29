@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>數據分析 - 伝える (Tsutaeru) 日語學習平台</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+    <style>
+        :root {
+            --primary-red: #c9171e;
+            --primary-beige: #f5f5dc;
+            --accent-blue: #0d3b66;
+            --accent-pink: #f8b4d4;
+            --accent-green: #7a9d6e;
+            --coral: #FF6B7A;
+            --deep-blue: #2C3E50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans CJK TC', 'Microsoft JhengHei', sans-serif;
+            background: var(--primary-beige);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* ============ 導航列 ============ */
+        nav {
+            background: white;
+            padding: 10px 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary-red);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--accent-blue);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-red);
+        }
+
+        .nav-cta {
+            background: var(--primary-red);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(201, 23, 30, 0.3);
+        }
+
+        /* ============ 主內容 ============ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+        }
+
+        .notice-banner {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            color: #856404;
+        }
+
+        /* ============ 篩選器 ============ */
+        .filter-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .filter-title {
+            font-size: 1.2rem;
+            color: var(--accent-blue);
+            margin-bottom: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .filter-item input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-red);
+        }
+
+        .filter-item label {
+            font-weight: 600;
+            color: var(--accent-blue);
+        }
+
+        .mode-switcher {
+            display: flex;
+            gap: 10px;
+        }
+
+        .mode-btn {
+            padding: 8px 20px;
+            border: 2px solid var(--accent-blue);
+            background: white;
+            color: var(--accent-blue);
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .mode-btn.active {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .mode-btn:hover {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        /* ============ 圖表區塊 ============ */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-card h3 {
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            border-left: 4px solid var(--primary-red);
+            padding-left: 10px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            flex-grow: 1;
+            min-height: 400px;
+        }
+
+        .donut-wrapper {
+            position: relative;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .year-selector {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            width: 100%;
+            font-size: 1rem;
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        /* ============ 數據表格 ============ */
+        .table-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        tr:hover {
+            background: #f9f9f9;
+        }
+
+        footer {
+            background: var(--accent-blue);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 992px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+   <nav>
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663328630280/CJexFqIIRdXImBgh.png" alt="Tsutaeru Logo" style="height: 80px; width: auto;">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="LearningHub.html">學習中心</a></li>
+            <li><a href="InteractivePractice.html">互動練習</a></li>
+            <li><a href="IoT.html">IoT 體驗</a></li>
+            <li><a href="Resources.html">學習資源</a></li>
+            <li><a href="CulturalLearning.html">文化學習</a></li>
+            <li><a href="AboutUs.html">關於我們</a></li>
+            <li><a href="Community.html">社群</a></li>
+            <li><a href="Chart.html">數據分析</a></li>
+        </ul>
+        <a href="UserAccount.html" class="nav-cta">我的帳戶</a>
+    </div>
+   </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>JLPT 數據分析</h1>
+            <p>掌握香港及全球日語學習趨勢</p>
+        </div>
+
+        <div class="notice-banner">
+            📌 注：2020 年因全球新冠疫情影響，JLPT 考試於多個地區中止，故該年度無相關統計數據。圖表中已移除 2020 年數據點，以確保數據連續性與準確性。
+        </div>
+
+        <!-- 篩選器 -->
+        <div class="filter-section">
+            <div class="filter-title">🎯 全功能篩選</div>
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <div class="filter-item"><input type="checkbox" id="n1" checked onchange="updateCharts()"><label for="n1">N1</label></div>
+                    <div class="filter-item"><input type="checkbox" id="n2" checked onchange="updateCharts()"><label for="n2">N2</label></div>
+                    <div class="filter-item"><input type="checkbox" id="n3" checked onchange="updateCharts()"><label for="n3">N3</label></div>
+                    <div class="filter-item"><input type="checkbox" id="n4" checked onchange="updateCharts()"><label for="n4">N4</label></div>
+                    <div class="filter-item"><input type="checkbox" id="n5" checked onchange="updateCharts()"><label for="n5">N5</label></div>
+                </div>
+                <div class="mode-switcher">
+                    <button id="btn-count" class="mode-btn active" onclick="switchMode('count')">應考人數</button>
+                    <button id="btn-rate" class="mode-btn" onclick="switchMode('rate')">合格率 (%)</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <!-- 趨勢圖 -->
+            <div class="chart-card">
+                <h3 id="mainChartTitle">香港及澳門地區應考人數趨勢</h3>
+                <div class="chart-wrapper">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 占比圖 -->
+            <div class="chart-card">
+                <h3>港澳應考人數全球占比</h3>
+                <div class="donut-wrapper">
+                    <div style="width: 100%; height: 300px;">
+                        <canvas id="shareChart"></canvas>
+                    </div>
+                    <select id="yearSelect" class="year-selector" onchange="updateDonut()"></select>
+                </div>
+            </div>
+        </div>
+
+        <!-- 數據表格 -->
+        <div class="table-section">
+            <h3 id="tableTitle">各等級應考人數統計</h3>
+            <div style="overflow-x: auto;">
+                <table id="dataTable">
+                    <thead>
+                        <tr id="tableHead">
+                            <th>年度</th>
+                            <th>N1</th>
+                            <th>N2</th>
+                            <th>N3</th>
+                            <th>N4</th>
+                            <th>N5</th>
+                            <th>合計</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 伝える (Tsutaeru) - 香港首個 IoT 日語學習平台</p>
+    </footer>
+
+    <script>
+        // 數據定義
+        const rawData = {
+            "HK_MO_Stats": [
+                {"Year": "2010(Jul)", "N1": 844, "N2": 1129, "N3": 1011, "N4": 0, "N5": 0, "Total": 2984},
+                {"Year": "2010(Dec)", "N1": 1279, "N2": 1680, "N3": 1139, "N4": 2442, "N5": 3308, "Total": 9848},
+                {"Year": "2011(Jul)", "N1": 939, "N2": 1181, "N3": 917, "N4": 1146, "N5": 1170, "Total": 5353},
+                {"Year": "2011(Dec)", "N1": 1174, "N2": 1456, "N3": 1261, "N4": 1851, "N5": 1716, "Total": 7458},
+                {"Year": "2012(Jul)", "N1": 902, "N2": 1129, "N3": 940, "N4": 1136, "N5": 1096, "Total": 5203},
+                {"Year": "2012(Dec)", "N1": 1098, "N2": 1533, "N3": 1153, "N4": 1716, "N5": 1746, "Total": 7246},
+                {"Year": "2013(Jul)", "N1": 884, "N2": 1095, "N3": 934, "N4": 1138, "N5": 1063, "Total": 5114},
+                {"Year": "2013(Dec)", "N1": 1076, "N2": 1546, "N3": 1184, "N4": 1753, "N5": 1639, "Total": 7198},
+                {"Year": "2014(Jul)", "N1": 912, "N2": 1084, "N3": 1003, "N4": 1064, "N5": 1016, "Total": 5079},
+                {"Year": "2014(Dec)", "N1": 1162, "N2": 1630, "N3": 1228, "N4": 1618, "N5": 1621, "Total": 7259},
+                {"Year": "2015(Jul)", "N1": 917, "N2": 1069, "N3": 1045, "N4": 1140, "N5": 1024, "Total": 5195},
+                {"Year": "2015(Dec)", "N1": 1137, "N2": 1633, "N3": 1332, "N4": 1568, "N5": 1544, "Total": 7214},
+                {"Year": "2016(Jul)", "N1": 1010, "N2": 1205, "N3": 1085, "N4": 1073, "N5": 1033, "Total": 5406},
+                {"Year": "2016(Dec)", "N1": 1218, "N2": 1664, "N3": 1395, "N4": 1610, "N5": 1541, "Total": 7428},
+                {"Year": "2017(Jul)", "N1": 1016, "N2": 1146, "N3": 1121, "N4": 1082, "N5": 1018, "Total": 5383},
+                {"Year": "2017(Dec)", "N1": 1214, "N2": 1741, "N3": 1494, "N4": 1640, "N5": 1506, "Total": 7595},
+                {"Year": "2018(Jul)", "N1": 1032, "N2": 1241, "N3": 1145, "N4": 1100, "N5": 1033, "Total": 5551},
+                {"Year": "2018(Dec)", "N1": 1272, "N2": 1783, "N3": 1526, "N4": 1614, "N5": 1445, "Total": 7640},
+                {"Year": "2019(Jul)", "N1": 1100, "N2": 1358, "N3": 1195, "N4": 1074, "N5": 978, "Total": 5705},
+                {"Year": "2019(Dec)", "N1": 1344, "N2": 1840, "N3": 1532, "N4": 1555, "N5": 1438, "Total": 7709},
+                {"Year": "2021(Jul)", "N1": 1330, "N2": 1560, "N3": 1432, "N4": 1224, "N5": 1035, "Total": 6581},
+                {"Year": "2021(Dec)", "N1": 1655, "N2": 2184, "N3": 1821, "N4": 1645, "N5": 1488, "Total": 8793},
+                {"Year": "2022(Jul)", "N1": 1442, "N2": 1684, "N3": 1546, "N4": 1312, "N5": 1120, "Total": 7104},
+                {"Year": "2022(Dec)", "N1": 1720, "N2": 2240, "N3": 1950, "N4": 1710, "N5": 1520, "Total": 9140},
+                {"Year": "2023(Jul)", "N1": 1510, "N2": 1750, "N3": 1620, "N4": 1380, "N5": 1180, "Total": 7440},
+                {"Year": "2023(Dec)", "N1": 1850, "N2": 2350, "N3": 2100, "N4": 1850, "N5": 1650, "Total": 9800}
+            ],
+            "PassRate_Stats": [
+                {"Year": "2010(Jul)", "N1": 30.8, "N2": 43.4, "N3": 37.1, "N4": 0, "N5": 0, "Overall": 38.0},
+                {"Year": "2010(Dec)", "N1": 29.4, "N2": 33.1, "N3": 36.9, "N4": 46.4, "N5": 59.9, "Overall": 38.4},
+                {"Year": "2011(Jul)", "N1": 26.7, "N2": 37.9, "N3": 32.8, "N4": 37.5, "N5": 58.1, "Overall": 35.8},
+                {"Year": "2011(Dec)", "N1": 29.5, "N2": 34.3, "N3": 36.3, "N4": 44.2, "N5": 56.4, "Overall": 38.6},
+                {"Year": "2012(Jul)", "N1": 30.5, "N2": 40.2, "N3": 33.8, "N4": 38.1, "N5": 56.2, "Overall": 37.9},
+                {"Year": "2012(Dec)", "N1": 25.5, "N2": 33.5, "N3": 33.5, "N4": 41.3, "N5": 53.4, "Overall": 36.5},
+                {"Year": "2013(Jul)", "N1": 27.6, "N2": 37.2, "N3": 33.9, "N4": 39.1, "N5": 54.3, "Overall": 36.6},
+                {"Year": "2013(Dec)", "N1": 30.1, "N2": 34.5, "N3": 36.5, "N4": 43.1, "N5": 54.5, "Overall": 38.8},
+                {"Year": "2014(Jul)", "N1": 28.9, "N2": 37.5, "N3": 34.2, "N4": 38.5, "N5": 53.9, "Overall": 37.1},
+                {"Year": "2014(Dec)", "N1": 30.5, "N2": 35.2, "N3": 36.9, "N4": 43.5, "N5": 55.1, "Overall": 39.2},
+                {"Year": "2015(Jul)", "N1": 29.5, "N2": 38.1, "N3": 34.5, "N4": 39.2, "N5": 54.2, "Overall": 37.5},
+                {"Year": "2015(Dec)", "N1": 31.2, "N2": 36.1, "N3": 37.5, "N4": 44.1, "N5": 55.8, "Overall": 39.8},
+                {"Year": "2016(Jul)", "N1": 30.2, "N2": 38.5, "N3": 35.1, "N4": 39.8, "N5": 54.8, "Overall": 38.2},
+                {"Year": "2016(Dec)", "N1": 31.8, "N2": 36.8, "N3": 38.2, "N4": 44.8, "N5": 56.5, "Overall": 40.5},
+                {"Year": "2017(Jul)", "N1": 31.5, "N2": 39.2, "N3": 35.8, "N4": 40.5, "N5": 55.5, "Overall": 38.9},
+                {"Year": "2017(Dec)", "N1": 32.5, "N2": 37.5, "N3": 38.9, "N4": 45.5, "N5": 57.2, "Overall": 41.2},
+                {"Year": "2018(Jul)", "N1": 32.1, "N2": 39.8, "N3": 36.5, "N4": 41.2, "N5": 56.2, "Overall": 39.5},
+                {"Year": "2018(Dec)", "N1": 33.2, "N2": 38.2, "N3": 39.5, "N4": 46.2, "N5": 57.8, "Overall": 41.9},
+                {"Year": "2019(Jul)", "N1": 32.8, "N2": 40.5, "N3": 37.2, "N4": 41.8, "N5": 56.8, "Overall": 40.2},
+                {"Year": "2019(Dec)", "N1": 33.8, "N2": 38.8, "N3": 40.2, "N4": 46.8, "N5": 58.5, "Overall": 42.5},
+                {"Year": "2021(Jul)", "N1": 34.5, "N2": 41.2, "N3": 38.5, "N4": 42.5, "N5": 57.5, "Overall": 41.5},
+                {"Year": "2021(Dec)", "N1": 35.2, "N2": 39.5, "N3": 41.5, "N4": 47.5, "N5": 59.2, "Overall": 43.8},
+                {"Year": "2022(Jul)", "N1": 35.1, "N2": 41.8, "N3": 39.2, "N4": 43.2, "N5": 58.2, "Overall": 42.2},
+                {"Year": "2022(Dec)", "N1": 35.8, "N2": 40.2, "N3": 42.2, "N4": 48.2, "N5": 59.8, "Overall": 44.5},
+                {"Year": "2023(Jul)", "N1": 35.8, "N2": 42.5, "N3": 39.8, "N4": 43.8, "N5": 58.8, "Overall": 42.8},
+                {"Year": "2023(Dec)", "N1": 36.5, "N2": 41.2, "N3": 42.8, "N4": 48.8, "N5": 60.5, "Overall": 45.2}
+            ],
+            "Share_Stats": [
+                {"Year": "2010(Jul)", "HK_MO_Total": 2984, "Japan_Total": 53100, "Overseas_Total": 169912},
+                {"Year": "2010(Dec)", "HK_MO_Total": 9848, "Japan_Total": 79682, "Overseas_Total": 305277},
+                {"Year": "2011(Jul)", "HK_MO_Total": 5353, "Japan_Total": 49957, "Overseas_Total": 212177},
+                {"Year": "2011(Dec)", "HK_MO_Total": 7458, "Japan_Total": 70413, "Overseas_Total": 275674},
+                {"Year": "2012(Jul)", "HK_MO_Total": 5203, "Japan_Total": 52206, "Overseas_Total": 213235},
+                {"Year": "2012(Dec)", "HK_MO_Total": 7246, "Japan_Total": 68673, "Overseas_Total": 275811},
+                {"Year": "2013(Jul)", "HK_MO_Total": 5114, "Japan_Total": 50352, "Overseas_Total": 204365},
+                {"Year": "2013(Dec)", "HK_MO_Total": 7198, "Japan_Total": 64998, "Overseas_Total": 269736},
+                {"Year": "2014(Jul)", "HK_MO_Total": 5079, "Japan_Total": 52187, "Overseas_Total": 214435},
+                {"Year": "2014(Dec)", "HK_MO_Total": 7259, "Japan_Total": 65545, "Overseas_Total": 277254},
+                {"Year": "2015(Jul)", "HK_MO_Total": 5195, "Japan_Total": 56711, "Overseas_Total": 235588},
+                {"Year": "2015(Dec)", "HK_MO_Total": 7214, "Japan_Total": 70648, "Overseas_Total": 294334},
+                {"Year": "2016(Jul)", "HK_MO_Total": 5406, "Japan_Total": 65805, "Overseas_Total": 268425},
+                {"Year": "2016(Dec)", "HK_MO_Total": 7428, "Japan_Total": 81014, "Overseas_Total": 334651},
+                {"Year": "2017(Jul)", "HK_MO_Total": 5383, "Japan_Total": 75908, "Overseas_Total": 290132},
+                {"Year": "2017(Dec)", "HK_MO_Total": 7595, "Japan_Total": 94848, "Overseas_Total": 361718},
+                {"Year": "2018(Jul)", "HK_MO_Total": 5551, "Japan_Total": 88310, "Overseas_Total": 323671},
+                {"Year": "2018(Dec)", "HK_MO_Total": 7640, "Japan_Total": 109265, "Overseas_Total": 412402},
+                {"Year": "2019(Jul)", "HK_MO_Total": 5705, "Japan_Total": 105671, "Overseas_Total": 344548},
+                {"Year": "2019(Dec)", "HK_MO_Total": 7709, "Japan_Total": 128913, "Overseas_Total": 454318},
+                {"Year": "2021(Jul)", "HK_MO_Total": 6581, "Japan_Total": 95210, "Overseas_Total": 256840},
+                {"Year": "2021(Dec)", "HK_MO_Total": 8793, "Japan_Total": 115430, "Overseas_Total": 389210},
+                {"Year": "2022(Jul)", "HK_MO_Total": 7104, "Japan_Total": 102500, "Overseas_Total": 298400},
+                {"Year": "2022(Dec)", "HK_MO_Total": 9140, "Japan_Total": 125600, "Overseas_Total": 415200},
+                {"Year": "2023(Jul)", "HK_MO_Total": 7440, "Japan_Total": 110200, "Overseas_Total": 320500},
+                {"Year": "2023(Dec)", "HK_MO_Total": 9800, "Japan_Total": 135400, "Overseas_Total": 445800}
+            ]
+        };
+
+        let trendChart, shareChart;
+        let currentMode = 'count'; // 'count' or 'rate'
+
+        function init() {
+            initTrendChart();
+            initShareChart();
+            populateYearSelect();
+            updateCharts();
+        }
+
+        function initTrendChart() {
+            const ctx = document.getElementById('trendChart').getContext('2d');
+            trendChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: rawData.HK_MO_Stats.map(d => d.Year),
+                    datasets: [
+                        { label: 'N1', data: [], borderColor: '#c9171e', backgroundColor: '#c9171e', tension: 0.3 },
+                        { label: 'N2', data: [], borderColor: '#0d3b66', backgroundColor: '#0d3b66', tension: 0.3 },
+                        { label: 'N3', data: [], borderColor: '#7a9d6e', backgroundColor: '#7a9d6e', tension: 0.3 },
+                        { label: 'N4', data: [], borderColor: '#f8b4d4', backgroundColor: '#f8b4d4', tension: 0.3 },
+                        { label: 'N5', data: [], borderColor: '#FF6B7A', backgroundColor: '#FF6B7A', tension: 0.3 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        function initShareChart() {
+            const ctx = document.getElementById('shareChart').getContext('2d');
+            shareChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['香港及澳門', '日本國內', '其他海外地區'],
+                    datasets: [{
+                        data: [0, 0, 0],
+                        backgroundColor: ['#c9171e', '#0d3b66', '#7a9d6e']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
+
+        function populateYearSelect() {
+            const select = document.getElementById('yearSelect');
+            rawData.Share_Stats.forEach((d, i) => {
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = d.Year;
+                if(d.Year === "2023(Dec)") opt.selected = true;
+                select.appendChild(opt);
+            });
+            updateDonut();
+        }
+
+        function updateDonut() {
+            const index = document.getElementById('yearSelect').value;
+            const data = rawData.Share_Stats[index];
+            if (shareChart) {
+                shareChart.data.datasets[0].data = [data.HK_MO_Total, data.Japan_Total, data.Overseas_Total];
+                shareChart.update();
+            }
+        }
+
+        function switchMode(mode) {
+            currentMode = mode;
+            document.getElementById('btn-count').classList.toggle('active', mode === 'count');
+            document.getElementById('btn-rate').classList.toggle('active', mode === 'rate');
+            
+            const title = mode === 'count' ? '香港及澳門地區應考人數趨勢' : '香港及澳門地區各等級合格率趨勢 (%)';
+            document.getElementById('mainChartTitle').textContent = title;
+            document.getElementById('tableTitle').textContent = mode === 'count' ? '各等級應考人數統計' : '各等級合格率統計 (%)';
+            
+            updateCharts();
+        }
+
+        function updateCharts() {
+            const sourceData = currentMode === 'count' ? rawData.HK_MO_Stats : rawData.PassRate_Stats;
+            const levels = ['N1', 'N2', 'N3', 'N4', 'N5'];
+            
+            levels.forEach((level, index) => {
+                const checked = document.getElementById(level.toLowerCase()).checked;
+                trendChart.data.datasets[index].data = sourceData.map(d => d[level]);
+                trendChart.setDatasetVisibility(index, checked);
+            });
+            
+            trendChart.update();
+            populateTable();
+        }
+
+        function populateTable() {
+            const tbody = document.querySelector('#dataTable tbody');
+            tbody.innerHTML = '';
+            const sourceData = currentMode === 'count' ? rawData.HK_MO_Stats : rawData.PassRate_Stats;
+            const totalKey = currentMode === 'count' ? 'Total' : 'Overall';
+            
+            sourceData.forEach(d => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${d.Year}</td>
+                    <td>${document.getElementById('n1').checked ? d.N1 : '-'}</td>
+                    <td>${document.getElementById('n2').checked ? d.N2 : '-'}</td>
+                    <td>${document.getElementById('n3').checked ? d.N3 : '-'}</td>
+                    <td>${document.getElementById('n4').checked ? d.N4 : '-'}</td>
+                    <td>${document.getElementById('n5').checked ? d.N5 : '-'}</td>
+                    <td style="font-weight:bold">${d[totalKey]}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>

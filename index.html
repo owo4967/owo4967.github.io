@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伝える (Tsutaeru) - 香港首個 IoT 日語學習平台</title>
+    <style>
+        :root {
+            --primary-red: #c9171e;
+            --primary-beige: #f5f5dc;
+            --accent-blue: #0d3b66;
+            --accent-pink: #f8b4d4;
+            --accent-green: #7a9d6e;
+            --coral: #FF6B7A;
+            --deep-blue: #2C3E50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans CJK TC', 'Microsoft JhengHei', sans-serif;
+            background: var(--primary-beige);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ============ 導航列 ============ */
+        nav {
+            background: white;
+            padding: 10px 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            gap: 30px;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary-red);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--accent-blue);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-red);
+        }
+
+        .nav-cta {
+            background: var(--primary-red);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(201, 23, 30, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ============ Hero Section ============ */
+        .hero {
+            position: relative;
+            padding: 100px 20px;
+            background: linear-gradient(135deg, var(--primary-beige) 0%, #fff 100%);
+            text-align: center;
+            overflow: hidden;
+            border-bottom: 5px solid var(--primary-red);
+        }
+
+        .hero::before {
+            content: "✿ ✿ ✿ ✿ ✿";
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            font-size: 2rem;
+            color: rgba(248, 180, 212, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--primary-red);
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn {
+            padding: 15px 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .hero-btn.primary {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .hero-btn.primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(201, 23, 30, 0.4);
+        }
+
+        .hero-btn.secondary {
+            background: transparent;
+            color: var(--primary-red);
+            border: 2px solid var(--primary-red);
+        }
+
+        .hero-btn.secondary:hover {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        /* ============ 核心價值區塊 ============ */
+        .value-section {
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: var(--accent-blue);
+            margin-bottom: 50px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-red);
+            border-radius: 2px;
+        }
+
+        .value-proposition {
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            margin-bottom: 80px;
+        }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .value-card {
+            background: linear-gradient(135deg, var(--primary-beige) 0%, rgba(248, 180, 212, 0.2) 100%);
+            border: 2px solid var(--accent-pink);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .value-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .value-card h3 {
+            font-size: 1.2rem;
+            color: var(--accent-blue);
+            margin-bottom: 10px;
+        }
+
+        .value-card p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* ============ 功能展示區塊 ============ */
+        .features-section {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, var(--primary-beige) 0%, white 100%);
+            border: 2px solid var(--accent-pink);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            color: var(--accent-blue);
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* ============ IoT 創新區塊 ============ */
+        .iot-section {
+            padding: 80px 20px;
+        }
+
+        .iot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .iot-card {
+            background: linear-gradient(135deg, rgba(13, 59, 102, 0.05) 0%, white 100%);
+            border: 2px solid var(--accent-blue);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .iot-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(13, 59, 102, 0.15);
+        }
+
+        .iot-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .iot-card h3 {
+            font-size: 1.1rem;
+            color: var(--accent-blue);
+            margin-bottom: 12px;
+        }
+
+        .iot-card p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* ============ 香港專屬優惠 ============ */
+        .offers-section {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .offer-card {
+            background: linear-gradient(135deg, var(--primary-beige) 0%, rgba(255, 107, 122, 0.1) 100%);
+            border: 3px solid var(--primary-red);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .offer-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(201, 23, 30, 0.2);
+        }
+
+        .offer-badge {
+            display: inline-block;
+            background: var(--primary-red);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+        }
+
+        .offer-card h3 {
+            font-size: 1.2rem;
+            color: var(--accent-blue);
+            margin-bottom: 12px;
+        }
+
+        .offer-card p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .offer-btn {
+            display: inline-block;
+            background: var(--primary-red);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .offer-btn:hover {
+            background: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        /* ============ 頁尾 ============ */
+        footer {
+            background: var(--accent-blue);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-pink);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .social-links {
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            line-height: 40px;
+            margin: 0 5px;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-pink);
+            color: var(--accent-blue);
+        }
+
+        /* ============ 響應式設計 ============ */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                gap: 15px;
+                font-size: 0.85rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 導航列 -->
+<nav>
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663328630280/CJexFqIIRdXImBgh.png" alt="Tsutaeru Logo" style="height: 80px; width: auto;">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="LearningHub.html">學習中心</a></li>
+            <li><a href="InteractivePractice.html">互動練習</a></li>
+            <li><a href="IoT.html">IoT 體驗</a></li>
+            <li><a href="Resources.html">學習資源</a></li>
+            <li><a href="CulturalLearning.html">文化學習</a></li>
+            <li><a href="AboutUs.html">關於我們</a></li>
+            <li><a href="Community.html">社群</a></li>
+            <li><a href="Chart.html">數據分析</a></li>
+        </ul>
+        <a href="UserAccount.html" class="nav-cta">我的帳戶</a>
+    </div>
+</nav>
+
+<!-- /導航列 -->
+    <!-- /導航列 -->
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>🌸 伝える (Tsutaeru)</h1>
+            <p>香港首個整合 IoT 智能科技的日語學習革命</p>
+            <div class="hero-buttons">
+                <button class="hero-btn primary">立即下載 App</button>
+                <button class="hero-btn secondary">預約免費試用</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心價值區塊 -->
+    <section class="value-section container">
+        <h2 class="section-title">💡 核心價值</h2>
+        <div class="value-proposition">
+            <p style="font-size: 1.2rem; color: var(--accent-blue); margin-bottom: 20px;">
+                <strong>智能科技 + 日本文化 = 流利日語</strong>
+            </p>
+            <div class="value-grid">
+                <div class="value-card">
+                    <div class="value-icon">🤖</div>
+                    <h3>AI 智能科技</h3>
+                    <p>運用最新的人工智能技術，提供個人化學習路徑與即時反饋。</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🌸</div>
+                    <h3>日本文化</h3>
+                    <p>深度融合日本傳統美學與現代設計，營造沉浸式學習環境。</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🎯</div>
+                    <h3>高效學習</h3>
+                    <p>科學化的課程設計與進度追蹤，讓您快速掌握日語技能。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 功能展示區塊 -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">✨ 核心功能</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">✍️</div>
+                    <h3>智能筆順書寫</h3>
+                    <p>AI 即時評分，幫助您掌握正確的假名與漢字筆順。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎴</div>
+                    <h3>圖像化單詞卡</h3>
+                    <p>結合插圖與例句，提升單詞記憶效率。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎧</div>
+                    <h3>聽力練習</h3>
+                    <p>原汁原味的日本發音，訓練您的聽覺敏感度。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>每週測驗</h3>
+                    <p>定期評估學習成果，追蹤進度。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>學習紀錄</h3>
+                    <p>詳細的數據分析，了解您的學習軌跡。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3>IoT 連結</h3>
+                    <p>智慧卡片與地點感知，創新的學習體驗。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IoT 創新區塊 -->
+    <section class="iot-section container">
+        <h2 class="section-title">🚀 IoT 創新體驗</h2>
+        <div class="iot-grid">
+            <div class="iot-card">
+                <div class="iot-icon">📱</div>
+                <h3>NFC 智慧標籤</h3>
+                <p>輕輕一碰，即可解鎖專屬學習內容與地點情境。</p>
+            </div>
+            <div class="iot-card">
+                <div class="iot-icon">🗺️</div>
+                <h3>香港日語情境地圖</h3>
+                <p>探索香港各區的日式餐廳與商店，在地化學習日文。</p>
+            </div>
+            <div class="iot-card">
+                <div class="iot-icon">🎤</div>
+                <h3>AI 發音教練</h3>
+                <p>實時語音辨識與評分，快速提升您的口說能力。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 香港專屬優惠 -->
+    <section class="offers-section">
+        <div class="container">
+            <h2 class="section-title">🎁 香港專屬優惠</h2>
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <div class="offer-badge">🆓 免費贈送</div>
+                    <h3>NFC 學習卡片</h3>
+                    <p>首 1000 位註冊用戶，免費獲贈精美的 NFC 智慧學習卡片。</p>
+                    <button class="offer-btn">立即領取</button>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-badge">💰 商家折扣</div>
+                    <h3>本地商家合作</h3>
+                    <p>與香港日式餐廳、書店合作，享受獨家折扣優惠。</p>
+                    <button class="offer-btn">查看合作商家</button>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-badge">🎓 文化活動</div>
+                    <h3>線下體驗工作坊</h3>
+                    <p>茶道、和服、料理等文化體驗，深入感受日本文化。</p>
+                    <button class="offer-btn">報名參加</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer>
+        <p>&copy; 2026 伝える (Tsutaeru) — 香港首個 IoT 日語學習平台</p>
+        <div class="social-links">
+            <a href="#" title="Facebook">f</a>
+            <a href="#" title="Instagram">📷</a>
+            <a href="#" title="YouTube">▶️</a>
+            <a href="#" title="WeChat">💬</a>
+        </div>
+        <p>
+            <a href="#">隱私政策</a> | 
+            <a href="#">服務條款</a> | 
+            <a href="#">聯絡我們</a>
+        </p>
+    </footer>
+</body>
+</html>

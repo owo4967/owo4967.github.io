@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文化學習 - 伝える (Tsutaeru)</title>
+    <style>
+        :root {
+            --primary-red: #c9171e;
+            --primary-beige: #f5f5dc;
+            --accent-blue: #0d3b66;
+            --accent-pink: #f8b4d4;
+            --accent-green: #7a9d6e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans CJK TC', 'Microsoft JhengHei', sans-serif;
+            background: var(--primary-beige);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ============ 導航列 ============ */
+        nav {
+            background: white;
+            padding: 10px 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary-red);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--accent-blue);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-red);
+        }
+
+        .nav-cta {
+            background: var(--primary-red);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(201, 23, 30, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ============ 頁面標題 ============ */
+        .page-header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--primary-beige) 0%, #fff 100%);
+            border-bottom: 5px solid var(--primary-red);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            color: var(--primary-red);
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        /* ============ 主要內容 ============ */
+        .culture-section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--accent-blue);
+            margin: 50px 0 30px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary-red);
+            border-radius: 2px;
+        }
+
+        /* ============ 文化卡片網格 ============ */
+        .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .culture-card {
+            background: white;
+            border: 3px solid var(--primary-red);
+            padding: 30px;
+            transition: all 0.3s;
+        }
+
+        .culture-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(201, 23, 30, 0.2);
+        }
+
+        .culture-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .culture-card h3 {
+            color: var(--primary-red);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .culture-card p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .culture-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .culture-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .culture-list li::before {
+            content: "✿";
+            position: absolute;
+            left: 0;
+            color: var(--primary-red);
+            font-weight: 900;
+        }
+
+        .culture-btn {
+            background: var(--primary-red);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .culture-btn:hover {
+            background: var(--accent-blue);
+            transform: scale(1.02);
+        }
+
+        /* ============ 頁尾 ============ */
+        footer {
+            background: var(--accent-blue);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 導航列 -->
+<nav>
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663328630280/CJexFqIIRdXImBgh.png" alt="Tsutaeru Logo" style="height: 80px; width: auto;">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="LearningHub.html">學習中心</a></li>
+            <li><a href="InteractivePractice.html">互動練習</a></li>
+            <li><a href="IoT.html">IoT 體驗</a></li>
+            <li><a href="Resources.html">學習資源</a></li>
+            <li><a href="CulturalLearning.html">文化學習</a></li>
+            <li><a href="AboutUs.html">關於我們</a></li>
+            <li><a href="Community.html">社群</a></li>
+            <li><a href="Chart.html">數據分析</a></li>
+        </ul>
+        <a href="UserAccount.html" class="nav-cta">我的帳戶</a>
+    </div>
+</nav>
+
+<!-- /導航列 -->
+
+    <!-- 頁面標題 -->
+    <div class="page-header">
+        <h1>文化學習</h1>
+        <p>深入了解日本文化，讓語言學習變得更有意義</p>
+    </div>
+
+    <!-- 主要內容 -->
+    <div class="container culture-section">
+        <h2 class="section-title">文化專題</h2>
+
+        <div class="culture-grid">
+            <div class="culture-card">
+                <div class="culture-card-icon">🎌</div>
+                <h3>日本節日與傳統</h3>
+                <p>深入探索日本的傳統節日，如新年、七夕、盂蘭盆節等，了解背後的文化故事。</p>
+                <ul class="culture-list">
+                    <li>新年 (正月) 慶典</li>
+                    <li>櫻花祭 (桜祭り)</li>
+                    <li>七夕節 (七夕)</li>
+                    <li>盂蘭盆節 (お盆)</li>
+                </ul>
+                <button class="culture-btn">了解更多</button>
+            </div>
+
+            <div class="culture-card">
+                <div class="culture-card-icon">🍜</div>
+                <h3>日本飲食文化</h3>
+                <p>探索日本料理的多樣性，從壽司、天婦羅到拉麵，了解每道菜背後的文化。</p>
+                <ul class="culture-list">
+                    <li>日本料理基礎知識</li>
+                    <li>地方特色美食</li>
+                    <li>用餐禮儀與文化</li>
+                    <li>季節性食材</li>
+                </ul>
+                <button class="culture-btn">了解更多</button>
+            </div>
+
+            <div class="culture-card">
+                <div class="culture-card-icon">👘</div>
+                <h3>日本禮儀與禮節</h3>
+                <p>學習日本社會的禮儀規範，包括敬語使用、見面禮儀、商務禮節等。</p>
+                <ul class="culture-list">
+                    <li>敬語系統 (敬語)</li>
+                    <li>見面與問候禮儀</li>
+                    <li>商務禮節</li>
+                    <li>家庭與社交禮儀</li>
+                </ul>
+                <button class="culture-btn">了解更多</button>
+            </div>
+
+            <div class="culture-card">
+                <div class="culture-card-icon">🎨</div>
+                <h3>日本藝術與美學</h3>
+                <p>深入了解日本的傳統藝術形式，如茶道、花道、書法、浮世繪等。</p>
+                <ul class="culture-list">
+                    <li>茶道 (茶の湯)</li>
+                    <li>花道 (生け花)</li>
+                    <li>書法 (書道)</li>
+                    <li>浮世繪與現代藝術</li>
+                </ul>
+                <button class="culture-btn">了解更多</button>
+            </div>
+
+            <div class="culture-card">
+                <div class="culture-card-icon">🏯</div>
+                <h3>日本歷史與建築</h3>
+                <p>探索日本的歷史發展與建築文化，從古代城堡到現代摩天大樓。</p>
+                <ul class="culture-list">
+                    <li>日本歷史時期</li>
+                    <li>城堡與寺廟建築</li>
+                    <li>傳統與現代建築</li>
+                    <li>文化遺產保護</li>
+                </ul>
+                <button class="culture-btn">了解更多</button>
+            </div>
+
+            <div class="culture-card">
+                <div class="culture-card-icon">🎬</div>
+                <h3>日本動漫與流行文化</h3>
+                <p>了解日本動漫、漫畫與流行文化如何塑造全球視野。</p>
+                <ul class="culture-list">
+                    <li>動漫文化介紹</li>
+                    <li>經典作品分析</li>
+                    <li>漫畫與小說</li>
+                    <li>流行文化趨勢</li>
+                </ul>
+                <button class="culture-btn">了解更多</button>
+            </div>
+        </div>
+
+        <h2 class="section-title">虛擬體驗</h2>
+
+        <div class="culture-grid">
+            <div class="culture-card">
+                <div class="culture-card-icon">🏯</div>
+                <h3>京都寺廟虛擬遊覽</h3>
+                <p>透過 360 度影片，身臨其境地遊覽京都的著名寺廟。</p>
+                <ul class="culture-list">
+                    <li>清水寺虛擬遊覽</li>
+                    <li>伏見稻荷大社</li>
+                    <li>金閣寺導覽</li>
+                    <li>文化背景講解</li>
+                </ul>
+                <button class="culture-btn">開始體驗</button>
+            </div>
+
+            <div class="culture-card">
+                <div class="culture-card-icon">🎌</div>
+                <h3>傳統祭典虛擬參與</h3>
+                <p>透過沉浸式影片，體驗日本傳統祭典的熱鬧氛圍。</p>
+                <ul class="culture-list">
+                    <li>祇園祭虛擬參與</li>
+                    <li>盆踊體驗</li>
+                    <li>新年慶典</li>
+                    <li>相關日語詞彙</li>
+                </ul>
+                <button class="culture-btn">開始體驗</button>
+            </div>
+
+            <div class="culture-card">
+                <div class="culture-card-icon">🍜</div>
+                <h3>日本廚房虛擬體驗</h3>
+                <p>在虛擬環境中學習製作傳統日本料理。</p>
+                <ul class="culture-list">
+                    <li>壽司製作教程</li>
+                    <li>天婦羅烹飪體驗</li>
+                    <li>茶道儀式</li>
+                    <li>廚房用語學習</li>
+                </ul>
+                <button class="culture-btn">開始體驗</button>
+            </div>
+
+            <div class="culture-card">
+                <div class="culture-card-icon">🎨</div>
+                <h3>茶道與花道虛擬課程</h3>
+                <p>透過虛擬課程，學習日本傳統藝術茶道與花道。</p>
+                <ul class="culture-list">
+                    <li>茶道禮儀與步驟</li>
+                    <li>花道基本技法</li>
+                    <li>美學理念介紹</li>
+                    <li>相關日語表達</li>
+                </ul>
+                <button class="culture-btn">開始體驗</button>
+            </div>
+        </div>
+
+        <h2 class="section-title">文化問答遊戲</h2>
+
+        <div class="culture-grid">
+            <div class="culture-card">
+                <div class="culture-card-icon">❓</div>
+                <h3>初級文化挑戰</h3>
+                <p>測試您對日本基礎文化知識的了解。</p>
+                <ul class="culture-list">
+                    <li>10 道選擇題</li>
+                    <li>涵蓋基礎文化知識</li>
+                    <li>即時反饋與解釋</li>
+                    <li>獲得成就徽章</li>
+                </ul>
+                <button class="culture-btn">開始挑戰</button>
+            </div>
+
+            <div class="culture-card">
+                <div class="culture-card-icon">❓</div>
+                <h3>中級文化挑戰</h3>
+                <p>進階的文化知識測試，涵蓋日本歷史與藝術。</p>
+                <ul class="culture-list">
+                    <li>15 道綜合題</li>
+                    <li>涵蓋歷史與藝術</li>
+                    <li>詳細的知識解釋</li>
+                    <li>排行榜競爭</li>
+                </ul>
+                <button class="culture-btn">開始挑戰</button>
+            </div>
+
+            <div class="culture-card">
+                <div class="culture-card-icon">❓</div>
+                <h3>高級文化挑戰</h3>
+                <p>深度的文化知識挑戰，測試您對日本文化細節的掌握。</p>
+                <ul class="culture-list">
+                    <li>20 道深度題</li>
+                    <li>涵蓋所有文化領域</li>
+                    <li>專家級解釋</li>
+                    <li>特殊獎勵與認證</li>
+                </ul>
+                <button class="culture-btn">開始挑戰</button>
+            </div>
+
+            <div class="culture-card">
+                <div class="culture-card-icon">❓</div>
+                <h3>每週文化知識競賽</h3>
+                <p>參加全球學習者的文化知識競賽。</p>
+                <ul class="culture-list">
+                    <li>每週新題目</li>
+                    <li>全球排行榜</li>
+                    <li>豐富的獎勵機制</li>
+                    <li>社群互動</li>
+                </ul>
+                <button class="culture-btn">參加競賽</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 頁尾 -->
+    <footer>
+        <p>&copy; 2026 伝える (Tsutaeru) — 香港首個 IoT 日語學習平台</p>
+    </footer>
+</body>
+</html>

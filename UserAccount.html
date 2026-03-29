@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的帳戶 - 伝える (Tsutaeru)</title>
+    <style>
+        :root {
+            --primary-red: #c9171e;
+            --primary-beige: #f5f5dc;
+            --accent-blue: #0d3b66;
+            --accent-pink: #f8b4d4;
+            --accent-green: #7a9d6e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans CJK TC', 'Microsoft JhengHei', sans-serif;
+            background: var(--primary-beige);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ============ 導航列 ============ */
+        nav {
+            background: white;
+            padding: 10px 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            gap: 30px;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary-red);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--accent-blue);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-red);
+        }
+
+        .nav-cta {
+            background: var(--primary-red);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .nav-cta.active {
+            background: var(--accent-blue);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(201, 23, 30, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ============ 頁面標題 ============ */
+        .page-header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--primary-beige) 0%, #fff 100%);
+            border-bottom: 5px solid var(--primary-red);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            color: var(--primary-red);
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        /* ============ 主要內容 ============ */
+        .account-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+            padding: 60px 0;
+        }
+
+        /* ============ 側邊導航 ============ */
+        .sidebar {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .sidebar-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 12px;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 12px 15px;
+            color: #666;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: var(--primary-beige);
+            color: var(--primary-red);
+            font-weight: 600;
+        }
+
+        /* ============ 主要內容區 ============ */
+        .main-content {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--accent-blue);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-red);
+        }
+
+        /* ============ 個人資料 ============ */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .profile-item {
+            background: linear-gradient(135deg, var(--primary-beige) 0%, rgba(248, 180, 212, 0.1) 100%);
+            border: 2px solid var(--accent-pink);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 15px;
+        }
+
+        .profile-item h3 {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .profile-item p {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--accent-blue);
+        }
+
+        .edit-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .edit-btn:hover {
+            background: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        /* ============ 學習進度 ============ */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, white 0%, var(--primary-beige) 100%);
+            border: 2px solid var(--accent-pink);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .stat-card h3 {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary-red);
+        }
+
+        /* ============ NFC 管理 ============ */
+        .nfc-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .nfc-item {
+            background: linear-gradient(135deg, var(--primary-beige) 0%, rgba(248, 180, 212, 0.1) 100%);
+            border: 2px solid var(--accent-pink);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .nfc-item h4 {
+            font-size: 1.1rem;
+            color: var(--accent-blue);
+            margin-bottom: 8px;
+        }
+
+        .nfc-status {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--accent-green);
+            color: white;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .nfc-item p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .nfc-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nfc-action-btn {
+            flex: 1;
+            padding: 8px 12px;
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nfc-action-btn:hover {
+            background: var(--accent-blue);
+        }
+
+        /* ============ 帳戶設定 ============ */
+        .settings-group {
+            background: linear-gradient(135deg, var(--primary-beige) 0%, rgba(248, 180, 212, 0.1) 100%);
+            border: 2px solid var(--accent-pink);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .settings-group h3 {
+            font-size: 1.1rem;
+            color: var(--accent-blue);
+            margin-bottom: 15px;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(248, 180, 212, 0.5);
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-label {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .toggle-switch {
+            width: 50px;
+            height: 28px;
+            background: #ccc;
+            border-radius: 14px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .toggle-switch.on {
+            background: var(--accent-green);
+        }
+
+        .toggle-switch::after {
+            content: "";
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s;
+        }
+
+        .toggle-switch.on::after {
+            left: 24px;
+        }
+
+        /* ============ 頁尾 ============ */
+        footer {
+            background: var(--accent-blue);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-pink);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ============ 響應式設計 ============ */
+        @media (max-width: 768px) {
+            .account-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .main-content {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 導航列 -->
+<nav>
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663328630280/CJexFqIIRdXImBgh.png" alt="Tsutaeru Logo" style="height: 80px; width: auto;">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="LearningHub.html">學習中心</a></li>
+            <li><a href="InteractivePractice.html">互動練習</a></li>
+            <li><a href="IoT.html">IoT 體驗</a></li>
+            <li><a href="Resources.html">學習資源</a></li>
+            <li><a href="CulturalLearning.html">文化學習</a></li>
+            <li><a href="AboutUs.html">關於我們</a></li>
+            <li><a href="Community.html">社群</a></li>
+            <li><a href="Chart.html">數據分析</a></li>
+        </ul>
+        <a href="UserAccount.html" class="nav-cta">我的帳戶</a>
+    </div>
+</nav>
+
+<!-- /導航列 -->
+
+    <!-- 頁面標題 -->
+    <section class="page-header">
+        <div class="container">
+            <h1>👤 我的帳戶</h1>
+            <p>管理您的個人資料與學習設定</p>
+        </div>
+    </section>
+
+    <!-- 主要內容 -->
+    <main class="container">
+        <div class="account-wrapper">
+            <!-- 側邊導航 -->
+            <aside class="sidebar">
+                <div class="sidebar-title">帳戶選單</div>
+                <ul class="sidebar-menu">
+                    <li><a href="#" onclick="showSection('profile')" class="active">👤 個人資料</a></li>
+                    <li><a href="#" onclick="showSection('progress')">📊 學習進度</a></li>
+                    <li><a href="#" onclick="showSection('nfc')">📱 NFC 管理</a></li>
+                    <li><a href="#" onclick="showSection('settings')">⚙️ 帳戶設定</a></li>
+                </ul>
+            </aside>
+
+            <!-- 主要內容區 -->
+            <div class="main-content">
+                <!-- 個人資料 -->
+                <section id="profile" class="content-section active">
+                    <h2 class="section-title">👤 個人資料</h2>
+                    
+                    <div class="profile-grid">
+                        <div class="profile-item">
+                            <div class="avatar">👨</div>
+                            <h3>頭像</h3>
+                            <p>李明</p>
+                        </div>
+                        <div class="profile-item">
+                            <h3>用戶名</h3>
+                            <p>liming_jp</p>
+                        </div>
+                        <div class="profile-item">
+                            <h3>電子郵件</h3>
+                            <p>liming@email.com</p>
+                        </div>
+                        <div class="profile-item">
+                            <h3>會員等級</h3>
+                            <p>Lv. 15</p>
+                        </div>
+                    </div>
+
+                    <button class="edit-btn" onclick="alert('編輯功能即將推出')">編輯個人資料</button>
+                </section>
+
+                <!-- 學習進度 -->
+                <section id="progress" class="content-section">
+                    <h2 class="section-title">📊 學習進度概覽</h2>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">⏱️</div>
+                            <h3>總學習時長</h3>
+                            <div class="stat-value">125.5 小時</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">💬</div>
+                            <h3>已掌握單詞數</h3>
+                            <div class="stat-value">1,245</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🎯</div>
+                            <h3>測驗平均分</h3>
+                            <div class="stat-value">87%</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🔥</div>
+                            <h3>連續學習天數</h3>
+                            <div class="stat-value">23 天</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- NFC 標籤管理 -->
+                <section id="nfc" class="content-section">
+                    <h2 class="section-title">📱 NFC 標籤管理</h2>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <button class="edit-btn" onclick="alert('綁定新卡片功能即將推出')">+ 綁定新卡片</button>
+                    </div>
+
+                    <div class="nfc-list">
+                        <div class="nfc-item">
+                            <h4>基礎假名卡</h4>
+                            <div class="nfc-status">✓ 已綁定</div>
+                            <p>包含平假名與片假名的完整學習內容</p>
+                            <div class="nfc-actions">
+                                <button class="nfc-action-btn">預覽</button>
+                                <button class="nfc-action-btn">解除綁定</button>
+                            </div>
+                        </div>
+
+                        <div class="nfc-item">
+                            <h4>餐廳用語卡</h4>
+                            <div class="nfc-status">✓ 已綁定</div>
+                            <p>在香港日式餐廳點餐的必備詞彙</p>
+                            <div class="nfc-actions">
+                                <button class="nfc-action-btn">預覽</button>
+                                <button class="nfc-action-btn">解除綁定</button>
+                            </div>
+                        </div>
+
+                        <div class="nfc-item">
+                            <h4>購物用語卡</h4>
+                            <div class="nfc-status">✓ 已綁定</div>
+                            <p>在日式商店購物時的常用表達</p>
+                            <div class="nfc-actions">
+                                <button class="nfc-action-btn">預覽</button>
+                                <button class="nfc-action-btn">解除綁定</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 帳戶設定 -->
+                <section id="settings" class="content-section">
+                    <h2 class="section-title">⚙️ 帳戶設定</h2>
+                    
+                    <div class="settings-group">
+                        <h3>🌐 語言設定</h3>
+                        <div class="setting-item">
+                            <span class="setting-label">介面語言</span>
+                            <select style="padding: 8px 12px; border-radius: 6px; border: 1px solid #ccc;">
+                                <option>繁體中文</option>
+                                <option>簡體中文</option>
+                                <option>日本語</option>
+                                <option>English</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>🔔 通知設定</h3>
+                        <div class="setting-item">
+                            <span class="setting-label">每日學習提醒</span>
+                            <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+                        </div>
+                        <div class="setting-item">
+                            <span class="setting-label">社群活動通知</span>
+                            <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+                        </div>
+                        <div class="setting-item">
+                            <span class="setting-label">新課程推薦</span>
+                            <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>🔐 安全設定</h3>
+                        <div class="setting-item">
+                            <button class="edit-btn" style="margin: 0;" onclick="alert('更改密碼功能即將推出')">更改密碼</button>
+                        </div>
+                        <div class="setting-item">
+                            <button class="edit-btn" style="margin: 0;" onclick="alert('雙因素認證功能即將推出')">啟用雙因素認證</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>👁️ 隱私設定</h3>
+                        <div class="setting-item">
+                            <span class="setting-label">公開個人資料</span>
+                            <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
+                        </div>
+                        <div class="setting-item">
+                            <span class="setting-label">顯示學習排名</span>
+                            <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>⚠️ 危險區域</h3>
+                        <div class="setting-item">
+                            <button class="edit-btn" style="margin: 0; background: #ff6b6b;" onclick="alert('刪除帳戶功能即將推出')">刪除帳戶</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer>
+        <p>&copy; 2026 伝える (Tsutaeru) — 香港首個 IoT 日語學習平台</p>
+        <p>
+            <a href="#">隱私政策</a> | 
+            <a href="#">服務條款</a> | 
+            <a href="#">聯絡我們</a>
+        </p>
+    </footer>
+
+    <script>
+        function showSection(sectionId) {
+            // 隱藏所有內容區
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            // 移除所有菜單項的 active 類
+            const menuItems = document.querySelectorAll('.sidebar-menu a');
+            menuItems.forEach(item => item.classList.remove('active'));
+
+            // 顯示選定的內容區
+            document.getElementById(sectionId).classList.add('active');
+
+            // 標記選定的菜單項
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

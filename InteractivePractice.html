@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>互動練習 - 伝える (Tsutaeru)</title>
+    <style>
+        :root {
+            --primary-red: #c9171e;
+            --primary-beige: #f5f5dc;
+            --accent-blue: #0d3b66;
+            --accent-pink: #f8b4d4;
+            --accent-green: #7a9d6e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans CJK TC', 'Microsoft JhengHei', sans-serif;
+            background: var(--primary-beige);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* ============ 導航列 ============ */
+        nav {
+            background: white;
+            padding: 10px 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            gap: 30px;
+        }
+        
+        .logo {
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--accent-blue);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-red);
+        }
+        
+        .nav-cta {
+            background: var(--primary-red);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(201, 23, 30, 0.3);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ============ 頁面標題 ============ */
+        .page-header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, rgba(201, 23, 30, 0.05) 0%, rgba(13, 59, 102, 0.05) 100%);
+        }
+        
+        .page-header h1 {
+            font-size: 3rem;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+        
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--accent-blue);
+            font-weight: 500;
+        }
+        
+        /* ============ 功能卡片網格 ============ */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 60px 20px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-top: 5px solid var(--primary-red);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(201, 23, 30, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .feature-card p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .feature-card .btn {
+            background: var(--primary-red);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s;
+            align-self: flex-start;
+        }
+        
+        .feature-card .btn:hover {
+            background: var(--accent-blue);
+            transform: translateX(5px);
+        }
+        
+        /* ============ 頁尾 ============ */
+        footer {
+            background: var(--accent-blue);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+        
+        footer p {
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 導航列 -->
+<nav>
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663328630280/CJexFqIIRdXImBgh.png" alt="Tsutaeru Logo" style="height: 80px; width: auto;">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="LearningHub.html">學習中心</a></li>
+            <li><a href="InteractivePractice.html">互動練習</a></li>
+            <li><a href="IoT.html">IoT 體驗</a></li>
+            <li><a href="Resources.html">學習資源</a></li>
+            <li><a href="CulturalLearning.html">文化學習</a></li>
+            <li><a href="AboutUs.html">關於我們</a></li>
+            <li><a href="Community.html">社群</a></li>
+            <li><a href="Chart.html">數據分析</a></li>
+        </ul>
+        <a href="UserAccount.html" class="nav-cta">我的帳戶</a>
+    </div>
+</nav>
+
+
+<!-- /導航列 -->
+
+    <!-- 頁面標題 -->
+    <div class="page-header">
+        <h1>✍️ 互動練習</h1>
+        <p>透過多元的練習方式，深化您的日語學習體驗</p>
+    </div>
+
+    <!-- 功能卡片 -->
+    <div class="container">
+        <div class="features-grid">
+            <!-- 書寫練習 -->
+            <a href="WritingPractice.html" class="feature-card">
+                <div class="feature-icon">✏️</div>
+                <h3>書寫練習</h3>
+                <p>練習日文漢字、平假名與片假名的正確筆順與寫法。透過互動式練習，逐步提升您的書寫技能。</p>
+                <span class="btn">開始練習</span>
+            </a>
+
+            <!-- 單詞卡 -->
+            <a href="Vocabulary.html" class="feature-card">
+                <div class="feature-icon">🎴</div>
+                <h3>單詞卡</h3>
+                <p>使用翻轉式單詞卡記憶日文詞彙。支援自訂卡片集合，並追蹤您的學習進度。</p>
+                <span class="btn">開始學習</span>
+            </a>
+
+            <!-- 文法 -->
+            <a href="GrammarPractice.html" class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3>文法</h3>
+                <p>系統化學習日文文法規則，從基礎助詞到複雜句型。每個主題都配有詳細解釋與實例。</p>
+                <span class="btn">開始學習</span>
+            </a>
+
+            <!-- 聽力練習 -->
+            <a href="ListeningPractice.html" class="feature-card">
+                <div class="feature-icon">🎧</div>
+                <h3>聽力練習</h3>
+                <p>透過真實日語音頻，訓練您的聽力能力。從日常對話到新聞廣播，循序漸進地提升聽力水平。</p>
+                <span class="btn">開始練習</span>
+            </a>
+
+            <!-- 每週測驗 -->
+            <a href="WeeklyTest.html" class="feature-card">
+                <div class="feature-icon">📝</div>
+                <h3>每週測驗</h3>
+                <p>參加精心設計的每週測驗，檢驗您的學習成果。即時反饋與詳細解析幫助您持續進步。</p>
+                <span class="btn">開始測驗</span>
+            </a>
+
+            <!-- 句子填空 -->
+            <a href="FillBlanks.html" class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>句子填空</h3>
+                <p>透過填空練習，鞏固您對文法與詞彙的理解。挑戰不同難度等級，逐步提升語言應用能力。</p>
+                <span class="btn">開始挑戰</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- 頁尾 -->
+    <footer>
+        <p>&copy; 22026 伝える (Tsutaeru) — 香港首個 IoT 日語學習平台</p>
+    </footer>
+</body>
+</html>

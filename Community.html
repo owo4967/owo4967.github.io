@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社群 - 伝える (Tsutaeru)</title>
+    <style>
+        :root {
+            --primary-red: #c9171e;
+            --primary-beige: #f5f5dc;
+            --accent-blue: #0d3b66;
+            --accent-pink: #f8b4d4;
+            --accent-green: #7a9d6e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans CJK TC', 'Microsoft JhengHei', sans-serif;
+            background: var(--primary-beige);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ============ 導航列 ============ */
+        nav {
+            background: white;
+            padding: 10px 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            gap: 30px;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary-red);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--accent-blue);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-red);
+        }
+
+        .nav-cta {
+            background: var(--primary-red);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(201, 23, 30, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ============ 頁面標題 ============ */
+        .page-header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--primary-beige) 0%, #fff 100%);
+            border-bottom: 5px solid var(--primary-red);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            color: var(--primary-red);
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        /* ============ 主要內容 ============ */
+        .community-section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--accent-blue);
+            margin: 50px 0 30px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary-red);
+            border-radius: 2px;
+        }
+
+        /* ============ 標籤頁 ============ */
+        .tab-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 30px;
+            border: 2px solid var(--accent-blue);
+            background: white;
+            color: var(--accent-blue);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--primary-red);
+            color: white;
+            border-color: var(--primary-red);
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* ============ 討論區 ============ */
+        .forum-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            margin-bottom: 50px;
+        }
+
+        .forum-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .forum-header h3 {
+            font-size: 1.3rem;
+            color: var(--accent-blue);
+        }
+
+        .new-post-btn {
+            padding: 10px 25px;
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .new-post-btn:hover {
+            background: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .post-item {
+            background: linear-gradient(135deg, var(--primary-beige) 0%, rgba(248, 180, 212, 0.1) 100%);
+            border: 2px solid var(--accent-pink);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .post-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .post-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .author-info h4 {
+            font-size: 0.95rem;
+            color: var(--accent-blue);
+            margin-bottom: 2px;
+        }
+
+        .author-info p {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .post-meta {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .post-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-bottom: 8px;
+        }
+
+        .post-content {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .post-stats {
+            display: flex;
+            gap: 20px;
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        /* ============ 活動中心 ============ */
+        .events-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            margin-bottom: 50px;
+            display: none;
+        }
+
+        .events-section.active {
+            display: block;
+        }
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .event-card {
+            background: linear-gradient(135deg, var(--primary-beige) 0%, rgba(248, 180, 212, 0.2) 100%);
+            border: 2px solid var(--accent-pink);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+        }
+
+        .event-header {
+            background: var(--primary-red);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .event-date {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .event-title {
+            font-size: 1.2rem;
+            font-weight: 900;
+            margin-top: 5px;
+        }
+
+        .event-body {
+            padding: 20px;
+        }
+
+        .event-info {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .event-info-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .event-description {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .event-btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background: var(--primary-red);
+            color: white;
+            border-radius: 15px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .event-btn:hover {
+            background: var(--accent-blue);
+        }
+
+        /* ============ 排行榜 ============ */
+        .leaderboard-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            margin-bottom: 50px;
+            display: none;
+        }
+
+        .leaderboard-section.active {
+            display: block;
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leaderboard-table thead {
+            background: linear-gradient(135deg, var(--primary-beige) 0%, rgba(248, 180, 212, 0.1) 100%);
+            border-bottom: 2px solid var(--accent-pink);
+        }
+
+        .leaderboard-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--accent-blue);
+        }
+
+        .leaderboard-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .rank-badge {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: var(--primary-red);
+            color: white;
+            text-align: center;
+            line-height: 35px;
+            font-weight: 900;
+            font-size: 0.9rem;
+        }
+
+        .rank-badge.gold {
+            background: #FFD700;
+            color: #333;
+        }
+
+        .rank-badge.silver {
+            background: #C0C0C0;
+            color: #333;
+        }
+
+        .rank-badge.bronze {
+            background: #CD7F32;
+            color: white;
+        }
+
+        .player-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .player-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .player-name {
+            font-weight: 600;
+            color: var(--accent-blue);
+        }
+
+        .score-cell {
+            font-weight: 900;
+            color: var(--primary-red);
+            font-size: 1.1rem;
+        }
+
+        /* ============ 頁尾 ============ */
+        footer {
+            background: var(--accent-blue);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-pink);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ============ 響應式設計 ============ */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .forum-section,
+            .events-section,
+            .leaderboard-section {
+                padding: 25px;
+            }
+
+            .forum-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .leaderboard-table {
+                font-size: 0.9rem;
+            }
+
+            .leaderboard-table th,
+            .leaderboard-table td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 導航列 -->
+<nav>
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663328630280/CJexFqIIRdXImBgh.png" alt="Tsutaeru Logo" style="height: 80px; width: auto;">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="LearningHub.html">學習中心</a></li>
+            <li><a href="InteractivePractice.html">互動練習</a></li>
+            <li><a href="IoT.html">IoT 體驗</a></li>
+            <li><a href="Resources.html">學習資源</a></li>
+            <li><a href="CulturalLearning.html">文化學習</a></li>
+            <li><a href="AboutUs.html">關於我們</a></li>
+            <li><a href="Community.html">社群</a></li>
+            <li><a href="Chart.html">數據分析</a></li>
+        </ul>
+        <a href="UserAccount.html" class="nav-cta">我的帳戶</a>
+    </div>
+</nav>
+
+<!-- /導航列 -->
+
+    <!-- 頁面標題 -->
+    <section class="page-header">
+        <div class="container">
+            <h1>💬 社群</h1>
+            <p>與全球日語學習者共同成長</p>
+        </div>
+    </section>
+
+    <!-- 主要內容 -->
+    <main class="container">
+        <section class="community-section">
+            <!-- 標籤頁 -->
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="switchTab('forum')">💬 討論區</button>
+                <button class="tab-btn" onclick="switchTab('events')">🎉 活動中心</button>
+                <button class="tab-btn" onclick="switchTab('leaderboard')">🏆 排行榜</button>
+            </div>
+
+            <!-- 討論區 -->
+            <div id="forum" class="forum-section">
+                <div class="forum-header">
+                    <h3>💬 社群討論區</h3>
+                    <button class="new-post-btn" onclick="alert('發表新貼文功能即將推出')">+ 發表新貼文</button>
+                </div>
+
+                <div class="post-item">
+                    <div class="post-header">
+                        <div class="post-author">
+                            <div class="author-avatar">小</div>
+                            <div class="author-info">
+                                <h4>小李</h4>
+                                <p>Lv. 12 | 2 小時前</p>
+                            </div>
+                        </div>
+                        <div class="post-meta">📍 學習分享</div>
+                    </div>
+                    <div class="post-title">分享我的 100 天日語學習之旅！</div>
+                    <div class="post-content">
+                        今天終於完成了 100 天的連續學習！從最初的假名都不認識，到現在能夠進行簡單的日常對話，感謝「伝える」平台的幫助。特別是那些 NFC 卡片和情境地圖，讓我在香港也能沉浸式學習日語。
+                    </div>
+                    <div class="post-stats">
+                        <span>❤️ 245 個讚</span>
+                        <span>💬 32 則留言</span>
+                        <span>🔄 18 次分享</span>
+                    </div>
+                </div>
+
+                <div class="post-item">
+                    <div class="post-header">
+                        <div class="post-author">
+                            <div class="author-avatar">王</div>
+                            <div class="author-info">
+                                <h4>王美芬</h4>
+                                <p>Lv. 8 | 5 小時前</p>
+                            </div>
+                        </div>
+                        <div class="post-meta">❓ 提問</div>
+                    </div>
+                    <div class="post-title">請問「です」和「ます」的區別？</div>
+                    <div class="post-content">
+                        我在學習敬語時有點困惑，「です」和「ます」都是用來表示敬意的，但具體的使用場景有什麼區別嗎？有人可以幫我解釋一下嗎？
+                    </div>
+                    <div class="post-stats">
+                        <span>❤️ 18 個讚</span>
+                        <span>💬 7 則留言</span>
+                        <span>🔄 2 次分享</span>
+                    </div>
+                </div>
+
+                <div class="post-item">
+                    <div class="post-header">
+                        <div class="post-author">
+                            <div class="author-avatar">陳</div>
+                            <div class="author-info">
+                                <h4>陳浩文</h4>
+                                <p>Lv. 20 (官方) | 8 小時前</p>
+                            </div>
+                        </div>
+                        <div class="post-meta">📢 公告</div>
+                    </div>
+                    <div class="post-title">【重要公告】新功能上線：AI 發音教練</div>
+                    <div class="post-content">
+                        親愛的學習者們，我們很高興為大家推出全新的「AI 發音教練」功能！現在您可以在 IoT 體驗區中使用這個功能，透過即時反饋改進您的日語發音。感謝大家的支持！
+                    </div>
+                    <div class="post-stats">
+                        <span>❤️ 512 個讚</span>
+                        <span>💬 89 則留言</span>
+                        <span>🔄 156 次分享</span>
+                    </div>
+                </div>
+
+                <div class="post-item">
+                    <div class="post-header">
+                        <div class="post-author">
+                            <div class="author-avatar">林</div>
+                            <div class="author-info">
+                                <h4>林詩韻</h4>
+                                <p>Lv. 15 | 12 小時前</p>
+                            </div>
+                        </div>
+                        <div class="post-meta">🎌 文化分享</div>
+                    </div>
+                    <div class="post-title">介紹日本的「櫻花祭」文化</div>
+                    <div class="post-content">
+                        春天是日本最美的季節。每年 3 月至 4 月，全日本都會舉辦「櫻花祭」（桜まつり）。這是一個充滿傳統與現代氣息的文化盛典。讓我為大家分享一些有趣的習俗和相關的日語詞彙...
+                    </div>
+                    <div class="post-stats">
+                        <span>❤️ 156 個讚</span>
+                        <span>💬 23 則留言</span>
+                        <span>🔄 45 次分享</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 活動中心 -->
+            <div id="events" class="events-section">
+                <h2 class="section-title">🎉 社群活動</h2>
+                <div class="event-grid">
+                    <div class="event-card">
+                        <div class="event-header">
+                            <div class="event-date">3 月 15 日 (週五)</div>
+                            <div class="event-title">線上日語角</div>
+                        </div>
+                        <div class="event-body">
+                            <div class="event-info">
+                                <div class="event-info-item">⏰ 晚上 7:00-8:30</div>
+                                <div class="event-info-item">👥 50+ 參與者</div>
+                            </div>
+                            <div class="event-description">
+                                與來自世界各地的日語學習者進行實時對話練習。本次主題為「日本美食文化」，歡迎所有級別的學習者參加！
+                            </div>
+                            <button class="event-btn" onclick="alert('報名功能即將推出')">立即報名</button>
+                        </div>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-header">
+                            <div class="event-date">3 月 22 日 (週五)</div>
+                            <div class="event-title">日本文化工作坊</div>
+                        </div>
+                        <div class="event-body">
+                            <div class="event-info">
+                                <div class="event-info-item">⏰ 下午 2:00-4:00</div>
+                                <div class="event-info-item">📍 香港文化中心</div>
+                            </div>
+                            <div class="event-description">
+                                親身體驗日本傳統工藝——和紙製作與書法。由日本文化專家親自指導，名額有限，先報先得！
+                            </div>
+                            <button class="event-btn" onclick="alert('報名功能即將推出')">立即報名</button>
+                        </div>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-header">
+                            <div class="event-date">3 月 29 日 (週五)</div>
+                            <div class="event-title">每月挑戰賽</div>
+                        </div>
+                        <div class="event-body">
+                            <div class="event-info">
+                                <div class="event-info-item">⏰ 全月進行</div>
+                                <div class="event-info-item">🏆 豐厚獎品</div>
+                            </div>
+                            <div class="event-description">
+                                本月挑戰主題：「30 天掌握 500 個新單詞」。完成挑戰的學習者將獲得獨家勳章與獎品。
+                            </div>
+                            <button class="event-btn" onclick="alert('報名功能即將推出')">立即參加</button>
+                        </div>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-header">
+                            <div class="event-date">4 月 5 日 (週五)</div>
+                            <div class="event-title">日本旅遊分享會</div>
+                        </div>
+                        <div class="event-body">
+                            <div class="event-info">
+                                <div class="event-info-item">⏰ 晚上 6:00-7:30</div>
+                                <div class="event-info-item">👥 線上舉辦</div>
+                            </div>
+                            <div class="event-description">
+                                聽取資深旅遊者分享在日本的實地學習經驗。包括如何在旅遊中應用日語、必去景點推薦等。
+                            </div>
+                            <button class="event-btn" onclick="alert('報名功能即將推出')">立即報名</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 排行榜 -->
+            <div id="leaderboard" class="leaderboard-section">
+                <h2 class="section-title">🏆 全球排行榜</h2>
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>排名</th>
+                            <th>玩家</th>
+                            <th>等級</th>
+                            <th>學習時長</th>
+                            <th>掌握單詞</th>
+                            <th>連續天數</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="rank-badge gold">🥇</span></td>
+                            <td>
+                                <div class="player-info">
+                                    <div class="player-avatar">田</div>
+                                    <span class="player-name">田中美咲</span>
+                                </div>
+                            </td>
+                            <td>Lv. 35</td>
+                            <td>450+ 小時</td>
+                            <td><span class="score-cell">3,245</span></td>
+                            <td>365 天</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge silver">🥈</span></td>
+                            <td>
+                                <div class="player-info">
+                                    <div class="player-avatar">李</div>
+                                    <span class="player-name">李明</span>
+                                </div>
+                            </td>
+                            <td>Lv. 32</td>
+                            <td>380+ 小時</td>
+                            <td><span class="score-cell">2,890</span></td>
+                            <td>287 天</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge bronze">🥉</span></td>
+                            <td>
+                                <div class="player-info">
+                                    <div class="player-avatar">王</div>
+                                    <span class="player-name">王詩韻</span>
+                                </div>
+                            </td>
+                            <td>Lv. 28</td>
+                            <td>320+ 小時</td>
+                            <td><span class="score-cell">2,456</span></td>
+                            <td>245 天</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge">4</span></td>
+                            <td>
+                                <div class="player-info">
+                                    <div class="player-avatar">陳</div>
+                                    <span class="player-name">陳浩文</span>
+                                </div>
+                            </td>
+                            <td>Lv. 25</td>
+                            <td>280+ 小時</td>
+                            <td><span class="score-cell">2,123</span></td>
+                            <td>198 天</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge">5</span></td>
+                            <td>
+                                <div class="player-info">
+                                    <div class="player-avatar">林</div>
+                                    <span class="player-name">林美芬</span>
+                                </div>
+                            </td>
+                            <td>Lv. 22</td>
+                            <td>240+ 小時</td>
+                            <td><span class="score-cell">1,890</span></td>
+                            <td>156 天</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge">6</span></td>
+                            <td>
+                                <div class="player-info">
+                                    <div class="player-avatar">張</div>
+                                    <span class="player-name">張俊傑</span>
+                                </div>
+                            </td>
+                            <td>Lv. 19</td>
+                            <td>200+ 小時</td>
+                            <td><span class="score-cell">1,567</span></td>
+                            <td>123 天</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge">7</span></td>
+                            <td>
+                                <div class="player-info">
+                                    <div class="player-avatar">黃</div>
+                                    <span class="player-name">黃曉明</span>
+                                </div>
+                            </td>
+                            <td>Lv. 16</td>
+                            <td>160+ 小時</td>
+                            <td><span class="score-cell">1,234</span></td>
+                            <td>89 天</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge">8</span></td>
+                            <td>
+                                <div class="player-info">
+                                    <div class="player-avatar">吳</div>
+                                    <span class="player-name">吳思琪</span>
+                                </div>
+                            </td>
+                            <td>Lv. 13</td>
+                            <td>120+ 小時</td>
+                            <td><span class="score-cell">890</span></td>
+                            <td>56 天</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge">9</span></td>
+                            <td>
+                                <div class="player-info">
+                                    <div class="player-avatar">周</div>
+                                    <span class="player-name">周文傑</span>
+                                </div>
+                            </td>
+                            <td>Lv. 10</td>
+                            <td>80+ 小時</td>
+                            <td><span class="score-cell">567</span></td>
+                            <td>34 天</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank-badge">10</span></td>
+                            <td>
+                                <div class="player-info">
+                                    <div class="player-avatar">徐</div>
+                                    <span class="player-name">徐美玲</span>
+                                </div>
+                            </td>
+                            <td>Lv. 7</td>
+                            <td>40+ 小時</td>
+                            <td><span class="score-cell">234</span></td>
+                            <td>12 天</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer>
+        <p>&copy; 2026 伝える (Tsutaeru) — 香港首個 IoT 日語學習平台</p>
+        <p>
+            <a href="#">隱私政策</a> | 
+            <a href="#">服務條款</a> | 
+            <a href="#">聯絡我們</a>
+        </p>
+    </footer>
+
+    <script>
+        function switchTab(tabName) {
+            // 隱藏所有標籤頁
+            document.getElementById('forum').style.display = 'none';
+            document.getElementById('events').classList.remove('active');
+            document.getElementById('leaderboard').classList.remove('active');
+
+            // 移除所有按鈕的 active 類
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // 顯示選定的標籤頁
+            if (tabName === 'forum') {
+                document.getElementById('forum').style.display = 'block';
+                buttons[0].classList.add('active');
+            } else if (tabName === 'events') {
+                document.getElementById('events').classList.add('active');
+                buttons[1].classList.add('active');
+            } else if (tabName === 'leaderboard') {
+                document.getElementById('leaderboard').classList.add('active');
+                buttons[2].classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

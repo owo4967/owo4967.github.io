@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>學習資源 - 伝える (Tsutaeru)</title>
+    <style>
+        :root {
+            --primary-red: #c9171e;
+            --primary-beige: #f5f5dc;
+            --accent-blue: #0d3b66;
+            --accent-pink: #f8b4d4;
+            --accent-green: #7a9d6e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans CJK TC', 'Microsoft JhengHei', sans-serif;
+            background: var(--primary-beige);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ============ 導航列 ============ */
+        nav {
+            background: white;
+            padding: 10px 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary-red);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--accent-blue);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-red);
+        }
+
+        .nav-cta {
+            background: var(--primary-red);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(201, 23, 30, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ============ 頁面標題 ============ */
+        .page-header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--primary-beige) 0%, #fff 100%);
+            border-bottom: 5px solid var(--primary-red);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            color: var(--primary-red);
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        /* ============ 主要內容 ============ */
+        .resources-section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--accent-blue);
+            margin: 50px 0 30px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary-red);
+            border-radius: 2px;
+        }
+
+        /* ============ 資源卡片網格 ============ */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .resource-card {
+            background: white;
+            border: 3px solid var(--primary-red);
+            padding: 30px;
+            transition: all 0.3s;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(201, 23, 30, 0.2);
+        }
+
+        .resource-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .resource-card h3 {
+            color: var(--primary-red);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .resource-card p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .resource-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .resource-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .resource-list li::before {
+            content: "✿";
+            position: absolute;
+            left: 0;
+            color: var(--primary-red);
+            font-weight: 900;
+        }
+
+        .resource-btn {
+            background: var(--primary-red);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .resource-btn:hover {
+            background: var(--accent-blue);
+            transform: scale(1.02);
+        }
+
+        /* ============ 頁尾 ============ */
+        footer {
+            background: var(--accent-blue);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 導航列 -->
+<nav>
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663328630280/CJexFqIIRdXImBgh.png" alt="Tsutaeru Logo" style="height: 80px; width: auto;">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="LearningHub.html">學習中心</a></li>
+            <li><a href="InteractivePractice.html">互動練習</a></li>
+            <li><a href="IoT.html">IoT 體驗</a></li>
+            <li><a href="Resources.html">學習資源</a></li>
+            <li><a href="CulturalLearning.html">文化學習</a></li>
+            <li><a href="AboutUs.html">關於我們</a></li>
+            <li><a href="Community.html">社群</a></li>
+            <li><a href="Chart.html">數據分析</a></li>
+        </ul>
+        <a href="UserAccount.html" class="nav-cta">我的帳戶</a>
+    </div>
+</nav>
+<!-- /導航列 -->
+
+    <!-- 頁面標題 -->
+    <div class="page-header">
+        <h1>學習資源</h1>
+        <p>精選全球最優質的日語學習資源，助力您的學習之旅</p>
+    </div>
+
+    <!-- 主要內容 -->
+    <div class="container resources-section">
+        <h2 class="section-title">影片教程與頻道</h2>
+
+        <div class="resources-grid">
+            <div class="resource-card">
+                <div class="resource-card-icon">📺</div>
+                <h3>NHK World</h3>
+                <p>日本國家廣播電台提供的官方日語學習頻道，包含各級別的教程與新聞節目。</p>
+                <ul class="resource-list">
+                    <li>Easy Japanese 系列</li>
+                    <li>日語課程 (日本語講座)</li>
+                    <li>新聞慢速播放</li>
+                    <li>文化介紹節目</li>
+                </ul>
+                <button class="resource-btn"><a href="https://www3.nhk.or.jp/nhkworld/ja/">前往頻道</a></button>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-card-icon">🎬</div>
+                <h3>Tae Kim 日語教程</h3>
+                <p>深受全球學習者歡迎的日語教程，以清晰的解釋與實用例句著稱。</p>
+                <ul class="resource-list">
+                    <li>文法詳細講解</li>
+                    <li>發音與書寫指南</li>
+                    <li>常用短語集</li>
+                    <li>互動練習</li>
+                </ul>
+                <button class="resource-btn">前往頻道</button>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-card-icon">🎥</div>
+                <h3>Miku Real Japanese</h3>
+                <p>透過真實日常場景與自然對話，學習實用的日語表達與文化知識。</p>
+                <ul class="resource-list">
+                    <li>日常對話場景</li>
+                    <li>文化與禮儀</li>
+                    <li>發音技巧</li>
+                    <li>字幕與翻譯</li>
+                </ul>
+                <button class="resource-btn">前往頻道</button>
+            </div>
+        </div>
+
+        <h2 class="section-title">音頻資源與播客</h2>
+
+        <div class="resources-grid">
+            <div class="resource-card">
+                <div class="resource-card-icon">🎙️</div>
+                <h3>NHK Podcast</h3>
+                <p>NHK 官方播客，提供各級別的日語學習內容與日本文化介紹。</p>
+                <ul class="resource-list">
+                    <li>Easy Japanese Podcast</li>
+                    <li>日語課程音頻版</li>
+                    <li>新聞播客</li>
+                    <li>文化故事</li>
+                </ul>
+                <button class="resource-btn">訂閱播客</button>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-card-icon">🔊</div>
+                <h3>Slow Japanese</h3>
+                <p>以較慢速度播放的日語新聞與故事，適合初學者提升聽力能力。</p>
+                <ul class="resource-list">
+                    <li>新聞播報 (慢速)</li>
+                    <li>文化故事</li>
+                    <li>日本風俗介紹</li>
+                    <li>詞彙解釋</li>
+                </ul>
+                <button class="resource-btn">訂閱播客</button>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-card-icon">🎵</div>
+                <h3>Japanese Ammo with Misa</h3>
+                <p>透過音頻講座深入學習日語文法、詞彙與文化背景。</p>
+                <ul class="resource-list">
+                    <li>文法深度講解</li>
+                    <li>詞彙與短語</li>
+                    <li>發音訓練</li>
+                    <li>文化知識</li>
+                </ul>
+                <button class="resource-btn">訂閱播客</button>
+            </div>
+        </div>
+
+        <h2 class="section-title">遊戲化學習應用</h2>
+
+        <div class="resources-grid">
+            <div class="resource-card">
+                <div class="resource-card-icon">🎮</div>
+                <h3>Duolingo</h3>
+                <p>全球最受歡迎的語言學習應用，透過遊戲化方式使學習變得有趣。</p>
+                <ul class="resource-list">
+                    <li>每日挑戰任務</li>
+                    <li>進度追蹤</li>
+                    <li>社群競爭</li>
+                    <li>獎勵系統</li>
+                </ul>
+                <button class="resource-btn">下載應用</button>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-card-icon">🎯</div>
+                <h3>LingoDeer</h3>
+                <p>專為亞洲語言設計的學習應用，提供系統化的課程與互動練習。</p>
+                <ul class="resource-list">
+                    <li>結構化課程</li>
+                    <li>文法與詞彙</li>
+                    <li>聽力練習</li>
+                    <li>進度評估</li>
+                </ul>
+                <button class="resource-btn">下載應用</button>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-card-icon">📱</div>
+                <h3>Renshuu</h3>
+                <p>日語學習社群應用，提供詞彙、漢字、文法與聽力的綜合練習。</p>
+                <ul class="resource-list">
+                    <li>漢字與假名</li>
+                    <li>詞彙練習</li>
+                    <li>文法測驗</li>
+                    <li>社群互動</li>
+                </ul>
+                <button class="resource-btn">下載應用</button>
+            </div>
+        </div>
+
+        <h2 class="section-title">語言交換平台</h2>
+
+        <div class="resources-grid">
+            <div class="resource-card">
+                <div class="resource-card-icon">🌍</div>
+                <h3>HelloTalk</h3>
+                <p>全球語言交換社群，與母語使用者進行實時對話練習。</p>
+                <ul class="resource-list">
+                    <li>即時文字聊天</li>
+                    <li>語音通話</li>
+                    <li>視頻通話</li>
+                    <li>語言交換配對</li>
+                </ul>
+                <button class="resource-btn">下載應用</button>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-card-icon">💬</div>
+                <h3>Tandem</h3>
+                <p>語言學習社交應用，連接全球學習者進行語言交換。</p>
+                <ul class="resource-list">
+                    <li>配對系統</li>
+                    <li>文字與語音聊天</li>
+                    <li>視頻通話</li>
+                    <li>翻譯工具</li>
+                </ul>
+                <button class="resource-btn">下載應用</button>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-card-icon">👥</div>
+                <h3>Preply</h3>
+                <p>線上日語家教平台，與專業教師進行一對一課程。</p>
+                <ul class="resource-list">
+                    <li>專業教師</li>
+                    <li>客製化課程</li>
+                    <li>靈活時間安排</li>
+                    <li>進度追蹤</li>
+                </ul>
+                <button class="resource-btn">瀏覽教師</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 頁尾 -->
+    <footer>
+        <p>&copy; 2026 伝える (Tsutaeru) — 香港首個 IoT 日語學習平台</p>
+    </footer>
+</body>
+</html>
