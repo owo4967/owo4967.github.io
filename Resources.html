@@ -47,10 +47,14 @@
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--primary-red);
-            text-decoration: none;
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 100%;
+            object-fit: contain;
         }
 
         .nav-links {
@@ -153,6 +157,8 @@
             border: 3px solid var(--primary-red);
             padding: 30px;
             transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
         }
 
         .resource-card:hover {
@@ -175,6 +181,7 @@
             color: #666;
             font-size: 0.95rem;
             margin-bottom: 15px;
+            flex-grow: 1;
         }
 
         .resource-list {
@@ -201,13 +208,16 @@
         .resource-btn {
             background: var(--primary-red);
             color: white;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border: none;
             border-radius: 5px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             width: 100%;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .resource-btn:hover {
@@ -284,7 +294,7 @@
                     <li>新聞慢速播放</li>
                     <li>文化介紹節目</li>
                 </ul>
-                <button class="resource-btn"><a href="https://www3.nhk.or.jp/nhkworld/ja/">前往頻道</a></button>
+                <a href="https://www.nhk.or.jp/lesson/zh/" target="_blank" class="resource-btn">前往頻道</a>
             </div>
 
             <div class="resource-card">
@@ -297,7 +307,7 @@
                     <li>常用短語集</li>
                     <li>互動練習</li>
                 </ul>
-                <button class="resource-btn">前往頻道</button>
+                <a href="https://guidetojapanese.org/learn/" target="_blank" class="resource-btn">前往頻道</a>
             </div>
 
             <div class="resource-card">
@@ -310,7 +320,7 @@
                     <li>發音技巧</li>
                     <li>字幕與翻譯</li>
                 </ul>
-                <button class="resource-btn">前往頻道</button>
+                <a href="https://www.youtube.com/c/MikuRealJapanese" target="_blank" class="resource-btn">前往頻道</a>
             </div>
         </div>
 
@@ -327,7 +337,7 @@
                     <li>新聞播客</li>
                     <li>文化故事</li>
                 </ul>
-                <button class="resource-btn">訂閱播客</button>
+                <a href="https://www.nhk.or.jp/lesson/zh/podcast/" target="_blank" class="resource-btn">訂閱播客</a>
             </div>
 
             <div class="resource-card">
@@ -340,7 +350,7 @@
                     <li>日本風俗介紹</li>
                     <li>詞彙解釋</li>
                 </ul>
-                <button class="resource-btn">訂閱播客</button>
+                <a href="https://miku-real-japanese.mykajabi.com/podcasts/slow-japanese-podcast" target="_blank" class="resource-btn">訂閱播客</a>
             </div>
 
             <div class="resource-card">
@@ -351,101 +361,101 @@
                     <li>文法深度講解</li>
                     <li>詞彙與短語</li>
                     <li>發音訓練</li>
-                    <li>文化知識</li>
+                    <li>俚語與口語</li>
                 </ul>
-                <button class="resource-btn">訂閱播客</button>
+                <a href="https://www.japaneseammo.com/" target="_blank" class="resource-btn">訂閱播客</a>
             </div>
         </div>
 
-        <h2 class="section-title">遊戲化學習應用</h2>
+        <h2 class="section-title">學習 App 與工具</h2>
 
         <div class="resources-grid">
-            <div class="resource-card">
-                <div class="resource-card-icon">🎮</div>
-                <h3>Duolingo</h3>
-                <p>全球最受歡迎的語言學習應用，透過遊戲化方式使學習變得有趣。</p>
-                <ul class="resource-list">
-                    <li>每日挑戰任務</li>
-                    <li>進度追蹤</li>
-                    <li>社群競爭</li>
-                    <li>獎勵系統</li>
-                </ul>
-                <button class="resource-btn">下載應用</button>
-            </div>
-
-            <div class="resource-card">
-                <div class="resource-card-icon">🎯</div>
-                <h3>LingoDeer</h3>
-                <p>專為亞洲語言設計的學習應用，提供系統化的課程與互動練習。</p>
-                <ul class="resource-list">
-                    <li>結構化課程</li>
-                    <li>文法與詞彙</li>
-                    <li>聽力練習</li>
-                    <li>進度評估</li>
-                </ul>
-                <button class="resource-btn">下載應用</button>
-            </div>
-
             <div class="resource-card">
                 <div class="resource-card-icon">📱</div>
-                <h3>Renshuu</h3>
-                <p>日語學習社群應用，提供詞彙、漢字、文法與聽力的綜合練習。</p>
+                <h3>Duolingo</h3>
+                <p>全球知名的遊戲化語言學習 App，透過趣味練習輕鬆掌握基礎日語。</p>
                 <ul class="resource-list">
-                    <li>漢字與假名</li>
-                    <li>詞彙練習</li>
-                    <li>文法測驗</li>
-                    <li>社群互動</li>
+                    <li>碎片化學習</li>
+                    <li>遊戲化激勵機制</li>
+                    <li>聽說讀寫全面訓練</li>
+                    <li>完全免費</li>
                 </ul>
-                <button class="resource-btn">下載應用</button>
+                <a href="https://www.duolingo.com/course/ja/en/Learn-Japanese" target="_blank" class="resource-btn">立即下載</a>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-card-icon">🦌</div>
+                <h3>LingoDeer</h3>
+                <p>專為亞洲語言設計的學習工具，文法講解詳細且系統化。</p>
+                <ul class="resource-list">
+                    <li>系統化文法課程</li>
+                    <li>高清母語配音</li>
+                    <li>複習與測試功能</li>
+                    <li>離線學習模式</li>
+                </ul>
+                <a href="https://www.lingodeer.com/" target="_blank" class="resource-btn">立即下載</a>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-card-icon">🧠</div>
+                <h3>Renshuu</h3>
+                <p>功能強大的日語學習 App，提供豐富的單詞、文法和漢字練習。</p>
+                <ul class="resource-list">
+                    <li>自定義學習計劃</li>
+                    <li>趣味學習遊戲</li>
+                    <li>龐大的題庫資源</li>
+                    <li>社區交流功能</li>
+                </ul>
+                <a href="https://www.renshuu.org/" target="_blank" class="resource-btn">立即下載</a>
             </div>
         </div>
 
-        <h2 class="section-title">語言交換平台</h2>
+        <h2 class="section-title">語言交換與實踐</h2>
 
         <div class="resources-grid">
             <div class="resource-card">
-                <div class="resource-card-icon">🌍</div>
-                <h3>HelloTalk</h3>
-                <p>全球語言交換社群，與母語使用者進行實時對話練習。</p>
-                <ul class="resource-list">
-                    <li>即時文字聊天</li>
-                    <li>語音通話</li>
-                    <li>視頻通話</li>
-                    <li>語言交換配對</li>
-                </ul>
-                <button class="resource-btn">下載應用</button>
-            </div>
-
-            <div class="resource-card">
                 <div class="resource-card-icon">💬</div>
-                <h3>Tandem</h3>
-                <p>語言學習社交應用，連接全球學習者進行語言交換。</p>
+                <h3>HelloTalk</h3>
+                <p>全球最大的語言交換社區，與日本母語者直接交流實踐。</p>
                 <ul class="resource-list">
-                    <li>配對系統</li>
-                    <li>文字與語音聊天</li>
-                    <li>視頻通話</li>
-                    <li>翻譯工具</li>
+                    <li>即時聊天與翻譯</li>
+                    <li>語音通話與動態分享</li>
+                    <li>互助改錯功能</li>
+                    <li>找尋語言夥伴</li>
                 </ul>
-                <button class="resource-btn">下載應用</button>
+                <a href="https://www.hellotalk.com/" target="_blank" class="resource-btn">開始交流</a>
             </div>
 
             <div class="resource-card">
-                <div class="resource-card-icon">👥</div>
-                <h3>Preply</h3>
-                <p>線上日語家教平台，與專業教師進行一對一課程。</p>
+                <div class="resource-card-icon">🤝</div>
+                <h3>Tandem</h3>
+                <p>專業的語言交換平台，為您匹配志同道合的日語學習夥伴。</p>
                 <ul class="resource-list">
-                    <li>專業教師</li>
-                    <li>客製化課程</li>
-                    <li>靈活時間安排</li>
-                    <li>進度追蹤</li>
+                    <li>精準夥伴匹配</li>
+                    <li>安全可靠的社區</li>
+                    <li>多樣化的交流形式</li>
+                    <li>專業老師指導</li>
                 </ul>
-                <button class="resource-btn">瀏覽教師</button>
+                <a href="https://www.tandem.net/" target="_blank" class="resource-btn">開始交流</a>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-card-icon">👩‍🏫</div>
+                <h3>Preply</h3>
+                <p>找尋專業的日語私人教師，進行一對一的高效互動教學。</p>
+                <ul class="resource-list">
+                    <li>海量母語教師</li>
+                    <li>靈活的授課時間</li>
+                    <li>個性化教學方案</li>
+                    <li>試聽課體驗</li>
+                </ul>
+                <a href="https://preply.com/en/online/japanese-tutors" target="_blank" class="resource-btn">預約老師</a>
             </div>
         </div>
     </div>
 
     <!-- 頁尾 -->
-   <footer>
+     <footer>
         <p>&copy; 2026 伝える (Tsutaeru) — 香港首個 IoT 日語學習平台</p>
         <p>
             <a href="#">隱私政策</a> | 
