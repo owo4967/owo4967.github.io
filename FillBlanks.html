@@ -358,201 +358,166 @@
             <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663328630280/CJexFqIIRdXImBgh.png" alt="Tsutaeru Logo" style="height: 80px; width: auto;">
         </a>
         <ul class="nav-links">
-            <li><a href="./index.html">首頁</a></li>
-            <li><a href="./LearningHub.html">學習中心</a></li>
-            <li><a href="./InteractivePractice.html">互動練習</a></li>
-            <li><a href="./IoT.html">IoT 體驗</a></li>
-            <li><a href="./Resources.html">學習資源</a></li>
-            <li><a href="./CulturalLearning.html">文化學習</a></li>
-            <li><a href="./AboutUs.html">關於我們</a></li>
-            <li><a href="./Community.html">社群</a></li>
-            <li><a href="./10-data-analytics.html">數據分析</a></li>
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="LearningHub.html">學習中心</a></li>
+            <li><a href="InteractivePractice.html">互動練習</a></li>
+            <li><a href="IoT.html">IoT 體驗</a></li>
+            <li><a href="Resources.html">學習資源</a></li>
+            <li><a href="CulturalLearning.html">文化學習</a></li>
+            <li><a href="AboutUs.html">關於我們</a></li>
+            <li><a href="Community.html">社群</a></li>
+            <li><a href="Chart.html">數據分析</a></li>
         </ul>
-        <a href="./UserAccount.html" class="nav-cta">我的帳戶</a>
+        <a href="UserAccount.html" class="nav-cta">我的帳戶</a>
     </div>
 </nav>
 
 <!-- /導航列 -->
-
+    
     <!-- 頁面標題 -->
     <div class="page-header">
         <div class="breadcrumb">
             <a href="InteractivePractice.html">互動練習</a> > 句子填空
         </div>
-        <h1>🎯 句子填空</h1>
+        <h1>✏️ 句子填空</h1>
     </div>
 
     <!-- 主要內容 -->
     <div class="container">
         <div class="content">
-            <!-- 練習 -->
+            <!-- 練習區域 -->
             <div class="fill-section">
-                <h2>初級句子填空練習</h2>
+                <h2>語法與句型練習</h2>
+                <p>請從下方的選項中選擇最合適的詞彙填入空格中。</p>
                 
-                <!-- 第 1 頁 (題目 1-5) -->
-                <div class="page-section active" id="page1">
-                    <div class="page-indicator">第 1 頁 / 2 頁 (練習 1-5)</div>
-                    
-                    <!-- 練習 1 -->
-                    <div class="exercise-card">
-                        <h3>練習 1: 填入正確的單詞</h3>
-                        <div class="sentence">
-                            私は毎日 <span class="blank" data-correct="水" id="blank1">_____</span> を飲みます。
-                        </div>
-                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的單詞：</p>
-                        <div class="options-list" id="options1">
-                            <div class="word-option" onclick="selectWord(this, '水', 'blank1')">水 (水)</div>
-                            <div class="word-option" onclick="selectWord(this, '本', 'blank1')">本 (書)</div>
-                            <div class="word-option" onclick="selectWord(this, '猫', 'blank1')">猫 (貓)</div>
-                        </div>
-                    </div>
-                    
-                    <!-- 練習 2 -->
-                    <div class="exercise-card">
-                        <h3>練習 2: 填入正確的助詞</h3>
-                        <div class="sentence">
-                            学校 <span class="blank" data-correct="に" id="blank2">_____</span> 行きます。
-                        </div>
-                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的助詞：</p>
-                        <div class="options-list" id="options2">
-                            <div class="word-option" onclick="selectWord(this, 'に', 'blank2')">に</div>
-                            <div class="word-option" onclick="selectWord(this, 'を', 'blank2')">を</div>
-                            <div class="word-option" onclick="selectWord(this, 'で', 'blank2')">で</div>
-                        </div>
-                    </div>
-                    
-                    <!-- 練習 3 -->
-                    <div class="exercise-card">
-                        <h3>練習 3: 填入正確的動詞</h3>
-                        <div class="sentence">
-                            今、私は本を <span class="blank" data-correct="読" id="blank3">_____</span> ています。
-                        </div>
-                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的動詞：</p>
-                        <div class="options-list" id="options3">
-                            <div class="word-option" onclick="selectWord(this, '読', 'blank3')">読 (讀)</div>
-                            <div class="word-option" onclick="selectWord(this, '書', 'blank3')">書 (寫)</div>
-                            <div class="word-option" onclick="selectWord(this, '聽', 'blank3')">聽 (聽)</div>
-                        </div>
-                    </div>
-                    
-                    <!-- 練習 4 -->
-                    <div class="exercise-card">
-                        <h3>練習 4: 填入正確的名詞</h3>
-                        <div class="sentence">
-                            私の <span class="blank" data-correct="先生" id="blank4">_____</span> は日本語を教えます。
-                        </div>
-                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的名詞：</p>
-                        <div class="options-list" id="options4">
-                            <div class="word-option" onclick="selectWord(this, '先生', 'blank4')">先生 (老師)</div>
-                            <div class="word-option" onclick="selectWord(this, '猫', 'blank4')">猫 (貓)</div>
-                            <div class="word-option" onclick="selectWord(this, '傘', 'blank4')">傘 (傘)</div>
-                        </div>
-                    </div>
-                    
-                    <!-- 練習 5 -->
-                    <div class="exercise-card">
-                        <h3>練習 5: 填入正確的形容詞</h3>
-                        <div class="sentence">
-                            このケーキは <span class="blank" data-correct="美味しい" id="blank5">_____</span> です。
-                        </div>
-                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的形容詞：</p>
-                        <div class="options-list" id="options5">
-                            <div class="word-option" onclick="selectWord(this, '美味しい', 'blank5')">美味しい (好吃)</div>
-                            <div class="word-option" onclick="selectWord(this, '新しい', 'blank5')">新しい (新)</div>
-                            <div class="word-option" onclick="selectWord(this, '大きい', 'blank5')">大きい (大)</div>
-                        </div>
-                    </div>
-                </div>
+                <div class="page-indicator" id="pageIndicator">第 1 頁 / 共 2 頁</div>
                 
-                <!-- 第 2 頁 (題目 6-10) -->
-                <div class="page-section" id="page2">
-                    <div class="page-indicator">第 2 頁 / 2 頁 (練習 6-10)</div>
-                    
-                    <!-- 練習 6 -->
-                    <div class="exercise-card">
-                        <h3>練習 6: 填入正確的助詞</h3>
-                        <div class="sentence">
-                            私は毎日、電車 <span class="blank" data-correct="で" id="blank6">_____</span> 会社に行きます。
+                <form id="fillForm">
+                    <!-- 第一頁題目 -->
+                    <div id="page1" class="page-section active">
+                        <div class="exercise-card">
+                            <h3>1. 助詞練習</h3>
+                            <div class="sentence">私 <span class="blank" id="blank0">____</span> 学生です。</div>
+                            <div class="options-list">
+                                <div class="word-option" onclick="fillBlank(0, 'は', this)">は</div>
+                                <div class="word-option" onclick="fillBlank(0, 'が', this)">が</div>
+                                <div class="word-option" onclick="fillBlank(0, 'を', this)">を</div>
+                            </div>
                         </div>
-                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的助詞：</p>
-                        <div class="options-list" id="options6">
-                            <div class="word-option" onclick="selectWord(this, 'で', 'blank6')">で</div>
-                            <div class="word-option" onclick="selectWord(this, 'に', 'blank6')">に</div>
-                            <div class="word-option" onclick="selectWord(this, 'を', 'blank6')">を</div>
+
+                        <div class="exercise-card">
+                            <h3>2. 動作對象</h3>
+                            <div class="sentence">りんご <span class="blank" id="blank1">____</span> 食べます。</div>
+                            <div class="options-list">
+                                <div class="word-option" onclick="fillBlank(1, 'に', this)">に</div>
+                                <div class="word-option" onclick="fillBlank(1, 'を', this)">を</div>
+                                <div class="word-option" onclick="fillBlank(1, 'も', this)">も</div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-card">
+                            <h3>3. 時間助詞</h3>
+                            <div class="sentence">七時 <span class="blank" id="blank2">____</span> 起きます。</div>
+                            <div class="options-list">
+                                <div class="word-option" onclick="fillBlank(2, 'で', this)">で</div>
+                                <div class="word-option" onclick="fillBlank(2, 'に', this)">に</div>
+                                <div class="word-option" onclick="fillBlank(2, 'へ', this)">へ</div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-card">
+                            <h3>4. 職業填空</h3>
+                            <div class="sentence">私の <span class="blank" id="blank3">____</span> は日本語を教えます。</div>
+                            <div class="options-list">
+                                <div class="word-option" onclick="fillBlank(3, '先生', this)">先生</div>
+                                <div class="word-option" onclick="fillBlank(3, '猫', this)">貓</div>
+                                <div class="word-option" onclick="fillBlank(3, '傘', this)">傘</div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-card">
+                            <h3>5. 方向助詞</h3>
+                            <div class="sentence">日本 <span class="blank" id="blank4">____</span> 行きます。</div>
+                            <div class="options-list">
+                                <div class="word-option" onclick="fillBlank(4, 'へ', this)">へ</div>
+                                <div class="word-option" onclick="fillBlank(4, 'が', this)">が</div>
+                                <div class="word-option" onclick="fillBlank(4, 'を', this)">を</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 第二頁題目 -->
+                    <div id="page2" class="page-section">
+                        <div class="exercise-card">
+                            <h3>6. 所有格助詞</h3>
+                            <div class="sentence">これ、私 <span class="blank" id="blank5">____</span> 本です。</div>
+                            <div class="options-list">
+                                <div class="word-option" onclick="fillBlank(5, 'の', this)">の</div>
+                                <div class="word-option" onclick="fillBlank(5, 'と', this)">と</div>
+                                <div class="word-option" onclick="fillBlank(5, 'で', this)">で</div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-card">
+                            <h3>7. 動詞過去式</h3>
+                            <div class="sentence">昨日、公園で友達と <span class="blank" id="blank6">____</span>。</div>
+                            <div class="options-list">
+                                <div class="word-option" onclick="fillBlank(6, '遊ぶ', this)">遊ぶ</div>
+                                <div class="word-option" onclick="fillBlank(6, '遊んだ', this)">遊んだ</div>
+                                <div class="word-option" onclick="fillBlank(6, '遊びます', this)">遊びます</div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-card">
+                            <h3>8. 形容動詞</h3>
+                            <div class="sentence">この花はとても <span class="blank" id="blank7">____</span> です。</div>
+                            <div class="options-list">
+                                <div class="word-option" onclick="fillBlank(7, 'きれい', this)">きれい</div>
+                                <div class="word-option" onclick="fillBlank(7, 'おいしい', this)">おいしい</div>
+                                <div class="word-option" onclick="fillBlank(7, 'しずか', this)">しずか</div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-card">
+                            <h3>9. 形容詞填空</h3>
+                            <div class="sentence">日本の夏はとても <span class="blank" id="blank8">____</span> です。</div>
+                            <div class="options-list">
+                                <div class="word-option" onclick="fillBlank(8, '暑い', this)">暑い</div>
+                                <div class="word-option" onclick="fillBlank(8, '寒い', this)">寒い</div>
+                                <div class="word-option" onclick="fillBlank(8, '甘い', this)">甘い</div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-card">
+                            <h3>10. 請求語句</h3>
+                            <div class="sentence">これを <span class="blank" id="blank9">____</span>。</div>
+                            <div class="options-list">
+                                <div class="word-option" onclick="fillBlank(9, 'ください', this)">ください</div>
+                                <div class="word-option" onclick="fillBlank(9, 'あります', this)">あります</div>
+                                <div class="word-option" onclick="fillBlank(9, 'します', this)">します</div>
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- 練習 7 -->
-                    <div class="exercise-card">
-                        <h3>練習 7: 填入正確的動詞</h3>
-                        <div class="sentence">
-                            昨日、公園で友達と <span class="blank" data-correct="遊んだ" id="blank7">_____</span>。
-                        </div>
-                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的動詞：</p>
-                        <div class="options-list" id="options7">
-                            <div class="word-option" onclick="selectWord(this, '遊んだ', 'blank7')">遊んだ (玩)</div>
-                            <div class="word-option" onclick="selectWord(this, '食べた', 'blank7')">食べた (吃)</div>
-                            <div class="word-option" onclick="selectWord(this, '読んだ', 'blank7')">読んだ (讀)</div>
-                        </div>
+                    <div class="button-group">
+                        <button type="button" id="prevBtn" class="btn btn-secondary" onclick="changePage(-1)" style="display: none;">上一頁</button>
+                        <button type="button" id="nextBtn" class="btn btn-nav" onclick="changePage(1)">下一頁</button>
+                        <button type="button" id="submitBtn" class="btn" onclick="checkAnswers()" style="display: none;">檢查答案</button>
                     </div>
-                    
-                    <!-- 練習 8 -->
-                    <div class="exercise-card">
-                        <h3>練習 8: 填入正確的名詞</h3>
-                        <div class="sentence">
-                            私の <span class="blank" data-correct="趣味" id="blank8">_____</span> は映画を見ることです。
-                        </div>
-                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的名詞：</p>
-                        <div class="options-list" id="options8">
-                            <div class="word-option" onclick="selectWord(this, '趣味', 'blank8')">趣味 (愛好)</div>
-                            <div class="word-option" onclick="selectWord(this, '仕事', 'blank8')">仕事 (工作)</div>
-                            <div class="word-option" onclick="selectWord(this, '計画', 'blank8')">計画 (計劃)</div>
-                        </div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary" onclick="goBack()">返回</button>
+                        <button type="button" class="btn" onclick="resetCards()">重新開始</button>
                     </div>
-                    
-                    <!-- 練習 9 -->
-                    <div class="exercise-card">
-                        <h3>練習 9: 填入正確的形容詞</h3>
-                        <div class="sentence">
-                            日本の夏はとても <span class="blank" data-correct="暑い" id="blank9">_____</span> です。
-                        </div>
-                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的形容詞：</p>
-                        <div class="options-list" id="options9">
-                            <div class="word-option" onclick="selectWord(this, '暑い', 'blank9')">暑い (熱)</div>
-                            <div class="word-option" onclick="selectWord(this, '寒い', 'blank9')">寒い (冷)</div>
-                            <div class="word-option" onclick="selectWord(this, '甘い', 'blank9')">甘い (甜)</div>
-                        </div>
-                    </div>
-                    
-                    <!-- 練習 10 -->
-                    <div class="exercise-card">
-                        <h3>練習 10: 填入正確的助詞</h3>
-                        <div class="sentence">
-                            私は日本語 <span class="blank" data-correct="が" id="blank10">_____</span> 好きです。
-                        </div>
-                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的助詞：</p>
-                        <div class="options-list" id="options10">
-                            <div class="word-option" onclick="selectWord(this, 'が', 'blank10')">が</div>
-                            <div class="word-option" onclick="selectWord(this, 'を', 'blank10')">を</div>
-                            <div class="word-option" onclick="selectWord(this, 'に', 'blank10')">に</div>
-                        </div>
-                    </div>
-                </div>
+                </form>
                 
-                <!-- 按鈕 -->
-                <div class="button-group">
-                    <button class="btn btn-nav" onclick="previousPage()" id="prevBtn" style="display: none;">← 上一頁</button>
-                    <button class="btn btn-nav" onclick="nextPage()" id="nextBtn">下一頁 →</button>
-                    <button class="btn" onclick="checkAnswers()" id="checkBtn" style="display: none;">✓ 檢查答案</button>
-                    <button class="btn btn-secondary" onclick="resetExercise()" id="resetBtn" style="display: none;">🔄 重新做題</button>
-                    <button class="btn btn-secondary" onclick="goBack()">返回</button>
-                </div>
-                
-                <!-- 反饋區域 -->
-                <div class="feedback-section" id="feedbackSection">
-                    <h3 style="color: var(--primary-red); margin-bottom: 15px;">📋 檢查結果</h3>
-                    <div class="score-display" id="scoreDisplay"></div>
-                    <div id="feedbackContent"></div>
+                <!-- 反饋 -->
+                <div id="feedback" class="feedback-section">
+                    <h3 style="color: var(--accent-blue); margin-bottom: 15px;">練習報告</h3>
+                    <div id="scoreDisplay" class="score-display">0 / 10</div>
+                    <div id="feedbackList">
+                        <!-- 反饋項目由 JS 生成 -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -561,181 +526,93 @@
     <!-- 頁尾 -->
     <footer>
         <p>&copy; 2026 伝える (Tsutaeru) — 香港首個 IoT 日語學習平台</p>
+        <p>本網站及logo由Manus Ai 生成</p>
     </footer>
 
     <script>
-        const correctAnswers = {
-            'blank1': '水',
-            'blank2': 'に',
-            'blank3': '読',
-            'blank4': '先生',
-            'blank5': '美味しい',
-            'blank6': 'で',
-            'blank7': '遊んだ',
-            'blank8': '趣味',
-            'blank9': '暑い',
-            'blank10': 'が'
-        };
-        
-        const userAnswers = {
-            'blank1': null,
-            'blank2': null,
-            'blank3': null,
-            'blank4': null,
-            'blank5': null,
-            'blank6': null,
-            'blank7': null,
-            'blank8': null,
-            'blank9': null,
-            'blank10': null
-        };
-        
-        let exerciseSubmitted = false;
+        const answers = ['は', 'を', 'に', '先生', 'へ', 'の', '遊んだ', 'きれい', '暑い', 'ください'];
+        let userAnswers = new Array(10).fill(null);
         let currentPage = 1;
-        
-        // 記錄用戶選擇
-        function selectWord(element, word, blankId) {
-            if (exerciseSubmitted) return; // 提交後禁止選擇
+        const totalPages = 2;
+
+        function fillBlank(index, word, el) {
+            const blank = document.getElementById(`blank${index}`);
+            blank.textContent = word;
+            blank.classList.add('filled');
+            userAnswers[index] = word;
             
-            // 記錄答案
-            userAnswers[blankId] = word;
-            
-            // 更新空白處的顯示
-            const blankElement = document.getElementById(blankId);
-            blankElement.textContent = word;
-            blankElement.classList.add('filled');
-            
-            // 標記選項為已使用
-            const optionsList = document.getElementById('options' + blankId.replace('blank', ''));
-            optionsList.querySelectorAll('.word-option').forEach(opt => {
-                if (opt.textContent.includes(word)) {
-                    opt.classList.add('used');
-                } else {
-                    opt.classList.remove('used');
-                }
-            });
+            // 處理選項高亮
+            const options = el.parentElement.querySelectorAll('.word-option');
+            options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            el.classList.add('correct');
         }
-        
-        // 分頁功能
-        function nextPage() {
-            if (currentPage === 1) {
-                document.getElementById('page1').classList.remove('active');
-                document.getElementById('page2').classList.add('active');
-                currentPage = 2;
-                document.getElementById('prevBtn').style.display = 'inline-block';
-                document.getElementById('nextBtn').style.display = 'none';
-                document.getElementById('checkBtn').style.display = 'inline-block';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        function changePage(delta) {
+            const newPage = currentPage + delta;
+            if (newPage >= 1 && newPage <= totalPages) {
+                document.getElementById(`page${currentPage}`).classList.remove('active');
+                currentPage = newPage;
+                document.getElementById(`page${currentPage}`).classList.add('active');
+                
+                document.getElementById('pageIndicator').textContent = `第 ${currentPage} 頁 / 共 ${totalPages} 頁`;
+                
+                document.getElementById('prevBtn').style.display = currentPage === 1 ? 'none' : 'inline-block';
+                document.getElementById('nextBtn').style.display = currentPage === totalPages ? 'none' : 'inline-block';
+                document.getElementById('submitBtn').style.display = currentPage === totalPages ? 'inline-block' : 'none';
             }
         }
-        
-        function previousPage() {
-            if (currentPage === 2) {
-                document.getElementById('page2').classList.remove('active');
-                document.getElementById('page1').classList.add('active');
-                currentPage = 1;
-                document.getElementById('prevBtn').style.display = 'none';
-                document.getElementById('nextBtn').style.display = 'inline-block';
-                document.getElementById('checkBtn').style.display = 'none';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
-        
-        // 檢查答案
+
         function checkAnswers() {
-            exerciseSubmitted = true;
+            let score = 0;
+            const feedbackList = document.getElementById('feedbackList');
+            feedbackList.innerHTML = '';
             
-            // 計算正確數量
-            let correctCount = 0;
-            const feedbackContent = document.getElementById('feedbackContent');
-            feedbackContent.innerHTML = '';
-            
-            let itemIndex = 1;
-            Object.keys(correctAnswers).forEach((blankId) => {
-                const isCorrect = userAnswers[blankId] === correctAnswers[blankId];
-                if (isCorrect) correctCount++;
+            userAnswers.forEach((answer, index) => {
+                const isCorrect = answer === answers[index];
+                if (isCorrect) score++;
                 
-                const blankElement = document.getElementById(blankId);
-                
-                // 更新空白處的樣式
-                if (isCorrect) {
-                    blankElement.classList.remove('error');
-                    blankElement.classList.add('filled');
-                } else {
-                    blankElement.classList.add('error');
-                    blankElement.classList.remove('filled');
-                }
-                
-                // 創建反饋項
-                const feedbackItem = document.createElement('div');
-                feedbackItem.className = `feedback-item ${isCorrect ? 'correct' : 'incorrect'}`;
-                feedbackItem.innerHTML = `
-                    <div class="label">練習 ${itemIndex}: ${isCorrect ? '✅ 正確' : '❌ 錯誤'}</div>
-                    <div class="result">
-                        <strong>您的答案:</strong> ${userAnswers[blankId] || '未填寫'}<br>
-                        <strong>正確答案:</strong> ${correctAnswers[blankId]}
-                    </div>
+                const item = document.createElement('div');
+                item.className = `feedback-item ${isCorrect ? 'correct' : 'incorrect'}`;
+                item.innerHTML = `
+                    <div class="label">第 ${index + 1} 題：${isCorrect ? '正確 ✅' : '錯誤 ❌'}</div>
+                    <div class="result">正確答案：${answers[index]}，您的選擇：${answer || '未填寫'}</div>
                 `;
-                feedbackContent.appendChild(feedbackItem);
-                itemIndex++;
+                feedbackList.appendChild(item);
+                
+                // 更新空格顏色
+                const blank = document.getElementById(`blank${index}`);
+                if (isCorrect) {
+                    blank.className = 'blank filled';
+                } else {
+                    blank.className = 'blank error';
+                }
             });
             
-            // 顯示得分
-            const score = Math.round((correctCount / Object.keys(correctAnswers).length) * 100);
-            document.getElementById('scoreDisplay').textContent = `⭐ ${score}% (${correctCount}/${Object.keys(correctAnswers).length})`;
-            
-            // 顯示反饋區域
-            document.getElementById('feedbackSection').classList.add('show');
-            document.getElementById('checkBtn').style.display = 'none';
-            document.getElementById('resetBtn').style.display = 'inline-block';
-            document.getElementById('prevBtn').style.display = 'none';
-            document.getElementById('nextBtn').style.display = 'none';
-            
-            // 禁止所有選項
-            document.querySelectorAll('.word-option').forEach(opt => {
-                opt.style.pointerEvents = 'none';
-            });
-            
-            // 顯示兩頁的反饋
-            document.getElementById('page1').classList.add('active');
-            document.getElementById('page2').classList.add('active');
+            document.getElementById('scoreDisplay').textContent = `${score} / 10`;
+            document.getElementById('feedback').classList.add('show');
+            window.scrollTo({ top: document.getElementById('feedback').offsetTop - 100, behavior: 'smooth' });
         }
-        
-        // 重新做題
-        function resetExercise() {
-            // 重置所有空白處
-            Object.keys(correctAnswers).forEach(blankId => {
-                const blankElement = document.getElementById(blankId);
-                blankElement.textContent = '_____';
-                blankElement.classList.remove('filled', 'error');
-                userAnswers[blankId] = null;
-            });
-            
-            // 重置所有選項
-            document.querySelectorAll('.word-option').forEach(opt => {
-                opt.classList.remove('used');
-                opt.style.pointerEvents = 'auto';
-            });
-            
-            // 隱藏反饋區域
-            document.getElementById('feedbackSection').classList.remove('show');
-            document.getElementById('checkBtn').style.display = 'none';
-            document.getElementById('resetBtn').style.display = 'none';
-            document.getElementById('prevBtn').style.display = 'none';
-            document.getElementById('nextBtn').style.display = 'inline-block';
-            
-            exerciseSubmitted = false;
+
+        function resetCards() {
+            userAnswers.fill(null);
             currentPage = 1;
             
-            // 重置頁面
-            document.getElementById('page1').classList.add('active');
-            document.getElementById('page2').classList.remove('active');
+            const blanks = document.querySelectorAll('.blank');
+            blanks.forEach(b => {
+                b.textContent = '____';
+                b.className = 'blank';
+            });
             
+            const options = document.querySelectorAll('.word-option');
+            options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            
+            document.getElementById('feedback').classList.remove('show');
+            changePage(0);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        
+
         function goBack() {
-            window.location.href = './InteractivePractice.html';
+            window.location.href = 'InteractivePractice.html';
         }
     </script>
 </body>
