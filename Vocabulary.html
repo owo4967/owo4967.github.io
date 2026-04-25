@@ -275,27 +275,16 @@
         }
         
         /* ============ 頁尾 ============ */
-         footer {
+        footer {
             background: var(--accent-blue);
             color: white;
-            padding: 40px 20px;
             text-align: center;
-            margin-top: 80px;
+            padding: 30px 20px;
+            margin-top: 60px;
         }
-
+        
         footer p {
-            margin-bottom: 10px;
             font-size: 0.9rem;
-        }
-
-        footer a {
-            color: var(--accent-pink);
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
@@ -303,21 +292,21 @@
     <!-- 導航列 -->
 <nav>
     <div class="nav-container">
-        <a href="index.html" class="logo">
-            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663328630280/CJexFqIIRdXImBgh.png" alt="Tsutaeru Logo" style="height: 80px; width: auto;">
+        <a href="./index.html" class="logo">
+            <img src="/home/ubuntu/upload/tsutaeru_social_media.png" alt="Tsutaeru Logo" style="height: 80px; width: auto;">
         </a>
         <ul class="nav-links">
-            <li><a href="index.html">首頁</a></li>
-            <li><a href="LearningHub.html">學習中心</a></li>
-            <li><a href="InteractivePractice.html">互動練習</a></li>
-            <li><a href="IoT.html">IoT 體驗</a></li>
-            <li><a href="Resources.html">學習資源</a></li>
-            <li><a href="CulturalLearning.html">文化學習</a></li>
-            <li><a href="AboutUs.html">關於我們</a></li>
-            <li><a href="Community.html">社群</a></li>
-            <li><a href="Chart.html">數據分析</a></li>
+            <li><a href="./index.html">首頁</a></li>
+            <li><a href="./LearningHub.html">學習中心</a></li>
+            <li><a href="./InteractivePractice.html">互動練習</a></li>
+            <li><a href="./IoT.html">IoT 體驗</a></li>
+            <li><a href="./Resources.html">學習資源</a></li>
+            <li><a href="./CulturalLearning.html">文化學習</a></li>
+            <li><a href="./AboutUs.html">關於我們</a></li>
+            <li><a href="./Community.html">社群</a></li>
+            <li><a href="./10-data-analytics.html">數據分析</a></li>
         </ul>
-        <a href="UserAccount.html" class="nav-cta">我的帳戶</a>
+        <a href="./UserAccount.html" class="nav-cta">我的帳戶</a>
     </div>
 </nav>
 
@@ -373,6 +362,7 @@
                 
                 <!-- 按鈕 -->
                 <div class="button-group">
+                    <button class="btn" onclick="playPronunciation()">🔊 聽發音</button>
                     <button class="btn" onclick="markAsKnown()">✓ 認識</button>
                     <button class="btn btn-secondary" onclick="markForReview()">⟲ 待複習</button>
                     <button class="btn btn-secondary" onclick="nextCard()">下一張</button>
@@ -383,14 +373,8 @@
     </div>
 
     <!-- 頁尾 -->
-   <footer>
+    <footer>
         <p>&copy; 2026 伝える (Tsutaeru) — 香港首個 IoT 日語學習平台</p>
-        <p>
-            <a href="#">隱私政策</a> | 
-            <a href="#">服務條款</a> | 
-            <a href="#">聯絡我們</a>
-        </p>  
-        <p>本網站及logo由Manus Ai 生成</p>
     </footer>
 
     <script>
@@ -411,6 +395,7 @@
         let isFlipped = false;
         let knownCount = 0;
         let reviewCount = 0;
+        let cardStates = new Array(vocabulary.length).fill(null); // null: 新, 'known': 已認識, 'review': 待複習
         
         function flipCard() {
             const card = document.getElementById('card');
@@ -429,13 +414,29 @@
         }
         
         function markAsKnown() {
-            knownCount++;
+            // 如果之前標記為待複習，需要減少待複習計數
+            if (cardStates[currentIndex] === 'review') {
+                reviewCount--;
+            }
+            // 如果之前未標記或標記為新，增加已認識計數
+            if (cardStates[currentIndex] !== 'known') {
+                knownCount++;
+            }
+            cardStates[currentIndex] = 'known';
             updateStats();
             nextCard();
         }
         
         function markForReview() {
-            reviewCount++;
+            // 如果之前標記為已認識，需要減少已認識計數
+            if (cardStates[currentIndex] === 'known') {
+                knownCount--;
+            }
+            // 如果之前未標記或標記為新，增加待複習計數
+            if (cardStates[currentIndex] !== 'review') {
+                reviewCount++;
+            }
+            cardStates[currentIndex] = 'review';
             updateStats();
             nextCard();
         }
@@ -464,11 +465,22 @@
         function updateStats() {
             document.getElementById('knownCount').textContent = knownCount;
             document.getElementById('reviewCount').textContent = reviewCount;
-            document.getElementById('newCount').textContent = vocabulary.length - knownCount - reviewCount;
+            const newCount = vocabulary.length - knownCount - reviewCount;
+            document.getElementById('newCount').textContent = newCount;
         }
         
         function goBack() {
             window.location.href = '03-interactive-practice-main.html';
+        }
+        
+        // 語音發音功能
+        function playPronunciation() {
+            const word = vocabulary[currentIndex].jp;
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'ja-JP'; // 設定為日語
+            utterance.rate = 0.8; // 稍微放慢速度
+            utterance.pitch = 1.0;
+            window.speechSynthesis.speak(utterance);
         }
     </script>
 </body>
