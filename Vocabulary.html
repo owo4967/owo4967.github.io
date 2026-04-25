@@ -292,30 +292,30 @@
     <!-- 導航列 -->
 <nav>
     <div class="nav-container">
-        <a href="index.html" class="logo">
-            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663328630280/CJexFqIIRdXImBgh.png" alt="Tsutaeru Logo" style="height: 80px; width: auto;">
+        <a href="./index.html" class="logo">
+            <img src="/home/ubuntu/upload/tsutaeru_social_media.png" alt="Tsutaeru Logo" style="height: 80px; width: auto;">
         </a>
         <ul class="nav-links">
-            <li><a href="index.html">首頁</a></li>
-            <li><a href="LearningHub.html">學習中心</a></li>
-            <li><a href="InteractivePractice.html">互動練習</a></li>
-            <li><a href="IoT.html">IoT 體驗</a></li>
-            <li><a href="Resources.html">學習資源</a></li>
-            <li><a href="CulturalLearning.html">文化學習</a></li>
-            <li><a href="AboutUs.html">關於我們</a></li>
-            <li><a href="Community.html">社群</a></li>
-            <li><a href="Chart.html">數據分析</a></li>
+            <li><a href="./index.html">首頁</a></li>
+            <li><a href="./LearningHub.html">學習中心</a></li>
+            <li><a href="./InteractivePractice.html">互動練習</a></li>
+            <li><a href="./IoT.html">IoT 體驗</a></li>
+            <li><a href="./Resources.html">學習資源</a></li>
+            <li><a href="./CulturalLearning.html">文化學習</a></li>
+            <li><a href="./AboutUs.html">關於我們</a></li>
+            <li><a href="./Community.html">社群</a></li>
+            <li><a href="./10-data-analytics.html">數據分析</a></li>
         </ul>
-        <a href="UserAccount.html" class="nav-cta">我的帳戶</a>
+        <a href="./UserAccount.html" class="nav-cta">我的帳戶</a>
     </div>
 </nav>
 
 <!-- /導航列 -->
-    
+
     <!-- 頁面標題 -->
     <div class="page-header">
         <div class="breadcrumb">
-            <a href="InteractivePractice.html">互動練習</a> > 單詞卡
+            <a href="https://codepen.io/ybxvhtiy-the-sans/full/wBzvZGj">互動練習</a> > 單詞卡
         </div>
         <h1>🎴 單詞卡</h1>
     </div>
@@ -360,16 +360,13 @@
                     </div>
                 </div>
                 
-                <!-- 控制按鈕 -->
+                <!-- 按鈕 -->
                 <div class="button-group">
-                    <button class="btn" onclick="markKnown()">✅ 認識了</button>
-                    <button class="btn btn-secondary" onclick="markReview()">🔄 待複習</button>
-                    <button class="btn btn-secondary" onclick="nextCard()">下一張 →</button>
-                </div>
-                
-                <div class="button-group">
+                    <button class="btn" onclick="playPronunciation()">🔊 聽發音</button>
+                    <button class="btn" onclick="markAsKnown()">✓ 認識</button>
+                    <button class="btn btn-secondary" onclick="markForReview()">⟲ 待複習</button>
+                    <button class="btn btn-secondary" onclick="nextCard()">下一張</button>
                     <button class="btn btn-secondary" onclick="goBack()">返回</button>
-                    <button class="btn" onclick="resetCards()">重新開始</button>
                 </div>
             </div>
         </div>
@@ -378,93 +375,113 @@
     <!-- 頁尾 -->
     <footer>
         <p>&copy; 2026 伝える (Tsutaeru) — 香港首個 IoT 日語學習平台</p>
-        <p>本網站及logo由Manus Ai 生成</p>
     </footer>
 
     <script>
-        const cards = [
-            { jp: "こんにちは", zh: "你好" },
-            { jp: "ありがとう", zh: "謝謝" },
-            { jp: "さようなら", zh: "再見" },
-            { jp: "すみません", zh: "對不起 / 請問" },
-            { jp: "なまえ", zh: "名字" },
-            { jp: "がっこう", zh: "學校" },
-            { jp: "かぞく", zh: "家人" },
-            { jp: "ともだち", zh: "朋友" },
-            { jp: "たべもの", zh: "食物" },
-            { jp: "のみもの", zh: "飲料" }
+        const vocabulary = [
+            { jp: 'こんにちは', cn: '你好' },
+            { jp: 'ありがとう', cn: '謝謝' },
+            { jp: 'さようなら', cn: '再見' },
+            { jp: 'すみません', cn: '對不起' },
+            { jp: '名前', cn: '名字' },
+            { jp: '学校', cn: '學校' },
+            { jp: '家族', cn: '家人' },
+            { jp: '友達', cn: '朋友' },
+            { jp: '食べ物', cn: '食物' },
+            { jp: '飲み物', cn: '飲料' }
         ];
-
+        
         let currentIndex = 0;
         let isFlipped = false;
-        let knownSet = new Set();
-        let reviewSet = new Set();
-
-        function updateDisplay() {
+        let knownCount = 0;
+        let reviewCount = 0;
+        let cardStates = new Array(vocabulary.length).fill(null); // null: 新, 'known': 已認識, 'review': 待複習
+        
+        function flipCard() {
             const card = document.getElementById('card');
-            const cardContent = document.getElementById('cardContent');
-            const cardLabel = document.querySelector('.card-label');
-            const progressFill = document.getElementById('progressFill');
-            const cardCount = document.getElementById('cardCount');
-
+            const content = document.getElementById('cardContent');
+            isFlipped = !isFlipped;
+            
             if (isFlipped) {
                 card.classList.add('flipped');
-                cardContent.textContent = cards[currentIndex].zh;
-                cardLabel.textContent = "中文";
+                document.querySelector('.card-label').textContent = '中文';
+                content.textContent = vocabulary[currentIndex].cn;
             } else {
                 card.classList.remove('flipped');
-                cardContent.textContent = cards[currentIndex].jp;
-                cardLabel.textContent = "日文";
+                document.querySelector('.card-label').textContent = '日文';
+                content.textContent = vocabulary[currentIndex].jp;
             }
-
-            // 更新進度條
-            const progress = ((currentIndex + 1) / cards.length) * 100;
-            progressFill.style.width = `${progress}%`;
-            cardCount.textContent = `第 ${currentIndex + 1} / ${cards.length} 張`;
-
-            // 更新統計
-            document.getElementById('knownCount').textContent = knownSet.size;
-            document.getElementById('reviewCount').textContent = reviewSet.size;
-            document.getElementById('newCount').textContent = cards.length - knownSet.size - reviewSet.size;
         }
-
-        function flipCard() {
-            isFlipped = !isFlipped;
-            updateDisplay();
+        
+        function markAsKnown() {
+            // 如果之前標記為待複習，需要減少待複習計數
+            if (cardStates[currentIndex] === 'review') {
+                reviewCount--;
+            }
+            // 如果之前未標記或標記為新，增加已認識計數
+            if (cardStates[currentIndex] !== 'known') {
+                knownCount++;
+            }
+            cardStates[currentIndex] = 'known';
+            updateStats();
+            nextCard();
         }
-
+        
+        function markForReview() {
+            // 如果之前標記為已認識，需要減少已認識計數
+            if (cardStates[currentIndex] === 'known') {
+                knownCount--;
+            }
+            // 如果之前未標記或標記為新，增加待複習計數
+            if (cardStates[currentIndex] !== 'review') {
+                reviewCount++;
+            }
+            cardStates[currentIndex] = 'review';
+            updateStats();
+            nextCard();
+        }
+        
         function nextCard() {
-            currentIndex = (currentIndex + 1) % cards.length;
-            isFlipped = false;
-            updateDisplay();
+            if (currentIndex < vocabulary.length - 1) {
+                currentIndex++;
+                isFlipped = false;
+                updateCard();
+            } else {
+                alert(`✅ 恭喜！您已完成本組單詞卡練習。\n\n認識: ${knownCount} 個\n待複習: ${reviewCount} 個`);
+                goBack();
+            }
         }
-
-        function markKnown() {
-            knownSet.add(currentIndex);
-            reviewSet.delete(currentIndex);
-            nextCard();
+        
+        function updateCard() {
+            const card = document.getElementById('card');
+            const content = document.getElementById('cardContent');
+            card.classList.remove('flipped');
+            document.querySelector('.card-label').textContent = '日文';
+            content.textContent = vocabulary[currentIndex].jp;
+            document.getElementById('cardCount').textContent = `第 ${currentIndex + 1} / ${vocabulary.length} 張`;
+            document.getElementById('progressFill').style.width = ((currentIndex + 1) / vocabulary.length * 100) + '%';
         }
-
-        function markReview() {
-            reviewSet.add(currentIndex);
-            knownSet.delete(currentIndex);
-            nextCard();
+        
+        function updateStats() {
+            document.getElementById('knownCount').textContent = knownCount;
+            document.getElementById('reviewCount').textContent = reviewCount;
+            const newCount = vocabulary.length - knownCount - reviewCount;
+            document.getElementById('newCount').textContent = newCount;
         }
-
-        function resetCards() {
-            currentIndex = 0;
-            isFlipped = false;
-            knownSet.clear();
-            reviewSet.clear();
-            updateDisplay();
-        }
-
+        
         function goBack() {
-            window.location.href = 'InteractivePractice.html';
+            window.location.href = '03-interactive-practice-main.html';
         }
-
-        // 初始化
-        updateDisplay();
+        
+        // 語音發音功能
+        function playPronunciation() {
+            const word = vocabulary[currentIndex].jp;
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'ja-JP'; // 設定為日語
+            utterance.rate = 0.8; // 稍微放慢速度
+            utterance.pitch = 1.0;
+            window.speechSynthesis.speak(utterance);
+        }
     </script>
 </body>
 </html>
