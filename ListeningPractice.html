@@ -150,281 +150,531 @@
             font-weight: 700;
         }
         
-        .audio-player {
-            background: linear-gradient(135deg, #f5f5dc 0%, #fff9f5 100%);
-            border: 3px solid var(--primary-red);
+        .video-container {
+            background: #000;
             border-radius: 15px;
-            padding: 30px;
+            overflow: hidden;
             margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+        }
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .page-indicator {
             text-align: center;
-        }
-        
-        .audio-controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .btn-play {
-            background: var(--primary-red);
-            color: white;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
             font-size: 1.1rem;
-            cursor: pointer;
+            color: var(--accent-blue);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .question-card {
+            background: #f9f9f9;
+            border-left: 5px solid var(--primary-red);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
             transition: all 0.3s;
         }
         
-        .btn-play:hover {
-            background: var(--accent-blue);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .question {
-            background: white;
-            border-left: 5px solid var(--primary-red);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-        
-        .question h3 {
-            color: var(--primary-red);
+        .question-card h3 {
+            color: var(--accent-blue);
             margin-bottom: 15px;
-            font-weight: 700;
+            font-size: 1.2rem;
         }
         
         .options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
         
         .option {
-            background: linear-gradient(135deg, #f5f5dc 0%, #fff9f5 100%);
-            border: 2px solid var(--accent-blue);
-            padding: 15px;
+            background: white;
+            border: 2px solid #eee;
+            padding: 12px 20px;
             border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
+            transition: all 0.2s;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
         }
         
         .option:hover {
-            background: linear-gradient(135deg, #fff9f5 0%, #ffffff 100%);
             border-color: var(--primary-red);
-            transform: translateY(-3px);
+            background: #fff5f5;
         }
         
         .option.selected {
+            border-color: var(--primary-red);
             background: var(--primary-red);
             color: white;
-            border-color: var(--primary-red);
+        }
+        
+        .option.correct {
+            background: #e8f5e9;
+            border-color: #4caf50;
+            color: #2e7d32;
+        }
+        
+        .option.wrong {
+            background: #ffebee;
+            border-color: #f44336;
+            color: #c62828;
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            display: none;
+        }
+        
+        .feedback.show {
+            display: block;
+        }
+        
+        .feedback.correct-bg {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #4caf50;
+        }
+        
+        .feedback.wrong-bg {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #f44336;
+        }
+        
+        .page-section {
+            display: none;
+        }
+        
+        .page-section.active {
+            display: block;
         }
         
         .button-group {
             display: flex;
             gap: 15px;
             justify-content: center;
-            margin-top: 30px;
+            margin-top: 40px;
             flex-wrap: wrap;
         }
         
         .btn {
-            background: var(--primary-red);
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
+            border: none;
             font-size: 1rem;
         }
         
-        .btn:hover {
-            background: var(--accent-blue);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .btn-secondary {
-            background: var(--accent-blue);
-        }
-        
-        .btn-secondary:hover {
+        .btn-submit {
             background: var(--primary-red);
+            color: white;
+        }
+        
+        .btn-submit:hover {
+            background: #a31218;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(201, 23, 30, 0.3);
+        }
+        
+        .btn-reset {
+            background: var(--accent-blue);
+            color: white;
+        }
+        
+        .btn-reset:hover {
+            background: #082542;
+            transform: translateY(-2px);
+        }
+        
+        .btn-nav {
+            background: var(--accent-green);
+            color: white;
+        }
+        
+        .btn-nav:hover {
+            background: #5f8a54;
+            transform: translateY(-2px);
+        }
+        
+        .result-banner {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .result-banner h2 {
+            color: var(--primary-red);
+            font-size: 2rem;
+            margin-bottom: 10px;
         }
         
         /* ============ 頁尾 ============ */
-         footer {
+        footer {
             background: var(--accent-blue);
             color: white;
-            padding: 40px 20px;
             text-align: center;
-            margin-top: 80px;
-        }
-
-        footer p {
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-        }
-
-        footer a {
-            color: var(--accent-pink);
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
+            padding: 30px 20px;
+            margin-top: 60px;
         }
     </style>
 </head>
 <body>
     <!-- 導航列 -->
-<nav>
-    <div class="nav-container">
-        <a href="index.html" class="logo">
-            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663328630280/CJexFqIIRdXImBgh.png" alt="Tsutaeru Logo" style="height: 80px; width: auto;">
-        </a>
-        <ul class="nav-links">
-            <li><a href="index.html">首頁</a></li>
-            <li><a href="LearningHub.html">學習中心</a></li>
-            <li><a href="InteractivePractice.html">互動練習</a></li>
-            <li><a href="IoT.html">IoT 體驗</a></li>
-            <li><a href="Resources.html">學習資源</a></li>
-            <li><a href="CulturalLearning.html">文化學習</a></li>
-            <li><a href="AboutUs.html">關於我們</a></li>
-            <li><a href="Community.html">社群</a></li>
-            <li><a href="Chart.html">數據分析</a></li>
-        </ul>
-        <a href="UserAccount.html" class="nav-cta">我的帳戶</a>
-    </div>
-</nav>
+    <nav>
+        <div class="nav-container">
+            <a href="./index.html" class="logo">
+                <img src="/home/ubuntu/upload/tsutaeru_social_media.png" alt="Tsutaeru Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="./index.html">首頁</a></li>
+                <li><a href="./LearningHub.html">學習中心</a></li>
+                <li><a href="./InteractivePractice.html">互動練習</a></li>
+                <li><a href="./IoT.html">IoT 體驗</a></li>
+                <li><a href="./Resources.html">學習資源</a></li>
+                <li><a href="./CulturalLearning.html">文化學習</a></li>
+                <li><a href="./AboutUs.html">關於我們</a></li>
+                <li><a href="./Community.html">社群</a></li>
+                <li><a href="./10-data-analytics.html">數據分析</a></li>
+            </ul>
+            <a href="./UserAccount.html" class="nav-cta">我的帳戶</a>
+        </div>
+    </nav>
 
-
-<!-- /導航列 -->
-
-    <!-- 頁面標題 -->
     <div class="page-header">
         <div class="breadcrumb">
-            <a href="https://codepen.io/ybxvhtiy-the-sans/full/wBzvZGj">互動練習</a> > 聽力練習
+            <a href="./InteractivePractice.html">互動練習</a> > 聽力練習
         </div>
-        <h1>🎧 聽力練習</h1>
+        <h1>🎧 聽力練習：居家生活篇</h1>
     </div>
 
-    <!-- 主要內容 -->
     <div class="container">
         <div class="content">
-            <!-- 聽力練習 1 -->
             <div class="listening-section">
-                <h2>日常對話 - 第 1 課</h2>
-                <p>請仔細聽取以下音頻，然後回答問題。</p>
+                <h2>🎥 聽力素材：居家常見 100 單字</h2>
+                <p>請觀看下方的日語聽力影片，並根據影片內容回答後面的 10 道理解題。</p>
                 
-                <div class="audio-player">
-                    <div style="font-size: 3rem; margin-bottom: 15px;">🎵</div>
-                    <p style="margin-bottom: 15px; color: var(--accent-blue); font-weight: 600;">音頻: 在咖啡廳點餐</p>
-                    <div class="audio-controls">
-                        <button class="btn-play" onclick="playAudio()">▶ 播放</button>
-                        <button class="btn-play" onclick="pauseAudio()">⏸ 暫停</button>
-                        <button class="btn-play" onclick="replayAudio()">🔄 重播</button>
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <!-- 使用更穩定的嵌入連結 -->
+                        <iframe src="https://www.youtube.com/embed/Tqv8TnaHVx0" title="Japanese Listening Practice" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
-                
-                <!-- 問題 1 -->
-                <div class="question">
-                    <h3>問題 1: 這段對話發生在哪裡?</h3>
-                    <div class="options">
-                        <div class="option" onclick="selectOption(this, '咖啡廳')">咖啡廳</div>
-                        <div class="option" onclick="selectOption(this, '餐廳')">餐廳</div>
-                        <div class="option" onclick="selectOption(this, '超市')">超市</div>
-                        <div class="option" onclick="selectOption(this, '公園')">公園</div>
+
+                <!-- 第 1 頁 (題目 1-5) -->
+                <div class="page-section active" id="page1">
+                    <div class="page-indicator">第 1 頁 / 2 頁 (題目 1-5)</div>
+                    
+                    <div id="quiz-container-page1">
+                        <!-- 題目 1 -->
+                        <div class="question-card" id="q0">
+                            <h3>1. 影片中提到的「傘」日文發音為何？</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(0, 0)">A) Hana</div>
+                                <div class="option" onclick="selectOption(0, 1)">B) Kasa</div>
+                                <div class="option" onclick="selectOption(0, 2)">C) Kuma</div>
+                                <div class="option" onclick="selectOption(0, 3)">D) Sora</div>
+                            </div>
+                            <div class="feedback" id="f0"></div>
+                        </div>
+
+                        <!-- 題目 2 -->
+                        <div class="question-card" id="q1">
+                            <h3>2. 日文單字 "sumaho" (スマホ) 是指哪一種物品？</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(1, 0)">A) 電腦</div>
+                                <div class="option" onclick="selectOption(1, 1)">B) 電視</div>
+                                <div class="option" onclick="selectOption(1, 2)">C) 智慧型手機</div>
+                                <div class="option" onclick="selectOption(1, 3)">D) 收音機</div>
+                            </div>
+                            <div class="feedback" id="f1"></div>
+                        </div>
+
+                        <!-- 題目 3 -->
+                        <div class="question-card" id="q2">
+                            <h3>3. 影片中用來表示「廁所」的日文單字是什麼？</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(2, 0)">A) Ofuro (浴室)</div>
+                                <div class="option" onclick="selectOption(2, 1)">B) Toire (廁所)</div>
+                                <div class="option" onclick="selectOption(2, 2)">C) Heya (房間)</div>
+                                <div class="option" onclick="selectOption(2, 3)">D) Genkan (玄關)</div>
+                            </div>
+                            <div class="feedback" id="f2"></div>
+                        </div>
+
+                        <!-- 題目 4 -->
+                        <div class="question-card" id="q3">
+                            <h3>4. 根據影片，日文單字 "hashi" (はし) 對應的中文意思是什麼？</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(3, 0)">A) 湯匙</div>
+                                <div class="option" onclick="selectOption(3, 1)">B) 叉子</div>
+                                <div class="option" onclick="selectOption(3, 2)">C) 筷子</div>
+                                <div class="option" onclick="selectOption(3, 3)">D) 碗</div>
+                            </div>
+                            <div class="feedback" id="f3"></div>
+                        </div>
+
+                        <!-- 題目 5 -->
+                        <div class="question-card" id="q4">
+                            <h3>5. 下列哪一個是日文「冰箱」的正確羅馬拼音？</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(4, 0)">A) Sentakuki</div>
+                                <div class="option" onclick="selectOption(4, 1)">B) Reezooko</div>
+                                <div class="option" onclick="selectOption(4, 2)">C) Denshi renji</div>
+                                <div class="option" onclick="selectOption(4, 3)">D) Soojiki</div>
+                            </div>
+                            <div class="feedback" id="f4"></div>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- 問題 2 -->
-                <div class="question">
-                    <h3>問題 2: 人物點了什麼飲料?</h3>
-                    <div class="options">
-                        <div class="option" onclick="selectOption(this, '咖啡')">咖啡</div>
-                        <div class="option" onclick="selectOption(this, '茶')">茶</div>
-                        <div class="option" onclick="selectOption(this, '果汁')">果汁</div>
-                        <div class="option" onclick="selectOption(this, '水')">水</div>
+
+                <!-- 第 2 頁 (題目 6-10) -->
+                <div class="page-section" id="page2">
+                    <div class="page-indicator">第 2 頁 / 2 頁 (題目 6-10)</div>
+                    
+                    <div id="quiz-container-page2">
+                        <!-- 題目 6 -->
+                        <div class="question-card" id="q5">
+                            <h3>6. 日文「洗衣機」的發音是什麼？</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(5, 0)">A) Sentakuki</div>
+                                <div class="option" onclick="selectOption(5, 1)">B) Kurikingu</div>
+                                <div class="option" onclick="selectOption(5, 2)">C) Soojiki</div>
+                                <div class="option" onclick="selectOption(5, 3)">D) Denki</div>
+                            </div>
+                            <div class="feedback" id="f5"></div>
+                        </div>
+
+                        <!-- 題目 7 -->
+                        <div class="question-card" id="q6">
+                            <h3>7. 影片中提到「浴室」的日文是？</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(6, 0)">A) Ofuro</div>
+                                <div class="option" onclick="selectOption(6, 1)">B) Toire</div>
+                                <div class="option" onclick="selectOption(6, 2)">C) Heya</div>
+                                <div class="option" onclick="selectOption(6, 3)">D) Daidokoro</div>
+                            </div>
+                            <div class="feedback" id="f6"></div>
+                        </div>
+
+                        <!-- 題目 8 -->
+                        <div class="question-card" id="q7">
+                            <h3>8. 「廚房」的日文發音是什麼？</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(7, 0)">A) Daidokoro</div>
+                                <div class="option" onclick="selectOption(7, 1)">B) Ofuro</div>
+                                <div class="option" onclick="selectOption(7, 2)">C) Heya</div>
+                                <div class="option" onclick="selectOption(7, 3)">D) Genkan</div>
+                            </div>
+                            <div class="feedback" id="f7"></div>
+                        </div>
+
+                        <!-- 題目 9 -->
+                        <div class="question-card" id="q8">
+                            <h3>9. 日文「吸塵器」的發音是？</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(8, 0)">A) Sentakuki</div>
+                                <div class="option" onclick="selectOption(8, 1)">B) Soojiki</div>
+                                <div class="option" onclick="selectOption(8, 2)">C) Reezooko</div>
+                                <div class="option" onclick="selectOption(8, 3)">D) Denshi renji</div>
+                            </div>
+                            <div class="feedback" id="f8"></div>
+                        </div>
+
+                        <!-- 題目 10 -->
+                        <div class="question-card" id="q9">
+                            <h3>10. 「微波爐」的日文發音是什麼？</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(9, 0)">A) Denshi renji</div>
+                                <div class="option" onclick="selectOption(9, 1)">B) Reezooko</div>
+                                <div class="option" onclick="selectOption(9, 2)">C) Soojiki</div>
+                                <div class="option" onclick="selectOption(9, 3)">D) Sentakuki</div>
+                            </div>
+                            <div class="feedback" id="f9"></div>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- 按鈕 -->
+
+                <div class="result-banner" id="result-banner">
+                    <h2 id="score-text">得分：0 / 10</h2>
+                    <p id="evaluation-text">繼續加油！</p>
+                </div>
+
                 <div class="button-group">
-                    <button class="btn" onclick="submitAnswers()">✓ 提交答案</button>
-                    <button class="btn btn-secondary" onclick="goBack()">返回</button>
+                    <button class="btn btn-nav" onclick="previousPage()" id="prevBtn" style="display: none;">← 上一頁</button>
+                    <button class="btn btn-nav" onclick="nextPage()" id="nextBtn">下一頁 →</button>
+                    <button class="btn btn-submit" onclick="submitQuiz()" id="submitBtn" style="display: none;">提交答案</button>
+                    <button class="btn btn-reset" onclick="resetQuiz()" id="resetBtn" style="display: none;">重新練習</button>
+                    <button class="btn btn-reset" onclick="goBack()">返回</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 頁尾 -->
-   <footer>
+    <footer>
         <p>&copy; 2026 伝える (Tsutaeru) — 香港首個 IoT 日語學習平台</p>
-        <p>
-            <a href="#">隱私政策</a> | 
-            <a href="#">服務條款</a> | 
-            <a href="#">聯絡我們</a>
-        </p>  
-        <p>本網站及logo由Manus Ai 生成</p>
     </footer>
 
     <script>
-        let selectedAnswers = {};
-        
-        function playAudio() {
-            alert('🎵 正在播放音頻: 在咖啡廳點餐\n\n(實際音頻將在完整版本中提供)');
-        }
-        
-        function pauseAudio() {
-            alert('⏸ 音頻已暫停');
-        }
-        
-        function replayAudio() {
-            alert('🔄 正在重新播放音頻...');
-        }
-        
-        function selectOption(element, answer) {
-            // 移除同一問題中其他選項的選中狀態
-            const parent = element.parentElement;
-            parent.querySelectorAll('.option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            // 標記選中
-            element.classList.add('selected');
-            // 記錄答案
-            const questionIndex = Array.from(parent.parentElement.parentElement.querySelectorAll('.question')).indexOf(element.parentElement.parentElement);
-            selectedAnswers[questionIndex] = answer;
-        }
-        
-        function submitAnswers() {
-            const correctAnswers = {
-                0: '咖啡廳',
-                1: '咖啡'
-            };
+        const questions = [
+            { correct: 1, explanation: "影片在 00:10 處明確標示「傘」的羅馬拼音為 'kasa'，平假名寫作 'かさ'。" },
+            { correct: 2, explanation: "'sumaho' 是日文中對智慧型手機 (smartphone) 的常用縮寫，影片中也配有手機的圖片。" },
+            { correct: 1, explanation: "影片在 02:04 處介紹了 'toire'，這是從英文 'toilet' 演變而來的日文單字。" },
+            { correct: 2, explanation: "影片顯示 'hashi' 的英文翻譯為 'chopsticks'，即中文的「筷子」。" },
+            { correct: 1, explanation: "影片在 11:21 處標示冰箱的日文為 'reezooko'。(A) 為洗衣機，(C) 為微波爐，(D) 為吸塵器。" },
+            { correct: 0, explanation: "「洗衣機」的日文發音是 'sentakuki' (洗濯機)。" },
+            { correct: 0, explanation: "「浴室」的日文發音是 'ofuro' (お風呂)。" },
+            { correct: 0, explanation: "「廚房」的日文發音是 'daidokoro' (台所)。" },
+            { correct: 1, explanation: "「吸塵器」的日文發音是 'soojiki' (掃除機)。" },
+            { correct: 0, explanation: "「微波爐」的日文發音是 'denshi renji' (電子レンジ)。" }
+        ];
+
+        let userAnswers = [null, null, null, null, null, null, null, null, null, null];
+        let submitted = false;
+        let currentPage = 1;
+
+        function selectOption(qIdx, oIdx) {
+            if (submitted) return;
             
-            let score = 0;
-            for (let i = 0; i < 2; i++) {
-                if (selectedAnswers[i] === correctAnswers[i]) {
-                    score++;
-                }
+            userAnswers[qIdx] = oIdx;
+            
+            // 更新 UI
+            const options = document.querySelectorAll(`#q${qIdx} .option`);
+            options.forEach((opt, i) => {
+                if (i === oIdx) opt.classList.add('selected');
+                else opt.classList.remove('selected');
+            });
+        }
+
+        function nextPage() {
+            if (currentPage === 1) {
+                document.getElementById('page1').classList.remove('active');
+                document.getElementById('page2').classList.add('active');
+                currentPage = 2;
+                document.getElementById('prevBtn').style.display = 'inline-block';
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('submitBtn').style.display = 'inline-block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function previousPage() {
+            if (currentPage === 2) {
+                document.getElementById('page2').classList.remove('active');
+                document.getElementById('page1').classList.add('active');
+                currentPage = 1;
+                document.getElementById('prevBtn').style.display = 'none';
+                document.getElementById('nextBtn').style.display = 'inline-block';
+                document.getElementById('submitBtn').style.display = 'none';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function submitQuiz() {
+            if (userAnswers.includes(null)) {
+                alert("請回答所有題目後再提交！");
+                return;
             }
             
-            alert(`✅ 您的得分: ${score} / 2\n\n${score === 2 ? '完美！' : '再加油！'}`);
+            submitted = true;
+            let score = 0;
+
+            questions.forEach((q, i) => {
+                const feedback = document.getElementById(`f${i}`);
+                const options = document.querySelectorAll(`#q${i} .option`);
+                
+                feedback.classList.add('show');
+                
+                if (userAnswers[i] === q.correct) {
+                    score++;
+                    feedback.innerHTML = `<strong>✅ 正確！</strong><br>${q.explanation}`;
+                    feedback.className = "feedback show correct-bg";
+                    options[userAnswers[i]].classList.add('correct');
+                } else {
+                    feedback.innerHTML = `<strong>❌ 錯誤。</strong><br>正確答案是 ${String.fromCharCode(65 + q.correct)}。<br>${q.explanation}`;
+                    feedback.className = "feedback show wrong-bg";
+                    options[userAnswers[i]].classList.add('wrong');
+                    options[q.correct].classList.add('correct');
+                }
+            });
+
+            const resultBanner = document.getElementById('result-banner');
+            const scoreText = document.getElementById('score-text');
+            const evalText = document.getElementById('evaluation-text');
+            
+            resultBanner.style.display = 'block';
+            scoreText.innerText = `得分：${score} / 10`;
+            
+            if (score === 10) evalText.innerText = "太棒了！完美的理解力！🌸";
+            else if (score >= 7) evalText.innerText = "做得好！大部分都聽懂了。👍";
+            else if (score >= 5) evalText.innerText = "不錯！繼續加油！💪";
+            else evalText.innerText = "再接再厲！多聽幾次影片會更有幫助喔。💪";
+
+            // 隱藏分頁按鈕，顯示重置按鈕
+            document.getElementById('prevBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+            document.getElementById('submitBtn').style.display = 'none';
+            document.getElementById('resetBtn').style.display = 'inline-block';
+
+            // 顯示兩頁的反饋
+            document.getElementById('page1').classList.add('active');
+            document.getElementById('page2').classList.add('active');
+            currentPage = 0; // 標記為已提交
+
+            window.scrollTo({ top: resultBanner.offsetTop - 100, behavior: 'smooth' });
         }
-        
+
+        function resetQuiz() {
+            userAnswers = [null, null, null, null, null, null, null, null, null, null];
+            submitted = false;
+            currentPage = 1;
+            
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.className = 'option';
+            });
+            
+            document.querySelectorAll('.feedback').forEach(f => {
+                f.className = 'feedback';
+                f.innerHTML = '';
+            });
+            
+            document.getElementById('result-banner').style.display = 'none';
+            document.getElementById('page1').classList.add('active');
+            document.getElementById('page2').classList.remove('active');
+            document.getElementById('prevBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'inline-block';
+            document.getElementById('submitBtn').style.display = 'none';
+            document.getElementById('resetBtn').style.display = 'none';
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         function goBack() {
-            window.location.href = '03-interactive-practice-main.html';
+            window.location.href = './InteractivePractice.html';
         }
     </script>
 </body>
