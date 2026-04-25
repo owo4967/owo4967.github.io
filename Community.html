@@ -44,14 +44,17 @@
             align-items: center;
             padding: 0 20px;
             gap: 30px;
-            gap: 30px;
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--primary-red);
-            text-decoration: none;
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 100%;
+            object-fit: contain;
         }
 
         .nav-links {
@@ -206,6 +209,40 @@
         .new-post-btn:hover {
             background: var(--accent-blue);
             transform: translateY(-2px);
+        }
+
+        /* 發帖表單 */
+        .post-form-container {
+            display: none;
+            background: var(--primary-beige);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 2px dashed var(--primary-red);
+        }
+
+        .post-form-container.active {
+            display: block;
+        }
+
+        .post-form-container input, .post-form-container textarea, .post-form-container select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .post-form-container textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .form-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
         }
 
         .post-item {
@@ -372,10 +409,16 @@
             transition: all 0.3s;
             cursor: pointer;
             border: none;
+            width: 100%;
         }
 
         .event-btn:hover {
             background: var(--accent-blue);
+        }
+
+        .event-btn.joined {
+            background: var(--accent-green);
+            cursor: default;
         }
 
         /* ============ 排行榜 ============ */
@@ -395,83 +438,63 @@
         .leaderboard-table {
             width: 100%;
             border-collapse: collapse;
-        }
-
-        .leaderboard-table thead {
-            background: linear-gradient(135deg, var(--primary-beige) 0%, rgba(248, 180, 212, 0.1) 100%);
-            border-bottom: 2px solid var(--accent-pink);
+            margin-top: 20px;
         }
 
         .leaderboard-table th {
-            padding: 15px;
             text-align: left;
-            font-weight: 600;
+            padding: 15px;
+            border-bottom: 2px solid var(--primary-red);
             color: var(--accent-blue);
+            font-weight: 900;
         }
 
         .leaderboard-table td {
             padding: 15px;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid #eee;
         }
 
         .rank-badge {
             display: inline-block;
-            width: 35px;
-            height: 35px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
-            background: var(--primary-red);
-            color: white;
             text-align: center;
-            line-height: 35px;
+            line-height: 30px;
             font-weight: 900;
-            font-size: 0.9rem;
+            background: #eee;
         }
 
-        .rank-badge.gold {
-            background: #FFD700;
-            color: #333;
-        }
-
-        .rank-badge.silver {
-            background: #C0C0C0;
-            color: #333;
-        }
-
-        .rank-badge.bronze {
-            background: #CD7F32;
-            color: white;
-        }
+        .rank-badge.gold { background: #ffd700; color: #fff; }
+        .rank-badge.silver { background: #c0c0c0; color: #fff; }
+        .rank-badge.bronze { background: #cd7f32; color: #fff; }
 
         .player-info {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .player-avatar {
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
-            background: var(--accent-pink);
+            background: var(--accent-blue);
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 0.8rem;
             font-weight: 600;
-        }
-
-        .player-name {
-            font-weight: 600;
-            color: var(--accent-blue);
         }
 
         .score-cell {
             font-weight: 900;
             color: var(--primary-red);
-            font-size: 1.1rem;
         }
 
         /* ============ 頁尾 ============ */
-        footer {
+         footer {
             background: var(--accent-blue);
             color: white;
             padding: 40px 20px;
@@ -494,31 +517,13 @@
             text-decoration: underline;
         }
 
-        /* ============ 響應式設計 ============ */
         @media (max-width: 768px) {
-            .page-header h1 {
-                font-size: 2rem;
-            }
-
-            .forum-section,
-            .events-section,
-            .leaderboard-section {
-                padding: 25px;
-            }
-
-            .forum-header {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .leaderboard-table {
-                font-size: 0.9rem;
-            }
-
-            .leaderboard-table th,
-            .leaderboard-table td {
-                padding: 10px;
-            }
+            .tab-buttons { gap: 10px; }
+            .tab-btn { padding: 10px 20px; font-size: 0.9rem; }
+            .forum-section, .events-section, .leaderboard-section { padding: 25px; }
+            .forum-header { flex-direction: column; gap: 15px; }
+            .leaderboard-table { font-size: 0.9rem; }
+            .leaderboard-table th, .leaderboard-table td { padding: 10px; }
         }
     </style>
 </head>
@@ -544,8 +549,6 @@
     </div>
 </nav>
 
-<!-- /導航列 -->
-
     <!-- 頁面標題 -->
     <section class="page-header">
         <div class="container">
@@ -568,94 +571,71 @@
             <div id="forum" class="forum-section">
                 <div class="forum-header">
                     <h3>💬 社群討論區</h3>
-                    <button class="new-post-btn" onclick="alert('發表新貼文功能即將推出')">+ 發表新貼文</button>
+                    <button class="new-post-btn" onclick="togglePostForm()">+ 發表新貼文</button>
                 </div>
 
-                <div class="post-item">
-                    <div class="post-header">
-                        <div class="post-author">
-                            <div class="author-avatar">小</div>
-                            <div class="author-info">
-                                <h4>小李</h4>
-                                <p>Lv. 12 | 2 小時前</p>
-                            </div>
-                        </div>
-                        <div class="post-meta">📍 學習分享</div>
-                    </div>
-                    <div class="post-title">分享我的 100 天日語學習之旅！</div>
-                    <div class="post-content">
-                        今天終於完成了 100 天的連續學習！從最初的假名都不認識，到現在能夠進行簡單的日常對話，感謝「伝える」平台的幫助。特別是那些 NFC 卡片和情境地圖，讓我在香港也能沉浸式學習日語。
-                    </div>
-                    <div class="post-stats">
-                        <span>❤️ 245 個讚</span>
-                        <span>💬 32 則留言</span>
-                        <span>🔄 18 次分享</span>
+                <!-- 發帖表單 -->
+                <div id="postForm" class="post-form-container">
+                    <h4>📝 發表新貼文</h4>
+                    <input type="text" id="postTitleInput" placeholder="請輸入標題...">
+                    <select id="postTagInput">
+                        <option value="📍 學習分享">學習分享</option>
+                        <option value="❓ 提問">提問</option>
+                        <option value="🎌 文化分享">文化分享</option>
+                        <option value="💬 閒聊">閒聊</option>
+                    </select>
+                    <textarea id="postContentInput" placeholder="分享您的想法..."></textarea>
+                    <div class="form-btns">
+                        <button class="tab-btn" style="padding: 8px 20px; font-size: 0.9rem;" onclick="togglePostForm()">取消</button>
+                        <button class="new-post-btn" style="border-radius: 25px;" onclick="submitPost()">發佈貼文</button>
                     </div>
                 </div>
 
-                <div class="post-item">
-                    <div class="post-header">
-                        <div class="post-author">
-                            <div class="author-avatar">王</div>
-                            <div class="author-info">
-                                <h4>王美芬</h4>
-                                <p>Lv. 8 | 5 小時前</p>
+                <div id="postsContainer">
+                    <!-- 預設貼文 1 -->
+                    <div class="post-item">
+                        <div class="post-header">
+                            <div class="post-author">
+                                <div class="author-avatar">小</div>
+                                <div class="author-info">
+                                    <h4>小李</h4>
+                                    <p>Lv. 12 | 2 小時前</p>
+                                </div>
                             </div>
+                            <div class="post-meta">📍 學習分享</div>
                         </div>
-                        <div class="post-meta">❓ 提問</div>
+                        <div class="post-title">分享我的 100 天日語學習之旅！</div>
+                        <div class="post-content">
+                            今天終於完成了 100 天的連續學習！從最初的假名都不認識，到現在能夠進行簡單的日常對話，感謝「伝える」平台的幫助。特別是那些 NFC 卡片和情境地圖，讓我在香港也能沉浸式學習日語。
+                        </div>
+                        <div class="post-stats">
+                            <span>❤️ 245 個讚</span>
+                            <span>💬 32 則留言</span>
+                            <span>🔄 18 次分享</span>
+                        </div>
                     </div>
-                    <div class="post-title">請問「です」和「ます」的區別？</div>
-                    <div class="post-content">
-                        我在學習敬語時有點困惑，「です」和「ます」都是用來表示敬意的，但具體的使用場景有什麼區別嗎？有人可以幫我解釋一下嗎？
-                    </div>
-                    <div class="post-stats">
-                        <span>❤️ 18 個讚</span>
-                        <span>💬 7 則留言</span>
-                        <span>🔄 2 次分享</span>
-                    </div>
-                </div>
 
-                <div class="post-item">
-                    <div class="post-header">
-                        <div class="post-author">
-                            <div class="author-avatar">陳</div>
-                            <div class="author-info">
-                                <h4>陳浩文</h4>
-                                <p>Lv. 20 (官方) | 8 小時前</p>
+                    <!-- 預設貼文 2 -->
+                    <div class="post-item">
+                        <div class="post-header">
+                            <div class="post-author">
+                                <div class="author-avatar">王</div>
+                                <div class="author-info">
+                                    <h4>王美芬</h4>
+                                    <p>Lv. 8 | 5 小時前</p>
+                                </div>
                             </div>
+                            <div class="post-meta">❓ 提問</div>
                         </div>
-                        <div class="post-meta">📢 公告</div>
-                    </div>
-                    <div class="post-title">【重要公告】新功能上線：AI 發音教練</div>
-                    <div class="post-content">
-                        親愛的學習者們，我們很高興為大家推出全新的「AI 發音教練」功能！現在您可以在 IoT 體驗區中使用這個功能，透過即時反饋改進您的日語發音。感謝大家的支持！
-                    </div>
-                    <div class="post-stats">
-                        <span>❤️ 512 個讚</span>
-                        <span>💬 89 則留言</span>
-                        <span>🔄 156 次分享</span>
-                    </div>
-                </div>
-
-                <div class="post-item">
-                    <div class="post-header">
-                        <div class="post-author">
-                            <div class="author-avatar">林</div>
-                            <div class="author-info">
-                                <h4>林詩韻</h4>
-                                <p>Lv. 15 | 12 小時前</p>
-                            </div>
+                        <div class="post-title">請問「です」和「ます」的區別？</div>
+                        <div class="post-content">
+                            我在學習敬語時有點困惑，「です」和「ます」都是用來表示敬意的，但具體的使用場景有什麼區別嗎？有人可以幫我解釋一下嗎？
                         </div>
-                        <div class="post-meta">🎌 文化分享</div>
-                    </div>
-                    <div class="post-title">介紹日本的「櫻花祭」文化</div>
-                    <div class="post-content">
-                        春天是日本最美的季節。每年 3 月至 4 月，全日本都會舉辦「櫻花祭」（桜まつり）。這是一個充滿傳統與現代氣息的文化盛典。讓我為大家分享一些有趣的習俗和相關的日語詞彙...
-                    </div>
-                    <div class="post-stats">
-                        <span>❤️ 156 個讚</span>
-                        <span>💬 23 則留言</span>
-                        <span>🔄 45 次分享</span>
+                        <div class="post-stats">
+                            <span>❤️ 18 個讚</span>
+                            <span>💬 7 則留言</span>
+                            <span>🔄 2 次分享</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -677,7 +657,7 @@
                             <div class="event-description">
                                 與來自世界各地的日語學習者進行實時對話練習。本次主題為「日本美食文化」，歡迎所有級別的學習者參加！
                             </div>
-                            <button class="event-btn" onclick="alert('報名功能即將推出')">立即報名</button>
+                            <button class="event-btn" onclick="joinEvent(this)">立即報名</button>
                         </div>
                     </div>
 
@@ -694,7 +674,7 @@
                             <div class="event-description">
                                 親身體驗日本傳統工藝——和紙製作與書法。由日本文化專家親自指導，名額有限，先報先得！
                             </div>
-                            <button class="event-btn" onclick="alert('報名功能即將推出')">立即報名</button>
+                            <button class="event-btn" onclick="joinEvent(this)">立即報名</button>
                         </div>
                     </div>
 
@@ -711,7 +691,7 @@
                             <div class="event-description">
                                 本月挑戰主題：「30 天掌握 500 個新單詞」。完成挑戰的學習者將獲得獨家勳章與獎品。
                             </div>
-                            <button class="event-btn" onclick="alert('報名功能即將推出')">立即參加</button>
+                            <button class="event-btn" onclick="joinEvent(this)">立即參加</button>
                         </div>
                     </div>
 
@@ -728,7 +708,7 @@
                             <div class="event-description">
                                 聽取資深旅遊者分享在日本的實地學習經驗。包括如何在旅遊中應用日語、必去景點推薦等。
                             </div>
-                            <button class="event-btn" onclick="alert('報名功能即將推出')">立即報名</button>
+                            <button class="event-btn" onclick="joinEvent(this)">立即報名</button>
                         </div>
                     </div>
                 </div>
@@ -751,133 +731,27 @@
                     <tbody>
                         <tr>
                             <td><span class="rank-badge gold">🥇</span></td>
-                            <td>
-                                <div class="player-info">
-                                    <div class="player-avatar">田</div>
-                                    <span class="player-name">田中美咲</span>
-                                </div>
-                            </td>
+                            <td><div class="player-info"><div class="player-avatar">田</div><span class="player-name">田中美咲</span></div></td>
                             <td>Lv. 35</td>
                             <td>450+ 小時</td>
-                            <td><span class="score-cell">3,245</span></td>
-                            <td>365 天</td>
+                            <td><span class="score-cell">2,450</span></td>
+                            <td>128 天</td>
                         </tr>
                         <tr>
                             <td><span class="rank-badge silver">🥈</span></td>
-                            <td>
-                                <div class="player-info">
-                                    <div class="player-avatar">李</div>
-                                    <span class="player-name">李明</span>
-                                </div>
-                            </td>
+                            <td><div class="player-info"><div class="player-avatar">J</div><span class="player-name">James Wilson</span></div></td>
                             <td>Lv. 32</td>
                             <td>380+ 小時</td>
-                            <td><span class="score-cell">2,890</span></td>
-                            <td>287 天</td>
+                            <td><span class="score-cell">2,120</span></td>
+                            <td>95 天</td>
                         </tr>
                         <tr>
                             <td><span class="rank-badge bronze">🥉</span></td>
-                            <td>
-                                <div class="player-info">
-                                    <div class="player-avatar">王</div>
-                                    <span class="player-name">王詩韻</span>
-                                </div>
-                            </td>
+                            <td><div class="player-info"><div class="player-avatar">李</div><span class="player-name">李明華</span></div></td>
                             <td>Lv. 28</td>
                             <td>320+ 小時</td>
-                            <td><span class="score-cell">2,456</span></td>
-                            <td>245 天</td>
-                        </tr>
-                        <tr>
-                            <td><span class="rank-badge">4</span></td>
-                            <td>
-                                <div class="player-info">
-                                    <div class="player-avatar">陳</div>
-                                    <span class="player-name">陳浩文</span>
-                                </div>
-                            </td>
-                            <td>Lv. 25</td>
-                            <td>280+ 小時</td>
-                            <td><span class="score-cell">2,123</span></td>
-                            <td>198 天</td>
-                        </tr>
-                        <tr>
-                            <td><span class="rank-badge">5</span></td>
-                            <td>
-                                <div class="player-info">
-                                    <div class="player-avatar">林</div>
-                                    <span class="player-name">林美芬</span>
-                                </div>
-                            </td>
-                            <td>Lv. 22</td>
-                            <td>240+ 小時</td>
                             <td><span class="score-cell">1,890</span></td>
-                            <td>156 天</td>
-                        </tr>
-                        <tr>
-                            <td><span class="rank-badge">6</span></td>
-                            <td>
-                                <div class="player-info">
-                                    <div class="player-avatar">張</div>
-                                    <span class="player-name">張俊傑</span>
-                                </div>
-                            </td>
-                            <td>Lv. 19</td>
-                            <td>200+ 小時</td>
-                            <td><span class="score-cell">1,567</span></td>
-                            <td>123 天</td>
-                        </tr>
-                        <tr>
-                            <td><span class="rank-badge">7</span></td>
-                            <td>
-                                <div class="player-info">
-                                    <div class="player-avatar">黃</div>
-                                    <span class="player-name">黃曉明</span>
-                                </div>
-                            </td>
-                            <td>Lv. 16</td>
-                            <td>160+ 小時</td>
-                            <td><span class="score-cell">1,234</span></td>
-                            <td>89 天</td>
-                        </tr>
-                        <tr>
-                            <td><span class="rank-badge">8</span></td>
-                            <td>
-                                <div class="player-info">
-                                    <div class="player-avatar">吳</div>
-                                    <span class="player-name">吳思琪</span>
-                                </div>
-                            </td>
-                            <td>Lv. 13</td>
-                            <td>120+ 小時</td>
-                            <td><span class="score-cell">890</span></td>
-                            <td>56 天</td>
-                        </tr>
-                        <tr>
-                            <td><span class="rank-badge">9</span></td>
-                            <td>
-                                <div class="player-info">
-                                    <div class="player-avatar">周</div>
-                                    <span class="player-name">周文傑</span>
-                                </div>
-                            </td>
-                            <td>Lv. 10</td>
-                            <td>80+ 小時</td>
-                            <td><span class="score-cell">567</span></td>
-                            <td>34 天</td>
-                        </tr>
-                        <tr>
-                            <td><span class="rank-badge">10</span></td>
-                            <td>
-                                <div class="player-info">
-                                    <div class="player-avatar">徐</div>
-                                    <span class="player-name">徐美玲</span>
-                                </div>
-                            </td>
-                            <td>Lv. 7</td>
-                            <td>40+ 小時</td>
-                            <td><span class="score-cell">234</span></td>
-                            <td>12 天</td>
+                            <td>72 天</td>
                         </tr>
                     </tbody>
                 </table>
@@ -898,16 +772,13 @@
 
     <script>
         function switchTab(tabName) {
-            // 隱藏所有標籤頁
             document.getElementById('forum').style.display = 'none';
             document.getElementById('events').classList.remove('active');
             document.getElementById('leaderboard').classList.remove('active');
 
-            // 移除所有按鈕的 active 類
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
 
-            // 顯示選定的標籤頁
             if (tabName === 'forum') {
                 document.getElementById('forum').style.display = 'block';
                 buttons[0].classList.add('active');
@@ -917,6 +788,65 @@
             } else if (tabName === 'leaderboard') {
                 document.getElementById('leaderboard').classList.add('active');
                 buttons[2].classList.add('active');
+            }
+        }
+
+        // --- 發帖功能 ---
+        function togglePostForm() {
+            const form = document.getElementById('postForm');
+            form.classList.toggle('active');
+        }
+
+        function submitPost() {
+            const title = document.getElementById('postTitleInput').value;
+            const tag = document.getElementById('postTagInput').value;
+            const content = document.getElementById('postContentInput').value;
+
+            if (!title || !content) {
+                alert('請填寫標題和內容！');
+                return;
+            }
+
+            const postsContainer = document.getElementById('postsContainer');
+            const newPost = document.createElement('div');
+            newPost.className = 'post-item';
+            newPost.innerHTML = `
+                <div class="post-header">
+                    <div class="post-author">
+                        <div class="author-avatar">用</div>
+                        <div class="author-info">
+                            <h4>我的帳戶</h4>
+                            <p>Lv. 1 | 剛剛</p>
+                        </div>
+                    </div>
+                    <div class="post-meta">${tag}</div>
+                </div>
+                <div class="post-title">${title}</div>
+                <div class="post-content">${content}</div>
+                <div class="post-stats">
+                    <span>❤️ 0 個讚</span>
+                    <span>💬 0 則留言</span>
+                    <span>🔄 0 次分享</span>
+                </div>
+            `;
+
+            postsContainer.prepend(newPost);
+            
+            // 重置並隱藏表單
+            document.getElementById('postTitleInput').value = '';
+            document.getElementById('postContentInput').value = '';
+            togglePostForm();
+            alert('貼文發佈成功！');
+        }
+
+        // --- 活動報名功能 ---
+        function joinEvent(btn) {
+            if (btn.classList.contains('joined')) return;
+            
+            if (confirm('確定要報名參加此活動嗎？')) {
+                btn.textContent = '✓ 已報名';
+                btn.classList.add('joined');
+                alert('報名成功！我們將透過電子郵件向您發送活動詳情。');
             }
         }
     </script>
