@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IoT 體驗 - 伝える (Tsutaeru)</title>
+    <!-- 引入 Leaflet CSS 用於地圖 -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <style>
         :root {
             --primary-red: #c9171e;
@@ -44,14 +46,17 @@
             align-items: center;
             padding: 0 20px;
             gap: 30px;
-            gap: 30px;
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--primary-red);
-            text-decoration: none;
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 100%;
+            object-fit: contain;
         }
 
         .nav-links {
@@ -278,6 +283,55 @@
             background: var(--accent-blue);
         }
 
+        /* NFC 預覽彈窗 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .modal-body {
+            text-align: center;
+        }
+
+        .modal-body h4 {
+            color: var(--primary-red);
+            margin-bottom: 20px;
+        }
+
+        .tag-preview-content {
+            background: var(--primary-beige);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
         /* ============ 香港日語情境地圖 ============ */
         .map-section {
             background: white;
@@ -292,45 +346,13 @@
             display: block;
         }
 
-        .map-container {
-            background: linear-gradient(135deg, #e8f4f8 0%, #f0e8f4 100%);
+        #real-map {
+            height: 450px;
+            width: 100%;
             border: 2px solid var(--accent-blue);
             border-radius: 12px;
-            padding: 40px;
-            text-align: center;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             margin-bottom: 30px;
-        }
-
-        .map-placeholder {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        .map-info {
-            font-size: 1.1rem;
-            color: var(--accent-blue);
-            margin-bottom: 20px;
-        }
-
-        .map-btn {
-            padding: 12px 30px;
-            background: var(--primary-red);
-            color: white;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .map-btn:hover {
-            background: var(--accent-blue);
-            transform: translateY(-2px);
+            z-index: 1;
         }
 
         .location-grid {
@@ -390,10 +412,6 @@
             border: none;
         }
 
-        .learn-btn:hover {
-            background: var(--accent-blue);
-        }
-
         /* ============ AI 發音教練 ============ */
         .pronunciation-section {
             background: white;
@@ -409,18 +427,16 @@
         }
 
         .pronunciation-container {
-            background: linear-gradient(135deg, var(--primary-beige) 0%, rgba(248, 180, 212, 0.1) 100%);
-            border: 2px solid var(--accent-pink);
-            border-radius: 12px;
-            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
             text-align: center;
         }
 
         .word-display {
-            font-size: 2.5rem;
+            font-size: 4rem;
             font-weight: 900;
             color: var(--primary-red);
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .pronunciation-controls {
@@ -428,17 +444,19 @@
             gap: 20px;
             justify-content: center;
             margin-bottom: 30px;
-            flex-wrap: wrap;
         }
 
         .control-btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
+            padding: 15px 30px;
+            border-radius: 30px;
             font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .control-btn.primary {
@@ -446,55 +464,49 @@
             color: white;
         }
 
-        .control-btn.primary:hover {
-            background: var(--accent-blue);
-            transform: translateY(-2px);
-        }
-
         .control-btn.secondary {
-            background: white;
-            color: var(--primary-red);
-            border: 2px solid var(--primary-red);
-        }
-
-        .control-btn.secondary:hover {
-            background: var(--primary-red);
+            background: var(--accent-blue);
             color: white;
         }
 
-        .score-display {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
+        .control-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        .score-label {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 10px;
+        .control-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .score-display {
+            background: var(--primary-beige);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            display: none;
         }
 
         .score-value {
-            font-size: 2rem;
+            font-size: 3rem;
             font-weight: 900;
-            color: var(--primary-red);
+            color: var(--accent-green);
         }
 
         .score-bar {
-            width: 100%;
-            height: 8px;
-            background: #e0e0e0;
-            border-radius: 4px;
+            height: 10px;
+            background: #ddd;
+            border-radius: 5px;
+            margin: 15px 0;
             overflow: hidden;
-            margin-top: 10px;
         }
 
         .score-fill {
             height: 100%;
             background: var(--accent-green);
-            border-radius: 4px;
-            width: 85%;
+            width: 0%;
+            transition: width 1s ease-out;
         }
 
         /* ============ 頁尾 ============ */
@@ -521,25 +533,11 @@
             text-decoration: underline;
         }
 
-        /* ============ 響應式設計 ============ */
         @media (max-width: 768px) {
-            .page-header h1 {
-                font-size: 2rem;
-            }
-
-            .nfc-section,
-            .map-section,
-            .pronunciation-section {
-                padding: 25px;
-            }
-
-            .pronunciation-controls {
-                flex-direction: column;
-            }
-
-            .control-btn {
-                width: 100%;
-            }
+            .page-header h1 { font-size: 2rem; }
+            .nfc-section, .map-section, .pronunciation-section { padding: 25px; }
+            .pronunciation-controls { flex-direction: column; }
+            .control-btn { width: 100%; }
         }
     </style>
 </head>
@@ -565,8 +563,6 @@
     </div>
 </nav>
 
-<!-- /導航列 -->
-
     <!-- 頁面標題 -->
     <section class="page-header">
         <div class="container">
@@ -589,42 +585,11 @@
             <div id="nfc" class="nfc-section">
                 <div class="nfc-header">
                     <h3>📱 我的 NFC 智慧卡片</h3>
-                    <button class="add-btn">+ 綁定新卡片</button>
+                    <button class="add-btn" onclick="alert('請將新卡片靠近手機 NFC 感應區進行綁定')">+ 綁定新卡片</button>
                 </div>
 
-                <div class="nfc-grid">
-                    <div class="nfc-card">
-                        <div class="nfc-icon">🎴</div>
-                        <h4>基礎假名卡</h4>
-                        <p>包含平假名與片假名的完整學習內容</p>
-                        <div class="nfc-status">✓ 已綁定</div>
-                        <div class="nfc-actions">
-                            <button class="action-btn">預覽</button>
-                            <button class="action-btn">管理</button>
-                        </div>
-                    </div>
-
-                    <div class="nfc-card">
-                        <div class="nfc-icon">🍜</div>
-                        <h4>餐廳用語卡</h4>
-                        <p>在香港日式餐廳點餐的必備詞彙</p>
-                        <div class="nfc-status">✓ 已綁定</div>
-                        <div class="nfc-actions">
-                            <button class="action-btn">預覽</button>
-                            <button class="action-btn">管理</button>
-                        </div>
-                    </div>
-
-                    <div class="nfc-card">
-                        <div class="nfc-icon">🛍️</div>
-                        <h4>購物用語卡</h4>
-                        <p>在日式商店購物時的常用表達</p>
-                        <div class="nfc-status">✓ 已綁定</div>
-                        <div class="nfc-actions">
-                            <button class="action-btn">預覽</button>
-                            <button class="action-btn">管理</button>
-                        </div>
-                    </div>
+                <div class="nfc-grid" id="nfcGrid">
+                    <!-- 卡片由 JS 動態生成 -->
                 </div>
             </div>
 
@@ -632,62 +597,12 @@
             <div id="map" class="map-section">
                 <h2 class="section-title">🗺️ 香港日語情境地圖</h2>
                 
-                <div class="map-container">
-                    <div class="map-placeholder">🗺️</div>
-                    <div class="map-info">探索香港各區的日式餐廳、商店與文化景點</div>
-                    <button class="map-btn">在地圖上查看</button>
-                </div>
+                <div id="real-map"></div>
 
-                <h3 style="font-size: 1.3rem; color: var(--accent-blue); margin-bottom: 20px;">📍 推薦地點</h3>
+                <h3 style="font-size: 1.3rem; color: var(--accent-blue); margin-bottom: 20px;">📍 推薦日本餐廳 (香港)</h3>
 
-                <div class="location-grid">
-                    <div class="location-card">
-                        <div class="location-icon">🍣</div>
-                        <h4>銀座日本料理</h4>
-                        <div class="location-address">中環威靈頓街 18 號</div>
-                        <p>正宗日本壽司與刺身，學習食材與點餐用語</p>
-                        <button class="learn-btn">學習詞彙</button>
-                    </div>
-
-                    <div class="location-card">
-                        <div class="location-icon">🛍️</div>
-                        <h4>東京書店</h4>
-                        <div class="location-address">銅鑼灣軒尼詩道 500 號</div>
-                        <p>日本書籍與文創商品，練習購物用語</p>
-                        <button class="learn-btn">學習詞彙</button>
-                    </div>
-
-                    <div class="location-card">
-                        <div class="location-icon">🏮</div>
-                        <h4>日本文化中心</h4>
-                        <div class="location-address">灣仔港灣道 18 號</div>
-                        <p>定期舉辦文化活動與展覽</p>
-                        <button class="learn-btn">查看活動</button>
-                    </div>
-
-                    <div class="location-card">
-                        <div class="location-icon">🍜</div>
-                        <h4>東京拉麵館</h4>
-                        <div class="location-address">尖沙咀彌敦道 100 號</div>
-                        <p>地道日本拉麵，學習飲食文化</p>
-                        <button class="learn-btn">學習詞彙</button>
-                    </div>
-
-                    <div class="location-card">
-                        <div class="location-icon">👘</div>
-                        <h4>和服體驗館</h4>
-                        <div class="location-address">旺角彌敦道 200 號</div>
-                        <p>穿著和服體驗，學習傳統文化</p>
-                        <button class="learn-btn">預約體驗</button>
-                    </div>
-
-                    <div class="location-card">
-                        <div class="location-icon">🎌</div>
-                        <h4>日本藝術館</h4>
-                        <div class="location-address">中環皇后大道 300 號</div>
-                        <p>展示日本傳統藝術與現代作品</p>
-                        <button class="learn-btn">查看展覽</button>
-                    </div>
+                <div class="location-grid" id="locationGrid">
+                    <!-- 餐廳由 JS 動態生成 -->
                 </div>
             </div>
 
@@ -696,32 +611,46 @@
                 <h2 class="section-title">🎤 AI 發音教練</h2>
                 
                 <div class="pronunciation-container">
-                    <div class="word-display">こんにちは</div>
-                    <p style="font-size: 1.1rem; color: #666; margin-bottom: 20px;">你好</p>
+                    <div class="word-display" id="currentWord">こんにちは</div>
+                    <p style="font-size: 1.1rem; color: #666; margin-bottom: 20px;" id="currentTranslation">你好</p>
 
                     <div class="pronunciation-controls">
                         <button class="control-btn primary" onclick="playStandardPronunciation()">▶️ 播放標準發音</button>
-                        <button class="control-btn secondary" onclick="startRecording()">🎙️ 開始錄音</button>
+                        <button class="control-btn secondary" id="recordBtn" onclick="startRecording()">🎙️ 開始錄音</button>
                     </div>
 
-                    <div class="score-display">
+                    <div id="scoreDisplay" class="score-display">
                         <div class="score-label">您的發音評分</div>
-                        <div class="score-value">85/100</div>
+                        <div class="score-value" id="scoreValue">0/100</div>
                         <div class="score-bar">
-                            <div class="score-fill" style="width: 85%;"></div>
+                            <div class="score-fill" id="scoreFill"></div>
                         </div>
-                        <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
-                            很好！您的發音非常接近標準。請注意音調的起伏。
+                        <p style="font-size: 0.9rem; color: #666; margin-top: 10px;" id="scoreFeedback">
+                            正在分析您的發音...
                         </p>
                     </div>
 
                     <div style="margin-top: 30px;">
-                        <button class="control-btn primary" onclick="nextWord()" style="width: 100%; max-width: 300px;">下一個單詞 →</button>
+                        <button class="control-btn primary" onclick="nextWord()" style="width: 100%; max-width: 300px; justify-content: center;">下一個單詞 →</button>
                     </div>
                 </div>
             </div>
         </section>
     </main>
+
+    <!-- NFC 預覽 Modal -->
+    <div id="nfcModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-body">
+                <h4 id="modalTitle">標籤預覽</h4>
+                <div class="tag-preview-content" id="modalContent">
+                    <!-- 內容動態填充 -->
+                </div>
+                <button class="action-btn" onclick="alert('設置已保存')">保存更改</button>
+            </div>
+        </div>
+    </div>
 
     <!-- 頁尾 -->
       <footer>
@@ -734,41 +663,188 @@
         <p>本網站及logo由Manus Ai 生成</p>
     </footer>
 
+    <!-- 引入 Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script>
+        // --- 標籤切換 ---
         function switchTab(tabName) {
-            // 隱藏所有標籤頁
             document.getElementById('nfc').style.display = 'none';
             document.getElementById('map').classList.remove('active');
             document.getElementById('pronunciation').classList.remove('active');
 
-            // 移除所有按鈕的 active 類
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
 
-            // 顯示選定的標籤頁
             if (tabName === 'nfc') {
                 document.getElementById('nfc').style.display = 'block';
                 buttons[0].classList.add('active');
             } else if (tabName === 'map') {
                 document.getElementById('map').classList.add('active');
                 buttons[1].classList.add('active');
+                setTimeout(() => { map.invalidateSize(); }, 100); // 確保地圖正確渲染
             } else if (tabName === 'pronunciation') {
                 document.getElementById('pronunciation').classList.add('active');
                 buttons[2].classList.add('active');
             }
         }
 
+        // --- NFC 標籤數據與功能 ---
+        const nfcTags = [
+            { id: 1, icon: '🎴', title: '基礎假名卡', desc: '包含平假名與片假名的完整學習內容', content: '【內容】あ, い, う, え, お...<br>【進度】已學習 80%<br>【最後更新】2024-03-01' },
+            { id: 2, icon: '🍜', title: '餐廳用語卡', desc: '在香港日式餐廳點餐的必備詞彙', content: '【內容】注文, お会計, 美味しい...<br>【進度】已學習 45%<br>【最後更新】2024-03-05' },
+            { id: 3, icon: '🛍️', title: '購物用語卡', desc: '在日式商店購物時的常用表達', content: '【內容】いくらですか, これをください...<br>【進度】已學習 20%<br>【最後更新】2024-03-10' }
+        ];
+
+        function renderNfcTags() {
+            const grid = document.getElementById('nfcGrid');
+            grid.innerHTML = nfcTags.map(tag => `
+                <div class="nfc-card">
+                    <div class="nfc-icon">${tag.icon}</div>
+                    <h4>${tag.title}</h4>
+                    <p>${tag.desc}</p>
+                    <div class="nfc-status">✓ 已綁定</div>
+                    <div class="nfc-actions">
+                        <button class="action-btn" onclick="previewTag(${tag.id})">預覽</button>
+                        <button class="action-btn" onclick="manageTag(${tag.id})">管理</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function previewTag(id) {
+            const tag = nfcTags.find(t => t.id === id);
+            document.getElementById('modalTitle').textContent = tag.title + ' 預覽';
+            document.getElementById('modalContent').innerHTML = tag.content;
+            document.getElementById('nfcModal').style.display = 'block';
+        }
+
+        function manageTag(id) {
+            const tag = nfcTags.find(t => t.id === id);
+            const newTitle = prompt('請輸入新的標籤名稱：', tag.title);
+            if (newTitle) {
+                tag.title = newTitle;
+                renderNfcTags();
+                alert('修改成功！');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('nfcModal').style.display = 'none';
+        }
+
+        // --- 地圖整合與餐廳數據 ---
+        let map;
+        const restaurants = [
+            { name: "壽司郎 (Sushiro) - 旺角", lat: 22.3191, lng: 114.1694, address: "旺角彌敦道 628 號瓊華中心地庫", icon: "🍣" },
+            { name: "一蘭拉麵 (Ichiran) - 尖沙咀", lat: 22.2976, lng: 114.1722, address: "尖沙咀棉登徑 8 號地庫 B 舖", icon: "🍜" },
+            { name: "勝博殿 (Saboten) - 銅鑼灣", lat: 22.2808, lng: 114.1839, address: "銅鑼灣軒尼詩道 500 號希慎廣場 12 樓", icon: "🍱" },
+            { name: "大戶屋 (Ootoya) - 太古", lat: 22.2858, lng: 114.2173, address: "太古城道 18 號太古城中心一期", icon: "🍲" }
+        ];
+
+        function initMap() {
+            map = L.map('real-map').setView([22.3193, 114.1694], 11); // 以香港為中心
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            restaurants.forEach(res => {
+                L.marker([res.lat, res.lng]).addTo(map)
+                    .bindPopup(`<b>${res.name}</b><br>${res.address}`);
+            });
+        }
+
+        function renderLocations() {
+            const grid = document.getElementById('locationGrid');
+            grid.innerHTML = restaurants.map(res => `
+                <div class="location-card">
+                    <div class="location-icon">${res.icon}</div>
+                    <h4>${res.name}</h4>
+                    <div class="location-address">${res.address}</div>
+                    <p>在實際場景中練習點餐與互動，提升日語應用能力。</p>
+                    <button class="learn-btn" onclick="alert('正在加載 ${res.name} 的專屬詞彙...')">學習詞彙</button>
+                </div>
+            `).join('');
+        }
+
+        // --- 發音教練功能 ---
+        const words = [
+            { jp: "こんにちは", zh: "你好" },
+            { jp: "ありがとうございます", zh: "非常感謝" },
+            { jp: "美味しいです", zh: "很好吃" },
+            { jp: "いくらですか", zh: "多少錢？" },
+            { jp: "さようなら", zh: "再見" }
+        ];
+        let currentWordIndex = 0;
+
         function playStandardPronunciation() {
-            alert('▶️ 播放標準發音：こんにちは');
+            const text = words[currentWordIndex].jp;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'ja-JP';
+            window.speechSynthesis.speak(utterance);
         }
 
         function startRecording() {
-            alert('🎙️ 開始錄音...（模擬）');
+            const btn = document.getElementById('recordBtn');
+            btn.disabled = true;
+            btn.textContent = '🛑 正在錄音...';
+            
+            document.getElementById('scoreDisplay').style.display = 'none';
+
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.textContent = '🎙️ 開始錄音';
+                showScore();
+            }, 3000);
+        }
+
+        function showScore() {
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const scoreValue = document.getElementById('scoreValue');
+            const scoreFill = document.getElementById('scoreFill');
+            const feedback = document.getElementById('scoreFeedback');
+
+            const score = Math.floor(Math.random() * 30) + 70; // 模擬 70-100 的評分
+            
+            scoreDisplay.style.display = 'block';
+            scoreValue.textContent = `${score}/100`;
+            
+            setTimeout(() => {
+                scoreFill.style.width = `${score}%`;
+            }, 100);
+
+            if (score >= 90) {
+                feedback.textContent = "完美！您的發音與母語者幾乎沒有區別。";
+                feedback.style.color = "var(--accent-green)";
+            } else if (score >= 80) {
+                feedback.textContent = "很好！發音很清晰，再注意一下重音即可。";
+                feedback.style.color = "var(--accent-blue)";
+            } else {
+                feedback.textContent = "不錯！建議多聽幾遍標準發音並再次嘗試。";
+                feedback.style.color = "#666";
+            }
         }
 
         function nextWord() {
-            alert('下一個單詞已加載');
+            currentWordIndex = (currentWordIndex + 1) % words.length;
+            document.getElementById('currentWord').textContent = words[currentWordIndex].jp;
+            document.getElementById('currentTranslation').textContent = words[currentWordIndex].zh;
+            document.getElementById('scoreDisplay').style.display = 'none';
+            document.getElementById('scoreFill').style.width = '0%';
         }
+
+        // 初始化
+        window.onload = () => {
+            renderNfcTags();
+            initMap();
+            renderLocations();
+        };
+
+        // 點擊 Modal 外部關閉
+        window.onclick = (event) => {
+            if (event.target == document.getElementById('nfcModal')) {
+                closeModal();
+            }
+        };
     </script>
 </body>
 </html>
