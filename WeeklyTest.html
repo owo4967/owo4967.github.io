@@ -357,26 +357,26 @@
             <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663328630280/CJexFqIIRdXImBgh.png" alt="Tsutaeru Logo" style="height: 80px; width: auto;">
         </a>
         <ul class="nav-links">
-            <li><a href="./index.html">首頁</a></li>
-            <li><a href="./LearningHub.html">學習中心</a></li>
-            <li><a href="./InteractivePractice.html">互動練習</a></li>
-            <li><a href="./IoT.html">IoT 體驗</a></li>
-            <li><a href="./Resources.html">學習資源</a></li>
-            <li><a href="./CulturalLearning.html">文化學習</a></li>
-            <li><a href="./AboutUs.html">關於我們</a></li>
-            <li><a href="./Community.html">社群</a></li>
-            <li><a href="./10-data-analytics.html">數據分析</a></li>
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="LearningHub.html">學習中心</a></li>
+            <li><a href="InteractivePractice.html">互動練習</a></li>
+            <li><a href="IoT.html">IoT 體驗</a></li>
+            <li><a href="Resources.html">學習資源</a></li>
+            <li><a href="CulturalLearning.html">文化學習</a></li>
+            <li><a href="AboutUs.html">關於我們</a></li>
+            <li><a href="Community.html">社群</a></li>
+            <li><a href="Chart.html">數據分析</a></li>
         </ul>
-        <a href="./UserAccount.html" class="nav-cta">我的帳戶</a>
+        <a href="UserAccount.html" class="nav-cta">我的帳戶</a>
     </div>
 </nav>
 
 <!-- /導航列 -->
-
+    
     <!-- 頁面標題 -->
     <div class="page-header">
         <div class="breadcrumb">
-            <a href="./InteractivePractice.html">互動練習</a> > 每週測驗
+            <a href="InteractivePractice.html">互動練習</a> > 每週測驗
         </div>
         <h1>📝 每週測驗</h1>
     </div>
@@ -384,162 +384,138 @@
     <!-- 主要內容 -->
     <div class="container">
         <div class="content">
-            <!-- 測驗 -->
+            <!-- 測驗區域 -->
             <div class="quiz-section">
-                <h2>本週測驗 - 第 1 週</h2>
+                <h2>本週學習成果評估</h2>
+                <p>請在限定時間內完成以下 10 道題目。測驗結果將計入您的學習進度。</p>
                 
-                <!-- 倒計時器 -->
-                <div class="timer" id="timer">⏱️ 時間剩餘: 30:00</div>
+                <!-- 倒計時 -->
+                <div class="timer" id="timer">剩餘時間：30:00</div>
                 
+                <!-- 進度 -->
                 <div class="progress-info">
-                    <p>進度: <span id="progressCount">0</span> / 10 題</p>
-                    <p>已選擇: <span id="selectedCount">0</span> 題</p>
+                    <p id="progressText">已完成：0 / 10 題</p>
+                    <p id="accuracyText">當前進度：0%</p>
                 </div>
+
+                <div class="page-indicator" id="pageIndicator">第 1 頁 / 共 2 頁</div>
                 
-                <!-- 第 1 頁 (題目 1-5) -->
-                <div class="page-section active" id="page1">
-                    <div class="page-indicator">第 1 頁 / 2 頁 (題目 1-5)</div>
-                    
-                    <!-- 題目 1 -->
-                    <div class="question-card">
-                        <h3>題目 1: 請選擇正確的日文翻譯</h3>
-                        <p>「謝謝」的日文是?</p>
-                        <div class="options">
-                            <div class="option" onclick="selectOption(this, 0)">ありがとう</div>
-                            <div class="option" onclick="selectOption(this, 0)">さようなら</div>
-                            <div class="option" onclick="selectOption(this, 0)">こんにちは</div>
-                            <div class="option" onclick="selectOption(this, 0)">すみません</div>
+                <form id="quizForm">
+                    <!-- 第一頁題目 -->
+                    <div id="page1" class="page-section active">
+                        <div class="question-card">
+                            <h3>1. 「こんにちは」的意思是？</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(this, 0, 0)">A. 早上好</div>
+                                <div class="option" onclick="selectOption(this, 0, 1)">B. 你好</div>
+                                <div class="option" onclick="selectOption(this, 0, 2)">C. 晚上好</div>
+                            </div>
+                        </div>
+
+                        <div class="question-card">
+                            <h3>2. 「ありがとう」的正確漢字是？</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(this, 1, 0)">A. 有難う</div>
+                                <div class="option" onclick="selectOption(this, 1, 1)">B. 蟻難う</div>
+                                <div class="option" onclick="selectOption(this, 1, 2)">C. 在難う</div>
+                            </div>
+                        </div>
+
+                        <div class="question-card">
+                            <h3>3. 「學校」的日文發音是？</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(this, 2, 0)">A. がっこう (Gakkou)</div>
+                                <div class="option" onclick="selectOption(this, 2, 1)">B. ぎっこう (Gikkou)</div>
+                                <div class="option" onclick="selectOption(this, 2, 2)">C. げっこう (Gekkou)</div>
+                            </div>
+                        </div>
+
+                        <div class="question-card">
+                            <h3>4. 「先生」在日文中通常指？</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(this, 3, 0)">A. 老師</div>
+                                <div class="option" onclick="selectOption(this, 3, 1)">B. 學生</div>
+                                <div class="option" onclick="selectOption(this, 3, 2)">C. 醫生</div>
+                            </div>
+                        </div>
+
+                        <div class="question-card">
+                            <h3>5. 如何用日文詢問「這是什麼？」</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(this, 4, 0)">A. これはなんですか</div>
+                                <div class="option" onclick="selectOption(this, 4, 1)">B. それはなんですか</div>
+                                <div class="option" onclick="selectOption(this, 4, 2)">C. あれはなんですか</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 第二頁題目 -->
+                    <div id="page2" class="page-section">
+                        <div class="question-card">
+                            <h3>6. 「私」的意思是？</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(this, 5, 0)">A. 你</div>
+                                <div class="option" onclick="selectOption(this, 5, 1)">B. 我</div>
+                                <div class="option" onclick="selectOption(this, 5, 2)">C. 他</div>
+                            </div>
+                        </div>
+
+                        <div class="question-card">
+                            <h3>7. 「水」的發音是？</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(this, 6, 0)">A. みず (Mizu)</div>
+                                <div class="option" onclick="selectOption(this, 6, 1)">B. おちゃ (Ocha)</div>
+                                <div class="option" onclick="selectOption(this, 6, 2)">C. さけ (Sake)</div>
+                            </div>
+                        </div>
+
+                        <div class="question-card">
+                            <h3>8. 「一、二、三」的日文發音順序是？</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(this, 7, 0)">A. いち、に、さん</div>
+                                <div class="option" onclick="selectOption(this, 7, 1)">B. に、いち、さん</div>
+                                <div class="option" onclick="selectOption(this, 7, 2)">C. さん、に、いち</div>
+                            </div>
+                        </div>
+
+                        <div class="question-card">
+                            <h3>9. 「日本」的正確發音是？</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(this, 8, 0)">A. にっぽん / にほん</div>
+                                <div class="option" onclick="selectOption(this, 8, 1)">B. じっぽん</div>
+                                <div class="option" onclick="selectOption(this, 8, 2)">C. にぽん</div>
+                            </div>
+                        </div>
+
+                        <div class="question-card">
+                            <h3>10. 「再見」的日文是？</h3>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(this, 9, 0)">A. さようなら</div>
+                                <div class="option" onclick="selectOption(this, 9, 1)">B. こんにちは</div>
+                                <div class="option" onclick="selectOption(this, 9, 2)">C. おやすみ</div>
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- 題目 2 -->
-                    <div class="question-card">
-                        <h3>題目 2: 選擇正確的助詞</h3>
-                        <p>私 ___ 学生です。</p>
-                        <div class="options">
-                            <div class="option" onclick="selectOption(this, 1)">は</div>
-                            <div class="option" onclick="selectOption(this, 1)">を</div>
-                            <div class="option" onclick="selectOption(this, 1)">に</div>
-                            <div class="option" onclick="selectOption(this, 1)">で</div>
-                        </div>
+                    <div class="button-group">
+                        <button type="button" id="prevBtn" class="btn btn-secondary" onclick="changePage(-1)" style="display: none;">上一頁</button>
+                        <button type="button" id="nextBtn" class="btn btn-nav" onclick="changePage(1)">下一頁</button>
+                        <button type="button" id="submitBtn" class="btn" onclick="submitQuiz()" style="display: none;">提交測驗</button>
                     </div>
-                    
-                    <!-- 題目 3 -->
-                    <div class="question-card">
-                        <h3>題目 3: 翻譯以下句子</h3>
-                        <p>「毎日勉強します」的中文意思是?</p>
-                        <div class="options">
-                            <div class="option" onclick="selectOption(this, 2)">每天學習</div>
-                            <div class="option" onclick="selectOption(this, 2)">有時學習</div>
-                            <div class="option" onclick="selectOption(this, 2)">不學習</div>
-                            <div class="option" onclick="selectOption(this, 2)">明天學習</div>
-                        </div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary" onclick="goBack()">返回</button>
+                        <button type="button" class="btn" onclick="resetQuiz()">重新開始</button>
                     </div>
-                    
-                    <!-- 題目 4 -->
-                    <div class="question-card">
-                        <h3>題目 4: 選擇正確的動詞形式</h3>
-                        <p>昨日、私は映画を ___。</p>
-                        <div class="options">
-                            <div class="option" onclick="selectOption(this, 3)">見ました</div>
-                            <div class="option" onclick="selectOption(this, 3)">見ます</div>
-                            <div class="option" onclick="selectOption(this, 3)">見ている</div>
-                            <div class="option" onclick="selectOption(this, 3)">見た</div>
-                        </div>
-                    </div>
-                    
-                    <!-- 題目 5 -->
-                    <div class="question-card">
-                        <h3>題目 5: 選擇正確的敬語</h3>
-                        <p>先生は今、どこに ___？</p>
-                        <div class="options">
-                            <div class="option" onclick="selectOption(this, 4)">いますか</div>
-                            <div class="option" onclick="selectOption(this, 4)">おられますか</div>
-                            <div class="option" onclick="selectOption(this, 4)">いるか</div>
-                            <div class="option" onclick="selectOption(this, 4)">いたか</div>
-                        </div>
-                    </div>
-                </div>
+                </form>
                 
-                <!-- 第 2 頁 (題目 6-10) -->
-                <div class="page-section" id="page2">
-                    <div class="page-indicator">第 2 頁 / 2 頁 (題目 6-10)</div>
-                    
-                    <!-- 題目 6 -->
-                    <div class="question-card">
-                        <h3>題目 6: 選擇正確的時態</h3>
-                        <p>彼は毎週、図書館に ___。</p>
-                        <div class="options">
-                            <div class="option" onclick="selectOption(this, 5)">行きます</div>
-                            <div class="option" onclick="selectOption(this, 5)">行った</div>
-                            <div class="option" onclick="selectOption(this, 5)">行っている</div>
-                            <div class="option" onclick="selectOption(this, 5)">行く</div>
-                        </div>
+                <!-- 反饋 -->
+                <div id="feedback" class="feedback-section">
+                    <h3 style="color: var(--accent-blue); margin-bottom: 15px;">測驗報告</h3>
+                    <div id="scoreDisplay" class="score-display">0 / 10</div>
+                    <div id="feedbackList">
+                        <!-- 反饋項目將由 JS 生成 -->
                     </div>
-                    
-                    <!-- 題目 7 -->
-                    <div class="question-card">
-                        <h3>題目 7: 選擇正確的助詞</h3>
-                        <p>私の友達 ___ 日本語を教えてくれます。</p>
-                        <div class="options">
-                            <div class="option" onclick="selectOption(this, 6)">が</div>
-                            <div class="option" onclick="selectOption(this, 6)">を</div>
-                            <div class="option" onclick="selectOption(this, 6)">に</div>
-                            <div class="option" onclick="selectOption(this, 6)">で</div>
-                        </div>
-                    </div>
-                    
-                    <!-- 題目 8 -->
-                    <div class="question-card">
-                        <h3>題目 8: 翻譯以下短語</h3>
-                        <p>「お疲れ様です」最常用於何時？</p>
-                        <div class="options">
-                            <div class="option" onclick="selectOption(this, 7)">早上見面時</div>
-                            <div class="option" onclick="selectOption(this, 7)">工作結束時</div>
-                            <div class="option" onclick="selectOption(this, 7)">吃飯時</div>
-                            <div class="option" onclick="selectOption(this, 7)">睡覺時</div>
-                        </div>
-                    </div>
-                    
-                    <!-- 題目 9 -->
-                    <div class="question-card">
-                        <h3>題目 9: 選擇正確的表達</h3>
-                        <p>「大丈夫です」表示什麼意思？</p>
-                        <div class="options">
-                            <div class="option" onclick="selectOption(this, 8)">沒關係 / 我很好</div>
-                            <div class="option" onclick="selectOption(this, 8)">謝謝你</div>
-                            <div class="option" onclick="selectOption(this, 8)">對不起</div>
-                            <div class="option" onclick="selectOption(this, 8)">再見</div>
-                        </div>
-                    </div>
-                    
-                    <!-- 題目 10 -->
-                    <div class="question-card">
-                        <h3>題目 10: 選擇正確的句子</h3>
-                        <p>下列哪一句最恰當地表達「我喜歡日本」？</p>
-                        <div class="options">
-                            <div class="option" onclick="selectOption(this, 9)">私は日本が好きです</div>
-                            <div class="option" onclick="selectOption(this, 9)">私は日本を好きです</div>
-                            <div class="option" onclick="selectOption(this, 9)">私は日本に好きです</div>
-                            <div class="option" onclick="selectOption(this, 9)">私は日本で好きです</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 按鈕 -->
-                <div class="button-group">
-                    <button class="btn btn-nav" onclick="previousPage()" id="prevBtn" style="display: none;">← 上一頁</button>
-                    <button class="btn btn-nav" onclick="nextPage()" id="nextBtn">下一頁 →</button>
-                    <button class="btn" onclick="submitQuiz()" id="submitBtn" style="display: none;">✓ 提交測驗</button>
-                    <button class="btn btn-secondary" onclick="retakeQuiz()" id="retakeBtn" style="display: none;">🔄 重新作答</button>
-                    <button class="btn btn-secondary" onclick="goBack()">返回</button>
-                </div>
-                
-                <!-- 反饋區域 -->
-                <div class="feedback-section" id="feedbackSection">
-                    <h3 style="color: var(--primary-red); margin-bottom: 15px;">🏆 測驗結果</h3>
-                    <div class="score-display" id="scoreDisplay"></div>
-                    <div id="feedbackContent"></div>
                 </div>
             </div>
         </div>
@@ -548,180 +524,108 @@
     <!-- 頁尾 -->
     <footer>
         <p>&copy; 2026 伝える (Tsutaeru) — 香港首個 IoT 日語學習平台</p>
+        <p>本網站及logo由Manus Ai 生成</p>
     </footer>
 
     <script>
-        // 正確答案
-        const correctAnswers = ['ありがとう', 'は', '每天學習', '見ました', 'おられますか', '行きます', 'が', '工作結束時', '沒關係 / 我很好', '私は日本が好きです'];
-        const userAnswers = [null, null, null, null, null, null, null, null, null, null];
-        let timeRemaining = 30 * 60; // 30 分鐘
-        let timerInterval = null;
-        let quizSubmitted = false;
+        const correctAnswers = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0];
+        let userAnswers = new Array(10).fill(null);
+        let timeLeft = 1800; // 30 分鐘
+        let timerId;
         let currentPage = 1;
-        
-        // 記錄用戶選擇
-        function selectOption(element, questionIndex) {
-            if (quizSubmitted) return; // 提交後禁止選擇
-            
-            const parent = element.parentElement;
-            
-            parent.querySelectorAll('.option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            element.classList.add('selected');
-            
-            // 記錄用戶答案
-            userAnswers[questionIndex] = element.textContent.trim();
-            updateProgress();
-        }
-        
-        // 更新進度
-        function updateProgress() {
-            const selectedCount = userAnswers.filter(ans => ans !== null).length;
-            document.getElementById('selectedCount').textContent = selectedCount;
-            document.getElementById('progressCount').textContent = selectedCount;
-        }
-        
-        // 分頁功能
-        function nextPage() {
-            if (currentPage === 1) {
-                document.getElementById('page1').classList.remove('active');
-                document.getElementById('page2').classList.add('active');
-                currentPage = 2;
-                document.getElementById('prevBtn').style.display = 'inline-block';
-                document.getElementById('nextBtn').style.display = 'none';
-                document.getElementById('submitBtn').style.display = 'inline-block';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
-        
-        function previousPage() {
-            if (currentPage === 2) {
-                document.getElementById('page2').classList.remove('active');
-                document.getElementById('page1').classList.add('active');
-                currentPage = 1;
-                document.getElementById('prevBtn').style.display = 'none';
-                document.getElementById('nextBtn').style.display = 'inline-block';
-                document.getElementById('submitBtn').style.display = 'none';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
-        
-        // 倒計時器
+        const totalPages = 2;
+
         function startTimer() {
-            timerInterval = setInterval(() => {
-                timeRemaining--;
-                updateTimerDisplay();
+            timerId = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                const timerEl = document.getElementById('timer');
+                timerEl.textContent = `剩餘時間：${minutes}:${seconds.toString().padStart(2, '0')}`;
                 
-                if (timeRemaining <= 0) {
-                    clearInterval(timerInterval);
-                    submitQuiz(); // 時間到自動提交
+                if (timeLeft <= 300) timerEl.classList.add('warning');
+                if (timeLeft <= 0) {
+                    clearInterval(timerId);
+                    submitQuiz();
                 }
             }, 1000);
         }
-        
-        function updateTimerDisplay() {
-            const minutes = Math.floor(timeRemaining / 60);
-            const seconds = timeRemaining % 60;
-            const timerElement = document.getElementById('timer');
-            timerElement.textContent = `⏱️ 時間剩餘: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+        function selectOption(el, qIndex, oIndex) {
+            const options = el.parentElement.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
+            userAnswers[qIndex] = oIndex;
             
-            // 時間低於 5 分鐘時警告
-            if (timeRemaining < 300) {
-                timerElement.classList.add('warning');
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            document.getElementById('progressText').textContent = `已完成：${answeredCount} / 10 題`;
+            document.getElementById('accuracyText').textContent = `當前進度：${answeredCount * 10}%`;
+        }
+
+        function changePage(delta) {
+            const newPage = currentPage + delta;
+            if (newPage >= 1 && newPage <= totalPages) {
+                document.getElementById(`page${currentPage}`).classList.remove('active');
+                currentPage = newPage;
+                document.getElementById(`page${currentPage}`).classList.add('active');
+                
+                document.getElementById('pageIndicator').textContent = `第 ${currentPage} 頁 / 共 ${totalPages} 頁`;
+                
+                document.getElementById('prevBtn').style.display = currentPage === 1 ? 'none' : 'inline-block';
+                document.getElementById('nextBtn').style.display = currentPage === totalPages ? 'none' : 'inline-block';
+                document.getElementById('submitBtn').style.display = currentPage === totalPages ? 'inline-block' : 'none';
             }
         }
-        
-        // 提交測驗
+
         function submitQuiz() {
-            quizSubmitted = true;
-            clearInterval(timerInterval);
-            
-            // 計算得分
-            let correctCount = 0;
-            const feedbackContent = document.getElementById('feedbackContent');
-            feedbackContent.innerHTML = '';
+            clearInterval(timerId);
+            let score = 0;
+            const feedbackList = document.getElementById('feedbackList');
+            feedbackList.innerHTML = '';
             
             userAnswers.forEach((answer, index) => {
                 const isCorrect = answer === correctAnswers[index];
-                if (isCorrect) correctCount++;
+                if (isCorrect) score++;
                 
-                const feedbackItem = document.createElement('div');
-                feedbackItem.className = `feedback-item ${isCorrect ? 'correct' : 'incorrect'}`;
-                feedbackItem.innerHTML = `
-                    <div class="label">題目 ${index + 1}: ${isCorrect ? '✅ 正確' : '❌ 錯誤'}</div>
-                    <div class="result">
-                        <strong>您的答案:</strong> ${answer || '未答案'}<br>
-                        <strong>正確答案:</strong> ${correctAnswers[index]}
-                    </div>
+                const item = document.createElement('div');
+                item.className = `feedback-item ${isCorrect ? 'correct' : 'incorrect'}`;
+                item.innerHTML = `
+                    <div class="label">第 ${index + 1} 題：${isCorrect ? '正確 ✅' : '錯誤 ❌'}</div>
+                    <div class="result">正確答案索引：${correctAnswers[index]}，您的選擇：${answer === null ? '未作答' : answer}</div>
                 `;
-                feedbackContent.appendChild(feedbackItem);
+                feedbackList.appendChild(item);
             });
             
-            // 顯示得分
-            const score = Math.round((correctCount / correctAnswers.length) * 100);
-            document.getElementById('scoreDisplay').textContent = `⭐ ${score}% (${correctCount}/${correctAnswers.length})`;
-            
-            // 顯示反饋區域
-            document.getElementById('feedbackSection').classList.add('show');
-            document.getElementById('submitBtn').style.display = 'none';
-            document.getElementById('retakeBtn').style.display = 'inline-block';
-            document.getElementById('prevBtn').style.display = 'none';
-            document.getElementById('nextBtn').style.display = 'none';
-            
-            // 禁止提交按鈕
-            document.getElementById('submitBtn').disabled = true;
-            
-            // 顯示兩頁的反饋
-            document.getElementById('page1').classList.add('active');
-            document.getElementById('page2').classList.add('active');
+            document.getElementById('scoreDisplay').textContent = `${score} / 10`;
+            document.getElementById('feedback').classList.add('show');
+            window.scrollTo({ top: document.getElementById('feedback').offsetTop - 100, behavior: 'smooth' });
         }
-        
-        // 重新作答
-        function retakeQuiz() {
-            // 重置所有選擇
-            document.querySelectorAll('.option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            
-            // 重置答案數組
+
+        function resetQuiz() {
             userAnswers.fill(null);
-            quizSubmitted = false;
+            timeLeft = 1800;
             currentPage = 1;
+            clearInterval(timerId);
+            startTimer();
             
-            // 重置時間
-            timeRemaining = 30 * 60;
-            updateTimerDisplay();
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            
+            document.getElementById('feedback').classList.remove('show');
+            document.getElementById('progressText').textContent = `已完成：0 / 10 題`;
+            document.getElementById('accuracyText').textContent = `當前進度：0%`;
             document.getElementById('timer').classList.remove('warning');
             
-            // 隱藏反饋區域
-            document.getElementById('feedbackSection').classList.remove('show');
-            document.getElementById('submitBtn').style.display = 'none';
-            document.getElementById('submitBtn').disabled = false;
-            document.getElementById('retakeBtn').style.display = 'none';
-            document.getElementById('prevBtn').style.display = 'none';
-            document.getElementById('nextBtn').style.display = 'inline-block';
-            
-            // 重新開始時間器
-            clearInterval(timerInterval);
-            startTimer();
-            
-            // 重置進度
-            updateProgress();
-            
-            // 重置頁面
-            document.getElementById('page1').classList.add('active');
-            document.getElementById('page2').classList.remove('active');
+            changePage(0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        
+
         function goBack() {
-            window.location.href = './InteractivePractice.html';
+            window.location.href = 'InteractivePractice.html';
         }
-        
-        // 頁面加載時開始時間器
-        window.addEventListener('load', () => {
-            startTimer();
-        });
+
+        // 初始化
+        startTimer();
     </script>
 </body>
 </html>
