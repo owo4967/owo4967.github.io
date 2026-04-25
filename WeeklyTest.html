@@ -150,6 +150,23 @@
             font-weight: 700;
         }
         
+        /* ============ 倒計時器 ============ */
+        .timer {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-red);
+            background: linear-gradient(135deg, rgba(201, 23, 30, 0.1) 0%, rgba(13, 59, 102, 0.1) 100%);
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .timer.warning {
+            color: #ff6b6b;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%);
+        }
+        
         .progress-info {
             background: linear-gradient(135deg, rgba(201, 23, 30, 0.1) 0%, rgba(13, 59, 102, 0.1) 100%);
             padding: 20px;
@@ -163,6 +180,22 @@
         .progress-info p {
             color: var(--accent-blue);
             font-weight: 600;
+        }
+        
+        .page-indicator {
+            text-align: center;
+            font-size: 1rem;
+            color: var(--accent-blue);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .page-section {
+            display: none;
+        }
+        
+        .page-section.active {
+            display: block;
         }
         
         .question-card {
@@ -241,28 +274,78 @@
             background: var(--primary-red);
         }
         
+        .btn-nav {
+            background: var(--accent-green);
+        }
+        
+        .btn-nav:hover {
+            background: #5f8a54;
+        }
+        
+        /* ============ 反饋區域 ============ */
+        .feedback-section {
+            background: linear-gradient(135deg, rgba(13, 59, 102, 0.05) 0%, rgba(122, 157, 110, 0.05) 100%);
+            border-left: 5px solid var(--accent-blue);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .feedback-section.show {
+            display: block;
+        }
+        
+        .feedback-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .feedback-item:last-child {
+            border-bottom: none;
+        }
+        
+        .feedback-item.correct {
+            border-left: 4px solid #51cf66;
+            padding-left: 15px;
+        }
+        
+        .feedback-item.incorrect {
+            border-left: 4px solid #ff6b6b;
+            padding-left: 15px;
+        }
+        
+        .feedback-item .label {
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 5px;
+        }
+        
+        .feedback-item .result {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .score-display {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary-red);
+            text-align: center;
+            margin: 20px 0;
+        }
+        
         /* ============ 頁尾 ============ */
-         footer {
+        footer {
             background: var(--accent-blue);
             color: white;
-            padding: 40px 20px;
             text-align: center;
-            margin-top: 80px;
+            padding: 30px 20px;
+            margin-top: 60px;
         }
-
+        
         footer p {
-            margin-bottom: 10px;
             font-size: 0.9rem;
-        }
-
-        footer a {
-            color: var(--accent-pink);
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
@@ -270,21 +353,21 @@
     <!-- 導航列 -->
 <nav>
     <div class="nav-container">
-        <a href="index.html" class="logo">
-            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663328630280/CJexFqIIRdXImBgh.png" alt="Tsutaeru Logo" style="height: 80px; width: auto;">
+        <a href="./index.html" class="logo">
+            <img src="/home/ubuntu/upload/tsutaeru_social_media.png" alt="Tsutaeru Logo" style="height: 80px; width: auto;">
         </a>
         <ul class="nav-links">
-            <li><a href="index.html">首頁</a></li>
-            <li><a href="LearningHub.html">學習中心</a></li>
-            <li><a href="InteractivePractice.html">互動練習</a></li>
-            <li><a href="IoT.html">IoT 體驗</a></li>
-            <li><a href="Resources.html">學習資源</a></li>
-            <li><a href="CulturalLearning.html">文化學習</a></li>
-            <li><a href="AboutUs.html">關於我們</a></li>
-            <li><a href="Community.html">社群</a></li>
-            <li><a href="Chart.html">數據分析</a></li>
+            <li><a href="./index.html">首頁</a></li>
+            <li><a href="./LearningHub.html">學習中心</a></li>
+            <li><a href="./InteractivePractice.html">互動練習</a></li>
+            <li><a href="./IoT.html">IoT 體驗</a></li>
+            <li><a href="./Resources.html">學習資源</a></li>
+            <li><a href="./CulturalLearning.html">文化學習</a></li>
+            <li><a href="./AboutUs.html">關於我們</a></li>
+            <li><a href="./Community.html">社群</a></li>
+            <li><a href="./10-data-analytics.html">數據分析</a></li>
         </ul>
-        <a href="UserAccount.html" class="nav-cta">我的帳戶</a>
+        <a href="./UserAccount.html" class="nav-cta">我的帳戶</a>
     </div>
 </nav>
 
@@ -293,7 +376,7 @@
     <!-- 頁面標題 -->
     <div class="page-header">
         <div class="breadcrumb">
-            <a href="https://codepen.io/ybxvhtiy-the-sans/full/wBzvZGj">互動練習</a> > 每週測驗
+            <a href="./InteractivePractice.html">互動練習</a> > 每週測驗
         </div>
         <h1>📝 每週測驗</h1>
     </div>
@@ -305,83 +388,340 @@
             <div class="quiz-section">
                 <h2>本週測驗 - 第 1 週</h2>
                 
+                <!-- 倒計時器 -->
+                <div class="timer" id="timer">⏱️ 時間剩餘: 30:00</div>
+                
                 <div class="progress-info">
-                    <p>進度: 1 / 5 題</p>
-                    <p>時間限制: 30 分鐘</p>
+                    <p>進度: <span id="progressCount">0</span> / 10 題</p>
+                    <p>已選擇: <span id="selectedCount">0</span> 題</p>
                 </div>
                 
-                <!-- 題目 1 -->
-                <div class="question-card">
-                    <h3>題目 1: 請選擇正確的日文翻譯</h3>
-                    <p>「謝謝」的日文是?</p>
-                    <div class="options">
-                        <div class="option" onclick="selectOption(this)">ありがとう</div>
-                        <div class="option" onclick="selectOption(this)">さようなら</div>
-                        <div class="option" onclick="selectOption(this)">こんにちは</div>
-                        <div class="option" onclick="selectOption(this)">すみません</div>
+                <!-- 第 1 頁 (題目 1-5) -->
+                <div class="page-section active" id="page1">
+                    <div class="page-indicator">第 1 頁 / 2 頁 (題目 1-5)</div>
+                    
+                    <!-- 題目 1 -->
+                    <div class="question-card">
+                        <h3>題目 1: 請選擇正確的日文翻譯</h3>
+                        <p>「謝謝」的日文是?</p>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 0)">ありがとう</div>
+                            <div class="option" onclick="selectOption(this, 0)">さようなら</div>
+                            <div class="option" onclick="selectOption(this, 0)">こんにちは</div>
+                            <div class="option" onclick="selectOption(this, 0)">すみません</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 題目 2 -->
+                    <div class="question-card">
+                        <h3>題目 2: 選擇正確的助詞</h3>
+                        <p>私 ___ 学生です。</p>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 1)">は</div>
+                            <div class="option" onclick="selectOption(this, 1)">を</div>
+                            <div class="option" onclick="selectOption(this, 1)">に</div>
+                            <div class="option" onclick="selectOption(this, 1)">で</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 題目 3 -->
+                    <div class="question-card">
+                        <h3>題目 3: 翻譯以下句子</h3>
+                        <p>「毎日勉強します」的中文意思是?</p>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 2)">每天學習</div>
+                            <div class="option" onclick="selectOption(this, 2)">有時學習</div>
+                            <div class="option" onclick="selectOption(this, 2)">不學習</div>
+                            <div class="option" onclick="selectOption(this, 2)">明天學習</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 題目 4 -->
+                    <div class="question-card">
+                        <h3>題目 4: 選擇正確的動詞形式</h3>
+                        <p>昨日、私は映画を ___。</p>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 3)">見ました</div>
+                            <div class="option" onclick="selectOption(this, 3)">見ます</div>
+                            <div class="option" onclick="selectOption(this, 3)">見ている</div>
+                            <div class="option" onclick="selectOption(this, 3)">見た</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 題目 5 -->
+                    <div class="question-card">
+                        <h3>題目 5: 選擇正確的敬語</h3>
+                        <p>先生は今、どこに ___？</p>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 4)">いますか</div>
+                            <div class="option" onclick="selectOption(this, 4)">おられますか</div>
+                            <div class="option" onclick="selectOption(this, 4)">いるか</div>
+                            <div class="option" onclick="selectOption(this, 4)">いたか</div>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- 題目 2 -->
-                <div class="question-card">
-                    <h3>題目 2: 選擇正確的助詞</h3>
-                    <p>私 ___ 学生です。</p>
-                    <div class="options">
-                        <div class="option" onclick="selectOption(this)">は</div>
-                        <div class="option" onclick="selectOption(this)">を</div>
-                        <div class="option" onclick="selectOption(this)">に</div>
-                        <div class="option" onclick="selectOption(this)">で</div>
+                <!-- 第 2 頁 (題目 6-10) -->
+                <div class="page-section" id="page2">
+                    <div class="page-indicator">第 2 頁 / 2 頁 (題目 6-10)</div>
+                    
+                    <!-- 題目 6 -->
+                    <div class="question-card">
+                        <h3>題目 6: 選擇正確的時態</h3>
+                        <p>彼は毎週、図書館に ___。</p>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 5)">行きます</div>
+                            <div class="option" onclick="selectOption(this, 5)">行った</div>
+                            <div class="option" onclick="selectOption(this, 5)">行っている</div>
+                            <div class="option" onclick="selectOption(this, 5)">行く</div>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- 題目 3 -->
-                <div class="question-card">
-                    <h3>題目 3: 翻譯以下句子</h3>
-                    <p>「毎日勉強します」的中文意思是?</p>
-                    <div class="options">
-                        <div class="option" onclick="selectOption(this)">每天學習</div>
-                        <div class="option" onclick="selectOption(this)">有時學習</div>
-                        <div class="option" onclick="selectOption(this)">不學習</div>
-                        <div class="option" onclick="selectOption(this)">明天學習</div>
+                    
+                    <!-- 題目 7 -->
+                    <div class="question-card">
+                        <h3>題目 7: 選擇正確的助詞</h3>
+                        <p>私の友達 ___ 日本語を教えてくれます。</p>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 6)">が</div>
+                            <div class="option" onclick="selectOption(this, 6)">を</div>
+                            <div class="option" onclick="selectOption(this, 6)">に</div>
+                            <div class="option" onclick="selectOption(this, 6)">で</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 題目 8 -->
+                    <div class="question-card">
+                        <h3>題目 8: 翻譯以下短語</h3>
+                        <p>「お疲れ様です」最常用於何時？</p>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 7)">早上見面時</div>
+                            <div class="option" onclick="selectOption(this, 7)">工作結束時</div>
+                            <div class="option" onclick="selectOption(this, 7)">吃飯時</div>
+                            <div class="option" onclick="selectOption(this, 7)">睡覺時</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 題目 9 -->
+                    <div class="question-card">
+                        <h3>題目 9: 選擇正確的表達</h3>
+                        <p>「大丈夫です」表示什麼意思？</p>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 8)">沒關係 / 我很好</div>
+                            <div class="option" onclick="selectOption(this, 8)">謝謝你</div>
+                            <div class="option" onclick="selectOption(this, 8)">對不起</div>
+                            <div class="option" onclick="selectOption(this, 8)">再見</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 題目 10 -->
+                    <div class="question-card">
+                        <h3>題目 10: 選擇正確的句子</h3>
+                        <p>下列哪一句最恰當地表達「我喜歡日本」？</p>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 9)">私は日本が好きです</div>
+                            <div class="option" onclick="selectOption(this, 9)">私は日本を好きです</div>
+                            <div class="option" onclick="selectOption(this, 9)">私は日本に好きです</div>
+                            <div class="option" onclick="selectOption(this, 9)">私は日本で好きです</div>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- 按鈕 -->
                 <div class="button-group">
-                    <button class="btn" onclick="submitQuiz()">✓ 提交測驗</button>
+                    <button class="btn btn-nav" onclick="previousPage()" id="prevBtn" style="display: none;">← 上一頁</button>
+                    <button class="btn btn-nav" onclick="nextPage()" id="nextBtn">下一頁 →</button>
+                    <button class="btn" onclick="submitQuiz()" id="submitBtn" style="display: none;">✓ 提交測驗</button>
+                    <button class="btn btn-secondary" onclick="retakeQuiz()" id="retakeBtn" style="display: none;">🔄 重新作答</button>
                     <button class="btn btn-secondary" onclick="goBack()">返回</button>
+                </div>
+                
+                <!-- 反饋區域 -->
+                <div class="feedback-section" id="feedbackSection">
+                    <h3 style="color: var(--primary-red); margin-bottom: 15px;">🏆 測驗結果</h3>
+                    <div class="score-display" id="scoreDisplay"></div>
+                    <div id="feedbackContent"></div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- 頁尾 -->
-   <footer>
+    <footer>
         <p>&copy; 2026 伝える (Tsutaeru) — 香港首個 IoT 日語學習平台</p>
-        <p>
-            <a href="#">隱私政策</a> | 
-            <a href="#">服務條款</a> | 
-            <a href="#">聯絡我們</a>
-        </p>  
-        <p>本網站及logo由Manus Ai 生成</p>
     </footer>
 
     <script>
-        function selectOption(element) {
+        // 正確答案
+        const correctAnswers = ['ありがとう', 'は', '每天學習', '見ました', 'おられますか', '行きます', 'が', '工作結束時', '沒關係 / 我很好', '私は日本が好きです'];
+        const userAnswers = [null, null, null, null, null, null, null, null, null, null];
+        let timeRemaining = 30 * 60; // 30 分鐘
+        let timerInterval = null;
+        let quizSubmitted = false;
+        let currentPage = 1;
+        
+        // 記錄用戶選擇
+        function selectOption(element, questionIndex) {
+            if (quizSubmitted) return; // 提交後禁止選擇
+            
             const parent = element.parentElement;
+            
             parent.querySelectorAll('.option').forEach(opt => {
                 opt.classList.remove('selected');
             });
             element.classList.add('selected');
+            
+            // 記錄用戶答案
+            userAnswers[questionIndex] = element.textContent.trim();
+            updateProgress();
         }
         
+        // 更新進度
+        function updateProgress() {
+            const selectedCount = userAnswers.filter(ans => ans !== null).length;
+            document.getElementById('selectedCount').textContent = selectedCount;
+            document.getElementById('progressCount').textContent = selectedCount;
+        }
+        
+        // 分頁功能
+        function nextPage() {
+            if (currentPage === 1) {
+                document.getElementById('page1').classList.remove('active');
+                document.getElementById('page2').classList.add('active');
+                currentPage = 2;
+                document.getElementById('prevBtn').style.display = 'inline-block';
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('submitBtn').style.display = 'inline-block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+        
+        function previousPage() {
+            if (currentPage === 2) {
+                document.getElementById('page2').classList.remove('active');
+                document.getElementById('page1').classList.add('active');
+                currentPage = 1;
+                document.getElementById('prevBtn').style.display = 'none';
+                document.getElementById('nextBtn').style.display = 'inline-block';
+                document.getElementById('submitBtn').style.display = 'none';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+        
+        // 倒計時器
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+                
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    submitQuiz(); // 時間到自動提交
+                }
+            }, 1000);
+        }
+        
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            const timerElement = document.getElementById('timer');
+            timerElement.textContent = `⏱️ 時間剩餘: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            
+            // 時間低於 5 分鐘時警告
+            if (timeRemaining < 300) {
+                timerElement.classList.add('warning');
+            }
+        }
+        
+        // 提交測驗
         function submitQuiz() {
-            alert('✅ 測驗已提交！\n\n您的得分將在下一版本中顯示。');
+            quizSubmitted = true;
+            clearInterval(timerInterval);
+            
+            // 計算得分
+            let correctCount = 0;
+            const feedbackContent = document.getElementById('feedbackContent');
+            feedbackContent.innerHTML = '';
+            
+            userAnswers.forEach((answer, index) => {
+                const isCorrect = answer === correctAnswers[index];
+                if (isCorrect) correctCount++;
+                
+                const feedbackItem = document.createElement('div');
+                feedbackItem.className = `feedback-item ${isCorrect ? 'correct' : 'incorrect'}`;
+                feedbackItem.innerHTML = `
+                    <div class="label">題目 ${index + 1}: ${isCorrect ? '✅ 正確' : '❌ 錯誤'}</div>
+                    <div class="result">
+                        <strong>您的答案:</strong> ${answer || '未答案'}<br>
+                        <strong>正確答案:</strong> ${correctAnswers[index]}
+                    </div>
+                `;
+                feedbackContent.appendChild(feedbackItem);
+            });
+            
+            // 顯示得分
+            const score = Math.round((correctCount / correctAnswers.length) * 100);
+            document.getElementById('scoreDisplay').textContent = `⭐ ${score}% (${correctCount}/${correctAnswers.length})`;
+            
+            // 顯示反饋區域
+            document.getElementById('feedbackSection').classList.add('show');
+            document.getElementById('submitBtn').style.display = 'none';
+            document.getElementById('retakeBtn').style.display = 'inline-block';
+            document.getElementById('prevBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+            
+            // 禁止提交按鈕
+            document.getElementById('submitBtn').disabled = true;
+            
+            // 顯示兩頁的反饋
+            document.getElementById('page1').classList.add('active');
+            document.getElementById('page2').classList.add('active');
+        }
+        
+        // 重新作答
+        function retakeQuiz() {
+            // 重置所有選擇
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // 重置答案數組
+            userAnswers.fill(null);
+            quizSubmitted = false;
+            currentPage = 1;
+            
+            // 重置時間
+            timeRemaining = 30 * 60;
+            updateTimerDisplay();
+            document.getElementById('timer').classList.remove('warning');
+            
+            // 隱藏反饋區域
+            document.getElementById('feedbackSection').classList.remove('show');
+            document.getElementById('submitBtn').style.display = 'none';
+            document.getElementById('submitBtn').disabled = false;
+            document.getElementById('retakeBtn').style.display = 'none';
+            document.getElementById('prevBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'inline-block';
+            
+            // 重新開始時間器
+            clearInterval(timerInterval);
+            startTimer();
+            
+            // 重置進度
+            updateProgress();
+            
+            // 重置頁面
+            document.getElementById('page1').classList.add('active');
+            document.getElementById('page2').classList.remove('active');
         }
         
         function goBack() {
-            window.location.href = '03-interactive-practice-main.html';
+            window.location.href = './InteractivePractice.html';
         }
+        
+        // 頁面加載時開始時間器
+        window.addEventListener('load', () => {
+            startTimer();
+        });
     </script>
 </body>
 </html>
