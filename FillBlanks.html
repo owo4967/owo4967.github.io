@@ -146,8 +146,24 @@
         .fill-section h2 {
             font-size: 1.8rem;
             color: var(--primary-red);
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             font-weight: 700;
+        }
+        
+        .page-indicator {
+            text-align: center;
+            font-size: 1rem;
+            color: var(--accent-blue);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .page-section {
+            display: none;
+        }
+        
+        .page-section.active {
+            display: block;
         }
         
         .exercise-card {
@@ -165,34 +181,31 @@
         }
         
         .sentence {
+            font-size: 1.2rem;
             background: white;
             padding: 15px;
             border-radius: 8px;
-            margin: 15px 0;
-            font-size: 1.1rem;
-            line-height: 1.8;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: var(--accent-blue);
         }
         
         .blank {
-            background: var(--primary-red);
-            color: white;
+            background: #fff3cd;
             padding: 5px 10px;
             border-radius: 5px;
-            font-weight: 600;
-            display: inline-block;
-            margin: 0 5px;
-            min-width: 80px;
-            text-align: center;
+            font-weight: 900;
+            color: #ff6b6b;
         }
         
-        .input-field {
-            background: white;
-            border: 2px solid var(--primary-red);
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: 600;
-            min-width: 100px;
-            text-align: center;
+        .blank.filled {
+            background: #d4edda;
+            color: #51cf66;
+        }
+        
+        .blank.error {
+            background: #f8d7da;
+            color: #ff6b6b;
         }
         
         .options-list {
@@ -220,6 +233,65 @@
         .word-option.used {
             opacity: 0.5;
             cursor: not-allowed;
+            background: #ccc;
+        }
+        
+        .word-option.correct {
+            background: #51cf66;
+        }
+        
+        .word-option.incorrect {
+            background: #ff6b6b;
+        }
+        
+        /* ============ 反饋區域 ============ */
+        .feedback-section {
+            background: linear-gradient(135deg, rgba(13, 59, 102, 0.05) 0%, rgba(122, 157, 110, 0.05) 100%);
+            border-left: 5px solid var(--accent-blue);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .feedback-section.show {
+            display: block;
+        }
+        
+        .feedback-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            background: white;
+        }
+        
+        .feedback-item.correct {
+            border-left: 4px solid #51cf66;
+            background: #f1f9f6;
+        }
+        
+        .feedback-item.incorrect {
+            border-left: 4px solid #ff6b6b;
+            background: #fef5f5;
+        }
+        
+        .feedback-item .label {
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 5px;
+        }
+        
+        .feedback-item .result {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .score-display {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-red);
+            text-align: center;
+            margin: 15px 0;
         }
         
         .button-group {
@@ -256,28 +328,25 @@
             background: var(--primary-red);
         }
         
+        .btn-nav {
+            background: var(--accent-green);
+        }
+        
+        .btn-nav:hover {
+            background: #5f8a54;
+        }
+        
         /* ============ 頁尾 ============ */
-         footer {
+        footer {
             background: var(--accent-blue);
             color: white;
-            padding: 40px 20px;
             text-align: center;
-            margin-top: 80px;
+            padding: 30px 20px;
+            margin-top: 60px;
         }
-
+        
         footer p {
-            margin-bottom: 10px;
             font-size: 0.9rem;
-        }
-
-        footer a {
-            color: var(--accent-pink);
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
@@ -285,21 +354,21 @@
     <!-- 導航列 -->
 <nav>
     <div class="nav-container">
-        <a href="index.html" class="logo">
-            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663328630280/CJexFqIIRdXImBgh.png" alt="Tsutaeru Logo" style="height: 80px; width: auto;">
+        <a href="./index.html" class="logo">
+            <img src="/home/ubuntu/upload/tsutaeru_social_media.png" alt="Tsutaeru Logo" style="height: 80px; width: auto;">
         </a>
         <ul class="nav-links">
-            <li><a href="index.html">首頁</a></li>
-            <li><a href="LearningHub.html">學習中心</a></li>
-            <li><a href="InteractivePractice.html">互動練習</a></li>
-            <li><a href="IoT.html">IoT 體驗</a></li>
-            <li><a href="Resources.html">學習資源</a></li>
-            <li><a href="CulturalLearning.html">文化學習</a></li>
-            <li><a href="AboutUs.html">關於我們</a></li>
-            <li><a href="Community.html">社群</a></li>
-            <li><a href="Chart.html">數據分析</a></li>
+            <li><a href="./index.html">首頁</a></li>
+            <li><a href="./LearningHub.html">學習中心</a></li>
+            <li><a href="./InteractivePractice.html">互動練習</a></li>
+            <li><a href="./IoT.html">IoT 體驗</a></li>
+            <li><a href="./Resources.html">學習資源</a></li>
+            <li><a href="./CulturalLearning.html">文化學習</a></li>
+            <li><a href="./AboutUs.html">關於我們</a></li>
+            <li><a href="./Community.html">社群</a></li>
+            <li><a href="./10-data-analytics.html">數據分析</a></li>
         </ul>
-        <a href="UserAccount.html" class="nav-cta">我的帳戶</a>
+        <a href="./UserAccount.html" class="nav-cta">我的帳戶</a>
     </div>
 </nav>
 
@@ -308,7 +377,7 @@
     <!-- 頁面標題 -->
     <div class="page-header">
         <div class="breadcrumb">
-            <a href="https://codepen.io/ybxvhtiy-the-sans/full/wBzvZGj">互動練習</a> > 句子填空
+            <a href="InteractivePractice.html">互動練習</a> > 句子填空
         </div>
         <h1>🎯 句子填空</h1>
     </div>
@@ -316,86 +385,357 @@
     <!-- 主要內容 -->
     <div class="container">
         <div class="content">
-            <!-- 練習 1 -->
+            <!-- 練習 -->
             <div class="fill-section">
                 <h2>初級句子填空練習</h2>
                 
-                <!-- 題目 1 -->
-                <div class="exercise-card">
-                    <h3>練習 1: 填入正確的單詞</h3>
-                    <div class="sentence">
-                        私は毎日 <span class="blank">_____</span> を飲みます。
+                <!-- 第 1 頁 (題目 1-5) -->
+                <div class="page-section active" id="page1">
+                    <div class="page-indicator">第 1 頁 / 2 頁 (練習 1-5)</div>
+                    
+                    <!-- 練習 1 -->
+                    <div class="exercise-card">
+                        <h3>練習 1: 填入正確的單詞</h3>
+                        <div class="sentence">
+                            私は毎日 <span class="blank" data-correct="水" id="blank1">_____</span> を飲みます。
+                        </div>
+                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的單詞：</p>
+                        <div class="options-list" id="options1">
+                            <div class="word-option" onclick="selectWord(this, '水', 'blank1')">水 (水)</div>
+                            <div class="word-option" onclick="selectWord(this, '本', 'blank1')">本 (書)</div>
+                            <div class="word-option" onclick="selectWord(this, '猫', 'blank1')">猫 (貓)</div>
+                        </div>
                     </div>
-                    <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的單詞：</p>
-                    <div class="options-list">
-                        <div class="word-option" onclick="selectWord(this, '水')">水 (水)</div>
-                        <div class="word-option" onclick="selectWord(this, '本')">本 (書)</div>
-                        <div class="word-option" onclick="selectWord(this, '猫')">猫 (貓)</div>
+                    
+                    <!-- 練習 2 -->
+                    <div class="exercise-card">
+                        <h3>練習 2: 填入正確的助詞</h3>
+                        <div class="sentence">
+                            学校 <span class="blank" data-correct="に" id="blank2">_____</span> 行きます。
+                        </div>
+                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的助詞：</p>
+                        <div class="options-list" id="options2">
+                            <div class="word-option" onclick="selectWord(this, 'に', 'blank2')">に</div>
+                            <div class="word-option" onclick="selectWord(this, 'を', 'blank2')">を</div>
+                            <div class="word-option" onclick="selectWord(this, 'で', 'blank2')">で</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 練習 3 -->
+                    <div class="exercise-card">
+                        <h3>練習 3: 填入正確的動詞</h3>
+                        <div class="sentence">
+                            今、私は本を <span class="blank" data-correct="読" id="blank3">_____</span> ています。
+                        </div>
+                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的動詞：</p>
+                        <div class="options-list" id="options3">
+                            <div class="word-option" onclick="selectWord(this, '読', 'blank3')">読 (讀)</div>
+                            <div class="word-option" onclick="selectWord(this, '書', 'blank3')">書 (寫)</div>
+                            <div class="word-option" onclick="selectWord(this, '聽', 'blank3')">聽 (聽)</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 練習 4 -->
+                    <div class="exercise-card">
+                        <h3>練習 4: 填入正確的名詞</h3>
+                        <div class="sentence">
+                            私の <span class="blank" data-correct="先生" id="blank4">_____</span> は日本語を教えます。
+                        </div>
+                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的名詞：</p>
+                        <div class="options-list" id="options4">
+                            <div class="word-option" onclick="selectWord(this, '先生', 'blank4')">先生 (老師)</div>
+                            <div class="word-option" onclick="selectWord(this, '猫', 'blank4')">猫 (貓)</div>
+                            <div class="word-option" onclick="selectWord(this, '傘', 'blank4')">傘 (傘)</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 練習 5 -->
+                    <div class="exercise-card">
+                        <h3>練習 5: 填入正確的形容詞</h3>
+                        <div class="sentence">
+                            このケーキは <span class="blank" data-correct="美味しい" id="blank5">_____</span> です。
+                        </div>
+                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的形容詞：</p>
+                        <div class="options-list" id="options5">
+                            <div class="word-option" onclick="selectWord(this, '美味しい', 'blank5')">美味しい (好吃)</div>
+                            <div class="word-option" onclick="selectWord(this, '新しい', 'blank5')">新しい (新)</div>
+                            <div class="word-option" onclick="selectWord(this, '大きい', 'blank5')">大きい (大)</div>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- 題目 2 -->
-                <div class="exercise-card">
-                    <h3>練習 2: 填入正確的助詞</h3>
-                    <div class="sentence">
-                        学校 <span class="blank">_____</span> 行きます。
+                <!-- 第 2 頁 (題目 6-10) -->
+                <div class="page-section" id="page2">
+                    <div class="page-indicator">第 2 頁 / 2 頁 (練習 6-10)</div>
+                    
+                    <!-- 練習 6 -->
+                    <div class="exercise-card">
+                        <h3>練習 6: 填入正確的助詞</h3>
+                        <div class="sentence">
+                            私は毎日、電車 <span class="blank" data-correct="で" id="blank6">_____</span> 会社に行きます。
+                        </div>
+                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的助詞：</p>
+                        <div class="options-list" id="options6">
+                            <div class="word-option" onclick="selectWord(this, 'で', 'blank6')">で</div>
+                            <div class="word-option" onclick="selectWord(this, 'に', 'blank6')">に</div>
+                            <div class="word-option" onclick="selectWord(this, 'を', 'blank6')">を</div>
+                        </div>
                     </div>
-                    <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的助詞：</p>
-                    <div class="options-list">
-                        <div class="word-option" onclick="selectWord(this, 'に')">に</div>
-                        <div class="word-option" onclick="selectWord(this, 'を')">を</div>
-                        <div class="word-option" onclick="selectWord(this, 'で')">で</div>
+                    
+                    <!-- 練習 7 -->
+                    <div class="exercise-card">
+                        <h3>練習 7: 填入正確的動詞</h3>
+                        <div class="sentence">
+                            昨日、公園で友達と <span class="blank" data-correct="遊んだ" id="blank7">_____</span>。
+                        </div>
+                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的動詞：</p>
+                        <div class="options-list" id="options7">
+                            <div class="word-option" onclick="selectWord(this, '遊んだ', 'blank7')">遊んだ (玩)</div>
+                            <div class="word-option" onclick="selectWord(this, '食べた', 'blank7')">食べた (吃)</div>
+                            <div class="word-option" onclick="selectWord(this, '読んだ', 'blank7')">読んだ (讀)</div>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- 題目 3 -->
-                <div class="exercise-card">
-                    <h3>練習 3: 填入正確的動詞</h3>
-                    <div class="sentence">
-                        今、私は本を <span class="blank">_____</span> ています。
+                    
+                    <!-- 練習 8 -->
+                    <div class="exercise-card">
+                        <h3>練習 8: 填入正確的名詞</h3>
+                        <div class="sentence">
+                            私の <span class="blank" data-correct="趣味" id="blank8">_____</span> は映画を見ることです。
+                        </div>
+                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的名詞：</p>
+                        <div class="options-list" id="options8">
+                            <div class="word-option" onclick="selectWord(this, '趣味', 'blank8')">趣味 (愛好)</div>
+                            <div class="word-option" onclick="selectWord(this, '仕事', 'blank8')">仕事 (工作)</div>
+                            <div class="word-option" onclick="selectWord(this, '計画', 'blank8')">計画 (計劃)</div>
+                        </div>
                     </div>
-                    <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的動詞：</p>
-                    <div class="options-list">
-                        <div class="word-option" onclick="selectWord(this, '読')">読 (讀)</div>
-                        <div class="word-option" onclick="selectWord(this, '書')">書 (寫)</div>
-                        <div class="word-option" onclick="selectWord(this, '聽')">聽 (聽)</div>
+                    
+                    <!-- 練習 9 -->
+                    <div class="exercise-card">
+                        <h3>練習 9: 填入正確的形容詞</h3>
+                        <div class="sentence">
+                            日本の夏はとても <span class="blank" data-correct="暑い" id="blank9">_____</span> です。
+                        </div>
+                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的形容詞：</p>
+                        <div class="options-list" id="options9">
+                            <div class="word-option" onclick="selectWord(this, '暑い', 'blank9')">暑い (熱)</div>
+                            <div class="word-option" onclick="selectWord(this, '寒い', 'blank9')">寒い (冷)</div>
+                            <div class="word-option" onclick="selectWord(this, '甘い', 'blank9')">甘い (甜)</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 練習 10 -->
+                    <div class="exercise-card">
+                        <h3>練習 10: 填入正確的助詞</h3>
+                        <div class="sentence">
+                            私は日本語 <span class="blank" data-correct="が" id="blank10">_____</span> 好きです。
+                        </div>
+                        <p style="color: #666; margin-bottom: 10px;">請從下方選項中選擇正確的助詞：</p>
+                        <div class="options-list" id="options10">
+                            <div class="word-option" onclick="selectWord(this, 'が', 'blank10')">が</div>
+                            <div class="word-option" onclick="selectWord(this, 'を', 'blank10')">を</div>
+                            <div class="word-option" onclick="selectWord(this, 'に', 'blank10')">に</div>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- 按鈕 -->
                 <div class="button-group">
-                    <button class="btn" onclick="checkAnswers()">✓ 檢查答案</button>
+                    <button class="btn btn-nav" onclick="previousPage()" id="prevBtn" style="display: none;">← 上一頁</button>
+                    <button class="btn btn-nav" onclick="nextPage()" id="nextBtn">下一頁 →</button>
+                    <button class="btn" onclick="checkAnswers()" id="checkBtn" style="display: none;">✓ 檢查答案</button>
+                    <button class="btn btn-secondary" onclick="resetExercise()" id="resetBtn" style="display: none;">🔄 重新做題</button>
                     <button class="btn btn-secondary" onclick="goBack()">返回</button>
+                </div>
+                
+                <!-- 反饋區域 -->
+                <div class="feedback-section" id="feedbackSection">
+                    <h3 style="color: var(--primary-red); margin-bottom: 15px;">📋 檢查結果</h3>
+                    <div class="score-display" id="scoreDisplay"></div>
+                    <div id="feedbackContent"></div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- 頁尾 -->
-      <footer>
+    <footer>
         <p>&copy; 2026 伝える (Tsutaeru) — 香港首個 IoT 日語學習平台</p>
-        <p>
-            <a href="#">隱私政策</a> | 
-            <a href="#">服務條款</a> | 
-            <a href="#">聯絡我們</a>
-        </p>  
-        <p>本網站及logo由Manus Ai 生成</p>
     </footer>
 
     <script>
-        let selectedAnswers = {};
+        const correctAnswers = {
+            'blank1': '水',
+            'blank2': 'に',
+            'blank3': '読',
+            'blank4': '先生',
+            'blank5': '美味しい',
+            'blank6': 'で',
+            'blank7': '遊んだ',
+            'blank8': '趣味',
+            'blank9': '暑い',
+            'blank10': 'が'
+        };
         
-        function selectWord(element, word) {
-            alert(`✅ 您已選擇: ${word}`);
-            element.classList.add('used');
+        const userAnswers = {
+            'blank1': null,
+            'blank2': null,
+            'blank3': null,
+            'blank4': null,
+            'blank5': null,
+            'blank6': null,
+            'blank7': null,
+            'blank8': null,
+            'blank9': null,
+            'blank10': null
+        };
+        
+        let exerciseSubmitted = false;
+        let currentPage = 1;
+        
+        // 記錄用戶選擇
+        function selectWord(element, word, blankId) {
+            if (exerciseSubmitted) return; // 提交後禁止選擇
+            
+            // 記錄答案
+            userAnswers[blankId] = word;
+            
+            // 更新空白處的顯示
+            const blankElement = document.getElementById(blankId);
+            blankElement.textContent = word;
+            blankElement.classList.add('filled');
+            
+            // 標記選項為已使用
+            const optionsList = document.getElementById('options' + blankId.replace('blank', ''));
+            optionsList.querySelectorAll('.word-option').forEach(opt => {
+                if (opt.textContent.includes(word)) {
+                    opt.classList.add('used');
+                } else {
+                    opt.classList.remove('used');
+                }
+            });
         }
         
+        // 分頁功能
+        function nextPage() {
+            if (currentPage === 1) {
+                document.getElementById('page1').classList.remove('active');
+                document.getElementById('page2').classList.add('active');
+                currentPage = 2;
+                document.getElementById('prevBtn').style.display = 'inline-block';
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('checkBtn').style.display = 'inline-block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+        
+        function previousPage() {
+            if (currentPage === 2) {
+                document.getElementById('page2').classList.remove('active');
+                document.getElementById('page1').classList.add('active');
+                currentPage = 1;
+                document.getElementById('prevBtn').style.display = 'none';
+                document.getElementById('nextBtn').style.display = 'inline-block';
+                document.getElementById('checkBtn').style.display = 'none';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+        
+        // 檢查答案
         function checkAnswers() {
-            alert('✅ 答案已檢查！\n\n詳細反饋將在下一版本中提供。');
+            exerciseSubmitted = true;
+            
+            // 計算正確數量
+            let correctCount = 0;
+            const feedbackContent = document.getElementById('feedbackContent');
+            feedbackContent.innerHTML = '';
+            
+            let itemIndex = 1;
+            Object.keys(correctAnswers).forEach((blankId) => {
+                const isCorrect = userAnswers[blankId] === correctAnswers[blankId];
+                if (isCorrect) correctCount++;
+                
+                const blankElement = document.getElementById(blankId);
+                
+                // 更新空白處的樣式
+                if (isCorrect) {
+                    blankElement.classList.remove('error');
+                    blankElement.classList.add('filled');
+                } else {
+                    blankElement.classList.add('error');
+                    blankElement.classList.remove('filled');
+                }
+                
+                // 創建反饋項
+                const feedbackItem = document.createElement('div');
+                feedbackItem.className = `feedback-item ${isCorrect ? 'correct' : 'incorrect'}`;
+                feedbackItem.innerHTML = `
+                    <div class="label">練習 ${itemIndex}: ${isCorrect ? '✅ 正確' : '❌ 錯誤'}</div>
+                    <div class="result">
+                        <strong>您的答案:</strong> ${userAnswers[blankId] || '未填寫'}<br>
+                        <strong>正確答案:</strong> ${correctAnswers[blankId]}
+                    </div>
+                `;
+                feedbackContent.appendChild(feedbackItem);
+                itemIndex++;
+            });
+            
+            // 顯示得分
+            const score = Math.round((correctCount / Object.keys(correctAnswers).length) * 100);
+            document.getElementById('scoreDisplay').textContent = `⭐ ${score}% (${correctCount}/${Object.keys(correctAnswers).length})`;
+            
+            // 顯示反饋區域
+            document.getElementById('feedbackSection').classList.add('show');
+            document.getElementById('checkBtn').style.display = 'none';
+            document.getElementById('resetBtn').style.display = 'inline-block';
+            document.getElementById('prevBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+            
+            // 禁止所有選項
+            document.querySelectorAll('.word-option').forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+            
+            // 顯示兩頁的反饋
+            document.getElementById('page1').classList.add('active');
+            document.getElementById('page2').classList.add('active');
+        }
+        
+        // 重新做題
+        function resetExercise() {
+            // 重置所有空白處
+            Object.keys(correctAnswers).forEach(blankId => {
+                const blankElement = document.getElementById(blankId);
+                blankElement.textContent = '_____';
+                blankElement.classList.remove('filled', 'error');
+                userAnswers[blankId] = null;
+            });
+            
+            // 重置所有選項
+            document.querySelectorAll('.word-option').forEach(opt => {
+                opt.classList.remove('used');
+                opt.style.pointerEvents = 'auto';
+            });
+            
+            // 隱藏反饋區域
+            document.getElementById('feedbackSection').classList.remove('show');
+            document.getElementById('checkBtn').style.display = 'none';
+            document.getElementById('resetBtn').style.display = 'none';
+            document.getElementById('prevBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'inline-block';
+            
+            exerciseSubmitted = false;
+            currentPage = 1;
+            
+            // 重置頁面
+            document.getElementById('page1').classList.add('active');
+            document.getElementById('page2').classList.remove('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
         function goBack() {
-            window.location.href = '03-interactive-practice-main.html';
+            window.location.href = './InteractivePractice.html';
         }
     </script>
 </body>
